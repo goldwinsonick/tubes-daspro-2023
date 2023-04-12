@@ -6,7 +6,7 @@
 <li> 19622309 / Nasywaa Anggun Athiefah
 <li> 19622075 / Moh Fairuz Alauddin Yahya
 <li> 16522093 / Goldwin Sonick Wijaya Thaha
-<ul>
+</ul>
 
 <h2>Skema Commit dan Penggunaan Git</h2>
 <ul>
