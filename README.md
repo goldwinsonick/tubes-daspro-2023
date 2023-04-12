@@ -1,5 +1,4 @@
 <h1>Tugas Besar IF1201 Dasar Pemrograman 2023</h1>
-
 <h2>K03 - Kelompok 12</h2>
 <ul>
 <li> 16522066 / Chessy Anggraini Putri H</li>
@@ -36,5 +35,6 @@
     <li> Untuk menambahkan semua file pada branch lokal anda tulis : git add . </li>
     <li> Lalu commit dengan tulis : git commit -m "feat(nama_branch): Message commit", message commit diisi dengan detail    perubahan yang dilakukan, misalnya feat(jin): Menambahkan fungsi jin pembangun untuk membangun candi</li>
     <li> Lalu push ke repo dengan menulis: git push origin nama_branch</li>
+
 </ul>
 </ul>
