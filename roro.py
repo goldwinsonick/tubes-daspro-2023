@@ -18,3 +18,20 @@ def hancurkancandi():
     else:
         print("Tidak ada candi dengan ID tersebut.")
 
+def ayamberkokok():
+    import main
+    print("Kukuruyuk.. Kukuruyuk..")
+    banyakCandi = 0
+    for i in range(100):
+        if(main.candi[i] != None):
+            banyakCandi += 1
+    if(banyakCandi == 99):
+        print("Selamat, Roro Jonggrang memenangkan permainan!")
+        print("*Bandung Bondowoso angry noiseee*")
+        print("Roro Jonggrang dikutuk menjadi candi")
+    elif(banyakCandi >= 100):
+        print("Yah, Bandung Bondowoso memenangkan permainan!")
+    else:
+        print("Roro Jonggrang menangggg!")
+    # Exit program (Harus ada fungsi exit() di proses.py dulu)
+
