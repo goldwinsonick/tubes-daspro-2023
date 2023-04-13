@@ -2,7 +2,9 @@
 # tail = a[1:]
 # print(tail)  # Output: [2, 3, 4, 5]
 
-def length(arr):
+from typing import List
+
+def length(arr: List) -> int:
     if not arr:
         return 0
     else:
@@ -11,7 +13,7 @@ def length(arr):
 # print(length(arr1)) #hasilnya 6
 
 
-def splits(arr, splitter):
+def splits(arr: str, splitter: str) -> List[str]:
     if splitter not in arr:
         return [arr]
     else:
@@ -30,7 +32,7 @@ def splits(arr, splitter):
 # print(new_array) #['AKU', 'DIA', 'KAMU', 'MEREKA']
 
 
-def sorts(arr):
+def sorts(arr: List[int]) -> List[int]:
     if length(arr) <= 1:
         return arr
     pivot = arr[0]
