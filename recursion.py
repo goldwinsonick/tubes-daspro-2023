@@ -30,3 +30,21 @@ def splits(arr, splitter):
 # print(new_array) #['AKU', 'DIA', 'KAMU', 'MEREKA']
 
 
+def sorts(arr):
+    if length(arr) <= 1:
+        return arr
+    pivot = arr[0]
+    less = []
+    greater = []
+    equal = []
+    for element in arr:
+        if element < pivot:
+            less += [element]
+        elif element > pivot:
+            greater += [element]
+        else:
+            equal += [element]
+    return sorts(less) + equal + sorts(greater)
+
+# arr = [1,5,2,6,8,4,2,1]
+# print(sorts(arr)) #[1, 1, 2, 2, 4, 5, 6, 8]
