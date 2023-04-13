@@ -1,13 +1,9 @@
-import recursion
-jin_list = []  # List untuk menyimpan jin yang sudah dipanggil
+# List untukmenyimpan jin yang sudah dipanggil
+jin_list = [None for i in range(100)]
 
-def summonJin() -> None:
+# Mekanisme fungsi kerja summonJin
+def summonJin(iterasi:int=0) -> None:
     global jin_list
-
-    # Cek apakah jumlah jin sudah maksimal (100)
-    if recursion.length(jin_list) >= 100:
-        print("Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
-        return
 
     # Menampilkan daftar jenis jin yang bisa dipanggil
     print("Jenis jin yang dapat dipanggil:")
@@ -16,10 +12,10 @@ def summonJin() -> None:
 
     # Meminta pengguna memilih jenis jin yang ingin dipanggil
     jenis_jin = None
-    while jenis_jin not in [1, 2]:
+    while not (jenis_jin == 1 or jenis_jin == 2):
         jenis_jin = int(
             input("Masukkan nomor jenis jin yang ingin dipanggil: "))
-        if jenis_jin not in [1, 2]:
+        if not (jenis_jin == 1 or jenis_jin == 2):
             print("Tidak ada jenis jin bernomor {}!".format(jenis_jin))
 
     # Menampilkan pesan bahwa jin sedang dipilih
@@ -31,10 +27,20 @@ def summonJin() -> None:
     # Meminta pengguna memasukkan username dan password untuk jin
     username = None
     password = None
-    while not username or username in [jin['username'] for jin in jin_list]:
+    existing_usernames = [jin_list[i][0] for i in range(len(jin_list)) if jin_list[i] is not None and jin_list[i][0] is not None]
+
+    # print(existing_usernames)
+    while not username:
         username = input("Masukkan username jin: ")
-        if username in [jin['username'] for jin in jin_list]:
-            print("Username '{}' sudah diambil!".format(username))
+        if username:
+            exists = False
+            for i in range(len(existing_usernames)):
+                if existing_usernames[i] == username:
+                    exists = True
+                    break
+            if exists:
+                print("Username '{}' sudah diambil!".format(username))
+                username = None
     while not password or len(password) < 5 or len(password) > 25:
         password = input("Masukkan password jin: ")
         if len(password) < 5 or len(password) > 25:
@@ -46,18 +52,34 @@ def summonJin() -> None:
     print("Membacakan mantra...")
 
     # Menambahkan jin ke dalam daftar jin yang sudah dipanggil
-    jin = {
-        'username': username,
-        'password': password,
-        'jenis': 'Pengumpul' if jenis_jin == 1 else 'Pembangun'
-    }
-    jin_list += [jin]
+    jin = [username, password, 'Pengumpul' if jenis_jin == 1 else 'Pembangun']
+    jin_list[iterasi] = jin
 
     # Menampilkan pesan bahwa jin berhasil dipanggil
     print("Jin {} berhasil dipanggil!".format(username))
 
-while True :
-    summonJin()
-    print(jin_list)
-    summonJin()
-    print(jin_list)
+
+def summonJinLoop():
+    global jin_list
+    iterasi = 0
+    while True:
+        summonJin(iterasi)
+        iterasi += 1
+        # Cek apakah jumlah jin sudah maksimal (100)
+        if iterasi >= len(jin_list):
+            print(
+                "Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
+            break
+        while True:
+            lanjut = input("Apakah kakanda ingin jin lagi? (y/n) ")
+            if lanjut == 'y':
+                break
+            elif lanjut == 'n':
+                print("Program summon jin dihentikan.")
+                return
+            else:
+                print("Jawaban tidak valid. Masukkan 'y' atau 'n'.")
+
+
+# summonJinLoop()
+# print(jin_list)
