@@ -2,11 +2,11 @@ def bangun():
     import main
     import rng
     if(main.user[2] == "jin_pembangun"):
-        flag = False
+        mencukupi = True
         for i in range(3):
-            if(main.harga_candi[i] >= main.bahan_bangunan[i]):
-                flag = True
-        if(flag):
+            if(main.harga_candi[i] > main.bahan_bangunan[i]):
+                mencukupi = False
+        if(mencukupi):
             # Menambah candi
             for i in range(100):
                 if(main.candi[i] ==  None):
@@ -21,7 +21,7 @@ def bangun():
 
             # Setelah Candi terbangun, harga_Candi baru akan digenerate
             for i in range(3):
-                main.harga_candi[i] = rng(1,5)
+                main.harga_candi[i] = rng.rng(1,5)
             print("Candi berhasil dibangun.")
             banyakCandi = 0
             for i in range(100):
@@ -42,6 +42,6 @@ def kumpul():
         terkumpul = [rng.rng(0,5), rng.rng(0,5), rng.rng(0,5)]
         for i in range(3):
             main.bahan_bangunan[i] += terkumpul[i]
-        print("Jin menemukan "+str(terkumpul[0])+" pasir, "+str(terkumpul[1])+" batu, "+str(terkumpul[2])+" air.")))
+        print("Jin menemukan "+str(terkumpul[0])+" pasir, "+str(terkumpul[1])+" batu, "+str(terkumpul[2])+" air.")
     else:
         print("Hanya jin pengumpul yang dapat menjalankan fungsi kumpul")
