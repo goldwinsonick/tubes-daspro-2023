@@ -1,17 +1,56 @@
-# a = [1, 2, 3, 4, 5]
-# tail = a[1:]
-# print(tail)  # Output: [2, 3, 4, 5]
-
 from typing import List
 
-def length(arr: List) -> int:
-    if not arr:
+# Syarat pemakaian fungsi ini adalah
+# 1. arr harus punya mark berupa None
+# 2. Sudah tahu panjang array secara pasti dengan memasukkan length array
+def length(arr: List, lengthArray: int = -1) -> int:
+    panjang = 0
+    if lengthArray != -1:
+        return lengthArray
+    elif arr == []:
         return 0
     else:
-        return 1 + length(arr[1:])
-# arr1 = [10, 7, 8, 9, 1, 5]
-# print(length(arr1)) #hasilnya 6
+        while (arr[panjang] != None):
+            panjang += 1
+        return panjang
 
+def findEmptyArrayIndex(arr: List[int], index: int = 0, lengthArray: int = -1) -> int:
+    if index >= length(arr, lengthArray):
+        return -99
+    elif arr[index] == None:
+        return index
+    else:
+        return findEmptyArrayIndex(arr, index + 1, lengthArray)
+
+def isDigit(string: str, i: int = 0, lengthArray: int = -1) -> bool:
+    if i == length(string, lengthArray):
+        return True
+    elif string[i] != '0' and string[i] != '1' and string[i] != '2' and string[i] != '3' and string[i] != '4' and string[i] != '5' and string[i] != '6' and string[i] != '7' and string[i] != '8' and string[i] != '9':
+        return False
+    else:
+        return isDigit(string, i + 1, lengthArray)
+
+def tail(arr: List, lengthArray: int = -1) -> None:
+    new_array = [None for i in range(length(arr, lengthArray)-1)]
+    if length(arr, lengthArray) == 0:
+        return arr
+    elif length(arr, lengthArray) == 1:
+        return arr[0]
+    else:
+        for i in range(1, length(arr, lengthArray)):
+            new_array[i-1] = arr[i]
+        return new_array
+    
+def init(arr: List, lengthArray: int = -1) -> None:
+    new_array = [None for i in range(length(arr, lengthArray)-1)]
+    if length(arr, lengthArray) == 0:
+        return arr
+    elif length(arr, lengthArray) == 1:
+        return arr[0]
+    else:
+        for i in range(length(arr, lengthArray)-1):
+            new_array[i] = arr[i]
+        return new_array
 
 def splits(arr: str, splitter: str) -> List[str]:
     if splitter not in arr:
@@ -27,26 +66,28 @@ def splits(arr: str, splitter: str) -> List[str]:
             i += 1
         return [arr[:index]] + splits(arr[index+length(splitter):], splitter)
 
-# arr = "AKU DIA KAMU MEREKA"
-# new_array = splits(arr, " ")
-# print(new_array) #['AKU', 'DIA', 'KAMU', 'MEREKA']
+def sorts(array, lengthArray=-1):
+    panjangArray = length(array, lengthArray)
+  
+    def bubbleSortRecursive(n=None):
+        if n is None:
+            n = panjangArray
+        count = 0
+  
+        # Base case
+        if n == 1:
+            return
 
+        for i in range(n - 1):
+            if array[i] > array[i + 1]:
+                array[i], array[i + 1] = array[i + 1], array[i]
+                count += 1
+  
+        if count == 0:
+            return
+  
+        bubbleSortRecursive(n - 1)
 
-def sorts(arr: List[int]) -> List[int]:
-    if length(arr) <= 1:
-        return arr
-    pivot = arr[0]
-    less = []
-    greater = []
-    equal = []
-    for element in arr:
-        if element < pivot:
-            less += [element]
-        elif element > pivot:
-            greater += [element]
-        else:
-            equal += [element]
-    return sorts(less) + equal + sorts(greater)
-
-# arr = [1,5,2,6,8,4,2,1]
-# print(sorts(arr)) #[1, 1, 2, 2, 4, 5, 6, 8]
+    # Sorting array
+    bubbleSortRecursive()
+    return array
