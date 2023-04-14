@@ -1,52 +1,157 @@
-# a = [1, 2, 3, 4, 5]
-# tail = a[1:]
-# print(tail)  # Output: [2, 3, 4, 5]
-
 from typing import List
 
-def length(arr: List) -> int:
-    if not arr:
+# Syarat untuk penggunaan semua fungsi dengan parameter array non string
+# 1. arr harus punya mark berupa None
+# 2. Sudah tahu panjang array secara pasti dengan memasukkan length array
+# 3. array akan diolah oleh fungsi dan direturn bersama dengan marknya
+
+# Fungsi length mengembalikan panjang array tanpa mark
+# Params kedua tidaklah wajib, params lengthArray jika panjang array sudah diketahui secara eksplisit
+def length(arr: List, lengthArray: int = -1) -> int:
+    panjang = 0
+    if lengthArray != -1:
+        return lengthArray
+    elif arr == []:
         return 0
     else:
-        return 1 + length(arr[1:])
-# arr1 = [10, 7, 8, 9, 1, 5]
-# print(length(arr1)) #hasilnya 6
+        while (arr[panjang] != None):
+            panjang += 1
+        return panjang
+# # contoh penggunaan 
+# arr = [1,2,4,5,6,2, None]
+# print(length(arr))
 
-
-def splits(arr: str, splitter: str) -> List[str]:
-    if splitter not in arr:
-        return [arr]
+#  ** REKURSIF 1
+# Fungsi findEmptyArrayIndex mendeteksi dan mengembalikan index array dengan mark None pertama kali 
+# atau index yang masih belum memmiliki nilai alias kosong
+# Params kedua dan ketiga tidaklah wajib
+# Params index untuk kebutuhan rekursi
+# Params lengthArray jika panjang array sudah diketahui secara eksplisit
+def findEmptyArrayIndex(arr: List[int], index: int = 0, lengthArray: int = -1) -> int:
+    if index > length(arr, lengthArray):
+        return -99
+    elif arr[index] == None:
+        return index
     else:
-        i = 0
-        index = -2
-        found = False
-        while found == False:
-            if arr[i] == splitter:
-                found = True
-                index = i
-            i += 1
-        return [arr[:index]] + splits(arr[index+length(splitter):], splitter)
-
-# arr = "AKU DIA KAMU MEREKA"
-# new_array = splits(arr, " ")
-# print(new_array) #['AKU', 'DIA', 'KAMU', 'MEREKA']
+        return findEmptyArrayIndex(arr, index + 1, lengthArray)
+# contoh penggunaan 
+# arr = [["jin1","jin1gagahperkasa","Pembangun"], 2,2,1,221,1,3, None]
+# print(findEmptyArrayIndex(arr))
 
 
-def sorts(arr: List[int]) -> List[int]:
-    if length(arr) <= 1:
+# ** REKURSIF 2
+# Fungsi isDigit digunakan untuk mengatasi error jika user memasukkan selain angka, diakibatkan block try except
+# Fungsi isDigit akan mengembalikan boolean True jika semua komponen dari array atau string adalah digit angka
+# Params kedua tidak wajib, params i untuk kebutuhan rekursi
+def isDigit(string: str, i: int = 0) -> bool:
+    if i == len(string):
+        return True
+    elif string[i] != '0' and string[i] != '1' and string[i] != '2' and string[i] != '3' and string[i] != '4' and string[i] != '5' and string[i] != '6' and string[i] != '7' and string[i] != '8' and string[i] != '9':
+        return False
+    else:
+        return isDigit(string, i + 1)
+# contoh penggunaan :
+# arr = "192038019s"
+# arr1 = "192038019"
+# print(isDigit(arr))
+# print(isDigit(arr1))
+
+
+# Fungsi tail mengembalikan array tanpa nilai dari bagian depan hingga index atau 
+# hanya mengembalikan array yang dengan index lebih besar dari parameter index
+# Params kedua tidaklah wajib, 
+# Params lengthArray jika panjang array sudah diketahui secara eksplisit
+def tail(arr: List, lengthArray: int = -1) -> None:
+    new_array = [None for i in range(length(arr, lengthArray))]
+    if length(arr, lengthArray) == 0:
         return arr
-    pivot = arr[0]
-    less = []
-    greater = []
-    equal = []
-    for element in arr:
-        if element < pivot:
-            less += [element]
-        elif element > pivot:
-            greater += [element]
-        else:
-            equal += [element]
-    return sorts(less) + equal + sorts(greater)
+    elif length(arr, lengthArray) == 1:
+        return arr[0]
+    else:
+        for i in range(1, length(arr, lengthArray)):
+            new_array[i-1] = arr[i]
+        return new_array
+# contoh penggunaan 
+# arr = [2,1,2,12,1,3,None]
+# print(tail(arr))
 
-# arr = [1,5,2,6,8,4,2,1]
-# print(sorts(arr)) #[1, 1, 2, 2, 4, 5, 6, 8]
+# Fungsi init mengembalikan array tanpa nilai dari bagian index hingga bagian belakang atau 
+# hanya mengembalikan array yang dengan index lebih kecil dar index yang dikirimkan melalui params
+# Params kedua tidaklah wajib, 
+# Params lengthArray jika panjang array sudah diketahui secara eksplisit
+def init(arr: List, lengthArray: int = -1) -> None:
+    new_array = [None for i in range(length(arr, lengthArray))]
+    if length(arr, lengthArray) == 0:
+        return arr
+    elif length(arr, lengthArray) == 1:
+        return arr[0]
+    else:
+        for i in range(length(arr, lengthArray)-1):
+            new_array[i] = arr[i]
+        return new_array
+# contoh penggunaan 
+# arr = [2,1,2,12,1,3,None]
+# print(init(arr))
+
+
+#! Khusus untuk array yang berupa string karena diizinkan penggunaan len untuk string
+# Fungsi tail_string mengembalikan array bentuk string tanpa nilai dari bagian depan hingga index atau 
+# hanya mengembalikan array yang dengan index lebih besar dari parameter index
+def tail_string(string:str, index:int) -> str:
+    new_string = [None for i in range((len(string))-index)]
+    if len(string)  <=1:
+        return string
+    else:
+        for i in range(index, len(string)):
+            new_string[i-index] = string[i]
+        return "".join(new_string)
+    
+# Fungsi init_string mengembalikan array bentuk string tanpa nilai dari bagian index hingga bagian belakang atau 
+# hanya mengembalikan array yang dengan index lebih kecil dar index yang dikirimkan melalui params
+def init_string(string:str, index:int) -> str:
+    new_string = [None for i in range(index)]
+    if len(string) <=1:
+        return string
+    else:
+        for i in range(index):
+            new_string[i] = string[i]
+        return "".join(new_string)
+
+# ** REKURSIF 3
+# Fungsi split mengembalikan array yang berisi string hasil pemisahan dari splitter params
+def splits(arr: str, splitter: str) -> List[str]:
+    for i in range(len(arr)):
+        if arr[i] == splitter:
+            return [init_string(arr, i)] + splits(tail_string(arr, i+len(splitter)), splitter)
+    return [arr]
+# contoh penggunaan 
+# arr = "I LOVE U <3"
+# print(splits(arr, " "))
+
+# ** REKURSIF 4
+# Fungsi sorts mengembalikan array yang telah diurutkan dengan mark None menggunakan bublesort principle
+# Syarat array harus mempunyai mark berupa None
+def sorts(array:List, lengthArray:int=-1)->List:
+    panjangArray = length(array, lengthArray)
+    def bubbleSortRecursive(n=None):
+        if n == None:
+            n = panjangArray
+        count = 0
+        # Base case
+        if n == 1:
+            return
+
+        for i in range(n - 1):
+            if array[i] > array[i + 1]:
+                array[i], array[i + 1] = array[i + 1], array[i]
+                count += 1
+        if count == 0:
+            return
+        bubbleSortRecursive(n - 1)
+    # Sorting array
+    bubbleSortRecursive()
+    return array
+# Contoh penggunaan
+# array = [1.1212,4.212,4.121,2,5,8, None]
+# print(sorts(array))
+
