@@ -1,0 +1,19 @@
+name: Prettier Python
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+    - name: Install Prettier
+      run: npm install --save-dev --save-exact prettier
+    - name: Run Prettier
+      run: npx prettier --write "**/*.py"
