@@ -1,10 +1,35 @@
 # List untukmenyimpan jin yang sudah dipanggil
-jin_list = [None for i in range(100)]
+jin_list = [None for i in range(3)]
 
+
+def findEmptyArray(arr):
+    index = 0
+    find_index = False
+    iterasi = 0
+    while iterasi < len(arr) and find_index == False:
+        if (arr[iterasi] == None):
+            index = iterasi
+            find_index = True
+        iterasi += 1
+    if find_index == True:
+        return index
+    else:
+        return -99
+
+
+# print(findEmptyArray(jin_list))
 # Mekanisme fungsi kerja summonJin
-def summonJin(iterasi:int=0) -> None:
-    global jin_list
+def isDigit(string):
+    for i in range(len(string)):
+        if string[i] != '0' and string[i] != '1' and string[i] != '2' and string[i] != '3' and string[i] != '4' and string[i] != '5' and string[i] != '6' and string[i] != '7' and string[i] != '8' and string[i] != '9':
+            return False
+    return True
+# print(isDigit("1055"))
 
+def summonJin() -> None:
+    global jin_list
+    # Find index yang mau diiisi sama jin baru
+    index = findEmptyArray(jin_list)
     # Menampilkan daftar jenis jin yang bisa dipanggil
     print("Jenis jin yang dapat dipanggil:")
     print("(1) Pengumpul - Bertugas mengumpulkan bahan bangunan")
@@ -12,14 +37,17 @@ def summonJin(iterasi:int=0) -> None:
 
     # Meminta pengguna memilih jenis jin yang ingin dipanggil
     jenis_jin = None
-    while not (jenis_jin == 1 or jenis_jin == 2):
-        jenis_jin = int(
+    while not (jenis_jin == "1" or jenis_jin == "2"):
+        jenis_jin = (
             input("Masukkan nomor jenis jin yang ingin dipanggil: "))
-        if not (jenis_jin == 1 or jenis_jin == 2):
+        typeJenisJin = isDigit(jenis_jin)
+        if (not (jenis_jin == "1" or jenis_jin == "2")) and typeJenisJin == True:
             print("Tidak ada jenis jin bernomor {}!".format(jenis_jin))
+        else:
+            print("Masukkan nomor bukan huruf")
 
     # Menampilkan pesan bahwa jin sedang dipilih
-    if jenis_jin == 1:
+    if jenis_jin == "1":
         print("Memilih jin 'Pengumpul'.")
     else:
         print("Memilih jin 'Pembangun'.")
@@ -27,7 +55,8 @@ def summonJin(iterasi:int=0) -> None:
     # Meminta pengguna memasukkan username dan password untuk jin
     username = None
     password = None
-    existing_usernames = [jin_list[i][0] for i in range(len(jin_list)) if jin_list[i] is not None and jin_list[i][0] is not None]
+    existing_usernames = [jin_list[i][0] for i in range(
+        len(jin_list)) if jin_list[i] is not None and jin_list[i][0] is not None]
 
     # print(existing_usernames)
     while not username:
@@ -52,21 +81,21 @@ def summonJin(iterasi:int=0) -> None:
     print("Membacakan mantra...")
 
     # Menambahkan jin ke dalam daftar jin yang sudah dipanggil
-    jin = [username, password, 'Pengumpul' if jenis_jin == 1 else 'Pembangun']
-    jin_list[iterasi] = jin
+    jin = [username, password, 'Pengumpul' if jenis_jin == "1" else 'Pembangun']
+    jin_list[index] = jin
 
     # Menampilkan pesan bahwa jin berhasil dipanggil
-    print("Jin {} berhasil dipanggil!".format(username))
+    # print("Jin {} berhasil dipanggil!".format(username))
 
 
 def summonJinLoop():
     global jin_list
-    iterasi = 0
-    while True:
-        summonJin(iterasi)
-        iterasi += 1
+    checking_index = findEmptyArray(jin_list)
+    while checking_index!=-99:
+        summonJin()
         # Cek apakah jumlah jin sudah maksimal (100)
-        if iterasi >= len(jin_list):
+        checkingIndexLagi = findEmptyArray(jin_list)
+        if checkingIndexLagi == -99:
             print(
                 "Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
             break
@@ -83,3 +112,41 @@ def summonJinLoop():
 
 # summonJinLoop()
 # print(jin_list)
+# def hapusJin() -> None:
+#     global jin_list, candi_list
+
+#     # Meminta pengguna memasukkan username jin yang ingin dihapus
+#     username = input("Masukkan username jin yang ingin dihapus: ")
+
+#     # Mencari jin dengan username yang sesuai
+#     jin_index = None
+#     for i in range(len(jin_list)):
+#         if jin_list[i] is not None and jin_list[i][0] == username:
+#             jin_index = i
+#             break
+
+#     # Jika jin tidak ditemukan
+#     if jin_index is None:
+#         print("Tidak ada jin dengan username tersebut.")
+#         return
+
+#     # Meminta konfirmasi dari pengguna untuk menghapus jin
+#     confirmation = None
+#     while not (confirmation == "Y" or confirmation == "N"):
+#         confirmation = input(
+#             "Apakah anda yakin ingin menghapus jin dengan username {} (Y/N)? ".format(username)).upper()
+#         if not (confirmation == "Y" or confirmation == "N"):
+#             print("Pilihan yang dimasukkan tidak valid.")
+
+#     # Jika pengguna memilih untuk menghapus jin
+#     if confirmation == "Y":
+#         # Menghapus jin dari jin_list
+#         jin_list[jin_index] = None
+
+#         # Menghapus candi yang dibuat oleh jin tersebut dari candi_list
+#         for i in range(len(candi_list)):
+#             if candi_list[i] is not None and candi_list[i][1] == username:
+#                 candi_list[i] = None
+
+#         print("Jin telah berhasil dihapus dari alam gaib.")
+# # hapusJin()
