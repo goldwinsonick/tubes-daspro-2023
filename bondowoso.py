@@ -147,6 +147,26 @@ def hapusJin() -> None:
         print("Jin telah berhasil dihapus dari alam gaib.")
 
 
-hapusJin()
-print(jin_list)
-print(candi_list)
+# hapusJin()
+# print(jin_list)
+# print(candi_list)
+
+def ubahJin():
+    global jin_list
+    import recursion
+    username = input("Masukkan username jin : ")
+    length_jin_list = recursion.length(jin_list) 
+    # Mencari jin dengan username yang diinputkan
+    for i in range(length_jin_list):
+        if jin_list[i] and jin_list[i][0] == username:
+            tipe_lama = jin_list[i][2]
+            tipe_baru = "Pembangun" if tipe_lama == "Pengumpul" else "Pengumpul"
+            confirm = input(f"Jin ini bertipe “{tipe_lama}”. Yakin ingin mengubah ke tipe “{tipe_baru}” (Y/N)? ")
+            if confirm.lower() == "y":
+                jin_list[i][2] = tipe_baru
+                print("Jin telah berhasil diubah.")
+            return
+    print("Tidak ada jin dengan username tersebut.")
+
+# ubahJin()
+# print(jin_list)
