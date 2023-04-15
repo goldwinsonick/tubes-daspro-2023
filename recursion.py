@@ -139,6 +139,8 @@ def init_string(string: str, index: int) -> str:
 #! Khusus untuk array yang berupa string karena diizinkan penggunaan len untuk string
 # ** REKURSIF 3
 # Fungsi split mengembalikan array yang berisi string hasil pemisahan dari splitter params
+
+
 def splits(arr: str, splitter: str) -> List[str]:
     for i in range(len(arr)):
         if arr[i] == splitter:
