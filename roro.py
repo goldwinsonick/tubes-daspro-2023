@@ -1,7 +1,7 @@
 def hancurkancandi():
-    import main
+    import main, recursion
     inp = input("Masukkan ID candi: ")
-    if(not inp.isnumeric()):
+    if(recursion.isDigit(inp)==False):
         print("Input tidak valid (Inputan harus angka!)")
         return
     inp = int(inp)
@@ -17,7 +17,7 @@ def hancurkancandi():
             print("Tidak valid")
     else:
         print("Tidak ada candi dengan ID tersebut.")
-
+        
 def ayamberkokok():
     import main
     print("Kukuruyuk.. Kukuruyuk..")
@@ -34,4 +34,3 @@ def ayamberkokok():
     else:
         print("Roro Jonggrang menangggg!")
     # Exit program (Harus ada fungsi exit() di proses.py dulu)
-
