@@ -11,7 +11,7 @@ from typing import List
 
 
 def length(arr: List, lengthArray: int = -1) -> int:
-    panjang = 0
+    panjang:int = 0
     if lengthArray != -1:
         return lengthArray
     elif arr == []:
@@ -31,10 +31,8 @@ def length(arr: List, lengthArray: int = -1) -> int:
 # Params kedua dan ketiga tidaklah wajib
 # Params index untuk kebutuhan rekursi
 # Params lengthArray jika panjang array sudah diketahui secara eksplisit
-
-
-def findEmptyArrayIndex(arr: List[int], index: int = 0, lengthArray: int = -1) -> int:
-    arr_len = length(arr, lengthArray)
+def findEmptyArrayIndex(arr: List, index: int = 0, lengthArray: int = -1) -> int:
+    arr_len:int = length(arr, lengthArray)
     if index > arr_len:
         return -99
     elif arr[index] == None and (arr[-2] == None and arr[-1] == None):
@@ -71,7 +69,8 @@ def isDigit(string: str, i: int = 0) -> bool:
 # Params kedua tidaklah wajib,
 # Params lengthArray jika panjang array sudah diketahui secara eksplisit
 def tail(arr: List, lengthArray: int = -1) -> None:
-    new_array = [None for i in range(length(arr, lengthArray))]
+    from typing import List
+    new_array:List = [None for i in range(length(arr, lengthArray))]
     if length(arr, lengthArray) == 0:
         return arr
     elif length(arr, lengthArray) == 1:
@@ -90,7 +89,8 @@ def tail(arr: List, lengthArray: int = -1) -> None:
 # Params kedua tidaklah wajib,
 # Params lengthArray jika panjang array sudah diketahui secara eksplisit
 def init(arr: List, lengthArray: int = -1) -> None:
-    new_array = [None for i in range(length(arr, lengthArray))]
+    from typing import List
+    new_array:List = [None for i in range(length(arr, lengthArray))]
     if length(arr, lengthArray) == 0:
         return arr
     elif length(arr, lengthArray) == 1:
@@ -108,31 +108,37 @@ def init(arr: List, lengthArray: int = -1) -> None:
 # Fungsi tail_string mengembalikan array bentuk string tanpa nilai dari bagian depan hingga index atau
 # hanya mengembalikan array yang dengan index lebih besar dari parameter index
 def tail_string(string: str, index: int) -> str:
-    new_string = [None for i in range((len(string))-index)]
+    from typing import List, Union
+    new_string:Union[List, str]= [None for i in range((len(string))-index)]
     if len(string) <= 1:
         return string
     else:
         for i in range(index, len(string)):
             new_string[i-index] = string[i]
         return "".join(new_string)
+# # contoh penggunaan 
+# string = "Aku Suka Kamu"
+# print(tail_string(string,3))
 
+#! Khusus untuk array yang berupa string karena diizinkan penggunaan len untuk string
 # Fungsi init_string mengembalikan array bentuk string tanpa nilai dari bagian index hingga bagian belakang atau
 # hanya mengembalikan array yang dengan index lebih kecil dar index yang dikirimkan melalui params
-
-
 def init_string(string: str, index: int) -> str:
-    new_string = [None for i in range(index)]
+    from typing import List, Union
+    new_string:Union[List, str] = [None for i in range(index)]
     if len(string) <= 1:
         return string
     else:
         for i in range(index):
             new_string[i] = string[i]
         return "".join(new_string)
+# # contoh penggunaan 
+# string = "Aku Suka Kamu"
+# print(init_string(string,3))
 
+#! Khusus untuk array yang berupa string karena diizinkan penggunaan len untuk string
 # ** REKURSIF 3
 # Fungsi split mengembalikan array yang berisi string hasil pemisahan dari splitter params
-
-
 def splits(arr: str, splitter: str) -> List[str]:
     for i in range(len(arr)):
         if arr[i] == splitter:
@@ -147,7 +153,7 @@ def splits(arr: str, splitter: str) -> List[str]:
 # Fungsi sorts mengembalikan array yang telah diurutkan dengan mark None menggunakan bublesort principle
 # Syarat array harus mempunyai mark berupa None
 def sorts(array: List, lengthArray: int = -1) -> List:
-    panjangArray = length(array, lengthArray)
+    panjangArray:int = length(array, lengthArray)
 
     def bubbleSortRecursive(n=None):
         if n == None:
@@ -175,12 +181,13 @@ def sorts(array: List, lengthArray: int = -1) -> List:
 # Fungsi ini ketika digunakan wajib menyertakan semua parameter
 # fungsi ini akan mengembalikan array dengan memindahkan array index tertentu ke bagian akhir atau index -1
 def shiftToEnd(arr: List, index: int, arrayLength: int) -> List:
-    arr_len = length(arr, arrayLength)
+    from typing import Union
+    arr_len:int = length(arr, arrayLength)
     # Jika index di luar range array atau sudah di ujung kanan, langsung return pesan kesalahan
     if index < 0 or index >= arr_len - 1:
         return print("Out index of array")
     # Jika index valid, lakukan shift ke kanan
-    temp = arr[index]
+    temp:Union[str,None,int,float] = arr[index]
     for i in range(index, arr_len - 1):
         arr[i] = arr[i+1]
     arr[arr_len - 1] = temp
