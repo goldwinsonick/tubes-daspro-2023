@@ -3,20 +3,22 @@ import jin
 import akun, bondowoso, jin, candi, roro, proses, rng, recursion
 from typing import Union, List
 
-users = [None for i in range(102)] # Array of user ([username, password, role])
+users = [None for i in range(103)] # Array of user ([username, password, role])
 # Panjang array 102 (bodowoso, roro, dan 100 jin)
-candi_list = [None for i in range(100)]  # Array of candi ([id, pembuat, pasir, batu, air])
+candi_list = [None for i in range(101)]  # Array of candi ([id, pembuat, pasir, batu, air])
+deleted_jin: List = [None for i in range(2)] # Array akan otomatis diiterasi dengan skema pada fungsi hapusJin
+deleted_candi: List = [None for i in range(2)] # Array akan otomatis diiterasi dengan skema pada fungsi hapusJin
 # Panjang array 100 (banyak candi maks)
 bahan_bangunan = [0,0,0] # bahan_bangunan = [<pasir>, <batu>, <air>]
 harga_candi = [0,0,0] # harga_candi = [<pasir>, <batu>, <air>]
 user = ["","",""] # user ([username, password, role])
 
 # CONTOH untuk JIN PEMBANGUN
-user = ["jin1", "pass123", "jin_pembangun"]
+user = ["jin1", "pass123", "Pembangun"]
 bahan_bangunan = [4,5,4]
 harga_candi = [1,2,3]
 # CONTOH untuk JIN PENGUMPUL
-user = ["jin1", "pass123", "jin_pengumpul"]
+user = ["jin1", "pass123", "Pengumpul"]
 bahan_bangunan = [4,5,4]
 harga_candi = [1,2,3]
 
@@ -46,7 +48,7 @@ def main_menu(username):
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "hapusJin":  # F4
             if role == "Bondowoso":
-                jin_list = bondowoso.hapusJin(jin_list)
+                jin_list, candi_list, deleted_jin, deleted_candi= bondowoso.hapusJin(jin_list, candi_list, deleted_jin, deleted_candi)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "ubahTipeJin":  # F5
