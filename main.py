@@ -56,18 +56,18 @@ def main_menu(username):
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "bangun":  # F6
             if role == "Jin Pembangun":
-                F15.game = jin.bangun(F15.game)
+                jin.bangun(F15.game)
             else:
                 print("Perintah ini hanya bisa diakses oleh Jin Pembangun.")
         elif command.lower() == "kumpul":  # F12
             if role == "Jin Pengumpul":
-                F15.user = jin.kumpul(F15.user)
+                jin.kumpul(F15.user)
             else:
                 print("Perintah ini hanya bisa diakses oleh Jin Pengumpul.")
         # User only commands
         elif command.lower() == "batch":  # F8
             if role == "Bondowoso":
-                temp = candi.batch(username, F15.kepemilikan, F15.user, F15.game, F15.riwayat)
+                candi.batch(username, F15.kepemilikan, F15.user, F15.game, F15.riwayat)
             else:
                 print("Perintah ini hanya bisa diakses oleh user.")
         elif command.lower() == "laporanJin":  # F9
