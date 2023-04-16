@@ -1,29 +1,18 @@
 # List untuk menyimpan jin yang sudah dipanggil
 from main import candi
-from typing import List
-jin_max: int = 7
-jin_list: List = [None for i in range(jin_max)]
-# jin_list = [
-#     ["jin1", "testing1", "Pembangun"],
-#     ["jin2", "testing2", "Pembangun"],
-#     ["jin3", "testing3", "Pembangun"],
-#     ["jin4", "testing4", "Pengumpul"],
-#     ["jin5", "testing5", "Pengumpul"],
-#     None
-# ]
+from typing import List, Union, Tuple
 
 
-def summonJin() -> None:
+def summonJin(jin_list: List[List[str]], jin_max: int=100) -> List[List[str]]:
     from typing import Union, List
     import recursion
-    global jin_list, jin_max
 
     # Find index yang mau diiisi sama jin baru
     index: int = recursion.findEmptyArrayIndex(jin_list)
     # Aksi ketika tidak ditemukan tempat untuk jin baru alias udah max
     if index == -99:
         print(
-            "Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
+            "Jumlah Jin telah maksimal! ({}). Bandung tidak dapat men-summon lebih dari itu".format(jin_max))
     # Aksi ketika ditemukan tempat kosong untuk jin baru
     else:
         # Menampilkan daftar jenis jin yang bisa dipanggil
@@ -85,36 +74,40 @@ def summonJin() -> None:
         jin: List[List[str]] = [username, password,
                                 'Pengumpul' if jenis_jin == "1" else 'Pembangun']
         jin_list[index]: List[str] = jin
-
-    # Menampilkan pesan bahwa jin berhasil dipanggil
-    print("Jin {} berhasil dipanggil!".format(username))
-
-
-def summonJinLoop() -> None:
-    import recursion
-    global jin_list
-    checking_index: int = recursion.findEmptyArrayIndex(jin_list)
-    while checking_index != -99:
-        summonJin()
-        # Cek apakah jumlah jin sudah maksimal (100)
-        checkingIndexLagi: int = recursion.findEmptyArrayIndex(jin_list)
-        if checkingIndexLagi == -99:
-            print(
-                "Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
-            break
-        # Validasi input dan looping
-        while True:
-            lanjut = input("Apakah kakanda ingin jin lagi? (y/n) ")
-            if lanjut == 'y':
-                break
-            elif lanjut == 'n':
-                print("Program summon jin dihentikan.")
-                return
-            else:
-                print("Jawaban tidak valid. Masukkan 'y' atau 'n'.")
+        
+        # Menampilkan pesan bahwa jin berhasil dipanggil
+        print("Jin {} berhasil dipanggil!".format(username))
+    return jin_list
 
 
-# summonJinLoop()
+# def summonJinLoop() -> None:
+#     import recursion
+#     global jin_list
+#     checking_index: int = recursion.findEmptyArrayIndex(jin_list)
+#     while checking_index != -99:
+#         summonJin()
+#         # Cek apakah jumlah jin sudah maksimal (100)
+#         checkingIndexLagi: int = recursion.findEmptyArrayIndex(jin_list)
+#         if checkingIndexLagi == -99:
+#             print(
+#                 "Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
+#             break
+#         # Validasi input dan looping
+#         while True:
+#             lanjut = input("Apakah kakanda ingin jin lagi? (y/n) ")
+#             if lanjut == 'y':
+#                 break
+#             elif lanjut == 'n':
+#                 print("Program summon jin dihentikan.")
+#                 return
+#             else:
+#                 print("Jawaban tidak valid. Masukkan 'y' atau 'n'.")
+
+# Skema pengggunaan fungsi summonJin
+# jin_list=[None for i in range(2)]
+# jin_list =summonJin(jin_list, 1)
+# jin_list =summonJin(jin_list, 1)
+# jin_list =summonJin(jin_list, 1)
 # print(jin_list)
 
 jin_list: List = [
@@ -125,14 +118,13 @@ jin_list: List = [
     ["jin5", "testing5", "Pengumpul"],
     None
 ]
-candi_list: List = candi
+candi_list: List = [[1, "jin1", 2, 4, 3], [2, "jin2", 2, 4, 3], None]
 deleted_jin: List = [None for i in range(3)]
 deleted_candi: List = [None for i in range(3)]
 
 
-def hapusJin() -> None:
+def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Union[List,Tuple[List, List, List, List]]:
     from typing import Union, List
-    global jin_list, candi_list
     import recursion
 
     length_jin_list: int = recursion.length(jin_list)
@@ -150,7 +142,7 @@ def hapusJin() -> None:
     # Jika jin tidak ditemukan
     if jin_index == None:
         print("Tidak ada jin dengan username tersebut.")
-        return
+        return jin_list, candi_list, deleted_jin, deleted_candi
 
     # Meminta konfirmasi dari user untuk menghapus jin
     confirmation: Union[str, None] = None
@@ -171,21 +163,25 @@ def hapusJin() -> None:
         # Menghapus candi yang dibuat oleh jin tersebut dari candi_list
         for i in range(recursion.length(candi_list)):
             if candi_list[i] != None and candi_list[i][1] == username:
-                empty_index_array_candi = recursion.findEmptyArrayIndex(deleted_candi)
+                empty_index_array_candi = recursion.findEmptyArrayIndex(
+                    deleted_candi)
                 deleted_candi[empty_index_array_candi] = candi_list[i]
                 candi_list[i] = None
                 recursion.shiftToEnd(candi_list, i, length_candi_list)
-
         print("Jin telah berhasil dihapus dari alam gaib.")
-
-# hapusJin()
-# hapusJin()
+        return jin_list, candi_list, deleted_jin, deleted_candi
+    elif confirmation=="N":
+        return jin_list, candi_list, deleted_jin, deleted_candi
+# skema penggunaan
+# jin_list, candi_list, deleted_jin, deleted_candi=hapusJin(jin_list, candi_list, deleted_jin, deleted_candi)
+# jin_list, candi_list, deleted_jin, deleted_candi=hapusJin(jin_list, candi_list, deleted_jin, deleted_candi)
 # print("jin:", jin_list)
-# print("candi:",candi_list)
+# print("deleted jin:", deleted_jin)
+# print("candi:",candi)
+# print("deleted candi:",deleted_candi)
 
 
-def ubahJin() -> None:
-    global jin_list
+def ubahJin(jin_list: List[List[str]]) -> List[List[str]]:
     import recursion
     username: str = input("Masukkan username jin : ")
     length_jin_list: int = recursion.length(jin_list)
@@ -199,8 +195,8 @@ def ubahJin() -> None:
             if confirm.lower() == "y":
                 jin_list[i][2]: str = tipe_baru
                 print("Jin telah berhasil diubah.")
-            return
     print("Tidak ada jin dengan username tersebut.")
+    return jin_list
 
-# ubahJin()
+# ubahJin(jin_list)
 # print(jin_list)
