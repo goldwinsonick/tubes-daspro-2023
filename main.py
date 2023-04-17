@@ -104,7 +104,7 @@ def main_menu(username):
         else:
             print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
 
-
+def initial():
 if __name__ == "__main__":      #validasi nama file
     # F15.load() #fungsi untuk load
     print()
