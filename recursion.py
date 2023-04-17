@@ -193,3 +193,27 @@ def shiftToEnd(arr: List, index: int, arrayLength: int) -> List:
 # contoh penggunaan
 # arr = [1, 2, 3, 4, None, 6, 7]
 # print(shiftToEnd(arr, 4, 7))
+
+def read_csv(filename, delimiter=';'):
+    with open(filename) as file:
+        parse = []
+        for line in file:
+            values = splits(line, delimiter)
+            parse += [values]
+    return parse
+
+
+def write_csv(filename, to_write):
+    with open(filename, "w") as file:
+        rows = length(to_write)
+        if rows != 0:
+            cols = length(to_write[0])  # karena jumlah column sama tiap garis
+            for i in range(rows):
+                for j in range(cols):
+                    file.write(str(to_write[i][j]))
+                    if j < cols-1:
+                        file.write(";")
+                if i < rows-1:
+                    file.write("\n")
+        else:
+            print("Matriks kosong! Tidak bisa menuliskan file.")
