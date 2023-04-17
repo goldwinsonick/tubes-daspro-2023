@@ -8,8 +8,6 @@ from typing import List
 
 # Fungsi length mengembalikan panjang array tanpa mark
 # Params kedua tidaklah wajib, params lengthArray jika panjang array sudah diketahui secara eksplisit
-
-
 def length(arr: List, lengthArray: int = -1) -> int:
     panjang:int = 0
     if lengthArray != -1:
@@ -139,8 +137,6 @@ def init_string(string: str, index: int) -> str:
 #! Khusus untuk array yang berupa string karena diizinkan penggunaan len untuk string
 # ** REKURSIF 3
 # Fungsi split mengembalikan array yang berisi string hasil pemisahan dari splitter params
-
-
 def splits(arr: str, splitter: str) -> List[str]:
     for i in range(len(arr)):
         if arr[i] == splitter:
@@ -186,7 +182,7 @@ def shiftToEnd(arr: List, index: int, arrayLength: int) -> List:
     from typing import Union
     arr_len:int = length(arr, arrayLength)
     # Jika index di luar range array atau sudah di ujung kanan, langsung return pesan kesalahan
-    if index < 0 or index >= arr_len - 1:
+    if index < 0 or index >= arr_len:
         return print("Out index of array")
     # Jika index valid, lakukan shift ke kanan
     temp:Union[str,None,int,float] = arr[index]
