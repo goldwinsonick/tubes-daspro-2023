@@ -94,9 +94,8 @@ jin_list: List = [
     None
 ]
 candi_list: List = [[1, "jin1", 2, 4, 3], [2, "jin2", 2, 4, 3], None]
-deleted_jin: List = [None for i in range(2)]
-deleted_candi: List = [None for i in range(2)]
-
+deleted_jin: List = [None for i in range(1)]
+deleted_candi: List = [None for i in range(1)]
 
 def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Union[List, Tuple[List, List, List, List]]:
     from typing import Union, List
@@ -162,7 +161,14 @@ def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi:
                 temp_list_deleted_candi[empty_index_array_temp_candi] = candi_list[i]
                 deleted_candi = temp_list_deleted_candi
                 # Menghapus candi dari candi_list
-                candi_list[i] = None
+                # copy data dengan mengurangi 1 index dengan tanpa menyertakan candi_list[i]
+                candi_clear = [None for i in range(length_candi_list)]
+                for k in range(length_candi_list):
+                    if candi_list[k] != candi_list[i]:
+                        candi_clear[k] = candi_list[k]
+
+                candi_list = candi_clear
+
                 recursion.shiftToEnd(candi_list, i, length_candi_list)
         print("Jin telah berhasil dihapus dari alam gaib.")
         return jin_list, candi_list, deleted_jin, deleted_candi
