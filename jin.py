@@ -1,14 +1,16 @@
+from typing import List
 bahan_bangunan = [5, 5, 4]  # bahan_bangunan = [<pasir>, <batu>, <air>]
 candi_list = [None for i in range(1)]
 user = ["jin1", "pass123", "jin_pengumpul"]
 
+
 def bangun(bahan_bangunan, user, candi_list):
     import rng
     import recursion
-    if(user[2]== "jin_pembangun"):
+    if (user[2] == "jin_pembangun"):
         mencukupi = True
         # generate bahan bangunan yang dibutuhkan
-        harga_candi = rng.rng(3,1,5)
+        harga_candi = rng.rng(3, 1, 5)
         print(harga_candi)
         # checking id berdasarkan bahan 3 bahan bangunan
         for i in range(3):
@@ -18,7 +20,8 @@ def bangun(bahan_bangunan, user, candi_list):
         if (mencukupi):
             # Menambah candi
             # Menyiapkan waday tambahan array
-            temp_new_candi = [None for i in range(recursion.length(candi_list)+2)]
+            temp_new_candi = [None for i in range(
+                recursion.length(candi_list)+2)]
             # copy data dari candi_list sebelumnya
             for i in range(recursion.length(candi_list)):
                 temp_new_candi[i] = candi_list[i]
@@ -57,10 +60,11 @@ def bangun(bahan_bangunan, user, candi_list):
 # bahan_bangunan, user, candi_list = bangun(bahan_bangunan, user, candi_list)
 # print(bahan_bangunan, user, candi_list)
 
-def kumpul(user, bahan_bangunan):
+
+def kumpul(user: List[str], bahan_bangunan: List[int]):
     import rng
     if (user[2] == "jin_pengumpul"):
-        terkumpul = rng.rng(3,1,5)
+        terkumpul = rng.rng(3, 1, 5)
         for i in range(3):
             bahan_bangunan[i] += terkumpul[i]
         print("Jin menemukan "+str(terkumpul[0])+" pasir, " +
