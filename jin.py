@@ -1,47 +1,72 @@
-def bangun():
-    import main
+bahan_bangunan = [5, 5, 4]  # bahan_bangunan = [<pasir>, <batu>, <air>]
+candi_list = [None for i in range(1)]
+user = ["jin1", "pass123", "jin_pengumpul"]
+
+def bangun(bahan_bangunan, user, candi_list):
     import rng
-    if(main.user[2] == "jin_pembangun"):
+    import recursion
+    if(user[2]== "jin_pembangun"):
         mencukupi = True
+        # generate bahan bangunan yang dibutuhkan
+        harga_candi = rng.rng(3,1,5)
+        print(harga_candi)
+        # checking id berdasarkan bahan 3 bahan bangunan
         for i in range(3):
-            if(main.harga_candi[i] > main.bahan_bangunan[i]):
+            if (harga_candi[i] > bahan_bangunan[i]):
                 mencukupi = False
-        if(mencukupi):
+        # aksi ketika bahan bangunan cukup
+        if (mencukupi):
             # Menambah candi
-            for i in range(100):
-                if(main.candi[i] ==  None):
-                    main.candi[i] = [i, main.user[0], main.harga_candi[0], main.harga_candi[1], main.harga_candi[2]]
-                    break
-            # jika dari index 0 dan 99 tidak ditemukan slot kosong, maka kode tetap jalan dan tidak menambah candi
-            # sesuai dengan spesifikasi
+            # Menyiapkan waday tambahan array
+            temp_new_candi = [None for i in range(recursion.length(candi_list)+2)]
+            # copy data dari candi_list sebelumnya
+            for i in range(recursion.length(candi_list)):
+                temp_new_candi[i] = candi_list[i]
+            # Copy data baru dengan mark baru ke candi_list sebelumnya
+            empty_index_array_temp_candi = recursion.findEmptyArrayIndex(
+                temp_new_candi)
+            temp_new_candi[empty_index_array_temp_candi] = [
+                i, user[0], harga_candi[0], harga_candi[1], harga_candi[2]]
+            # Kembalikan ke candi_list dengan data yang sudah update
+            candi_list = temp_new_candi
 
             # Mengurangi bahan bangunan
             for i in range(3):
-                main.bahan_bangunan[i] -= main.harga_candi[i]
+                bahan_bangunan[i] -= harga_candi[i]
 
             # Setelah Candi terbangun, harga_Candi baru akan digenerate
-            for i in range(3):
-                main.harga_candi[i] = rng.rng(1,5)
+
             print("Candi berhasil dibangun.")
             banyakCandi = 0
-            for i in range(100):
-                if(main.candi[i] != None):
-                    banyakCandi+=1
-            print("Sisa candi yang perlu dibangun : " + str(100-banyakCandi))
-            
+            for i in range(recursion.length(candi_list)):
+                if (candi_list[i] != None):
+                    banyakCandi += 1
+
+            if banyakCandi < 100:
+                print("Sisa candi yang perlu dibangun : " + str(100-banyakCandi))
+            else:
+                print("100 Candi sudah terbangun")
+
         else:
             print("Bahan bangunan tidak mencukupi.")
             print("Candi tidak bisa dibangun!")
     else:
         print("Hanya jin pembangun yang dapat menjalankan fungsi bangun")
+    return bahan_bangunan, user, candi_list
 
-def kumpul():
-    import main
+# bahan_bangunan, user, candi_list = bangun(bahan_bangunan, user, candi_list)
+# print(bahan_bangunan, user, candi_list)
+
+def kumpul(user, bahan_bangunan):
     import rng
-    if(main.user[2] == "jin_pengumpul"):
-        terkumpul = [rng.rng(0,5), rng.rng(0,5), rng.rng(0,5)]
+    if (user[2] == "jin_pengumpul"):
+        terkumpul = rng.rng(3,1,5)
         for i in range(3):
-            main.bahan_bangunan[i] += terkumpul[i]
-        print("Jin menemukan "+str(terkumpul[0])+" pasir, "+str(terkumpul[1])+" batu, "+str(terkumpul[2])+" air.")
+            bahan_bangunan[i] += terkumpul[i]
+        print("Jin menemukan "+str(terkumpul[0])+" pasir, " +
+              str(terkumpul[1])+" batu, "+str(terkumpul[2])+" air.")
     else:
         print("Hanya jin pengumpul yang dapat menjalankan fungsi kumpul")
+    return user, bahan_bangunan
+# user, bahan_bangunan = kumpul(user, bahan_bangunan)
+# print(bahan_bangunan, user, candi_list)

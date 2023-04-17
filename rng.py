@@ -4,11 +4,18 @@ def LCG(seed):
     m = 2**31
     a = 1103515245
     c = 12345
-    return (a*(seed) + c) % m
-def rng(fr, to):
-    global CURRENT_SEED 
-    CURRENT_SEED = LCG(CURRENT_SEED)
-    return fr + (CURRENT_SEED % (to-fr+1))
+    x = (a * seed + c) % m
+    return x
+
+def rng(num, fr, to):
+    import time
+    seed = int(time.time() * 1000) # ambil waktu saat ini dalam milidetik sebagai seed
+    numbers = [None for i in range(num)]
+    for i in range(num):
+        seed = LCG(seed)
+        number = fr + (seed % (to-fr+1))
+        numbers[i]=number
+    return numbers
 
 # Fungsi untuk tes distribusi angka yang muncul dari LCG RNG
 def testRNG(a, b, N):
@@ -19,6 +26,7 @@ def testRNG(a, b, N):
     for i in range(a,b+1):
         print(str(i) + ": " + "{:.2f}".format(arr[i]/N) + "% - [" + str(arr[i]) + "]")
 # testRNG(1,5, 1000)
+# print(rng(3,1,5))
 
 
 

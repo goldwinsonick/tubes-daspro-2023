@@ -29,11 +29,7 @@ harga_candi = [1, 2, 3]
 user = ["jin1", "pass123", "Pengumpul"]
 bahan_bangunan = [4, 5, 4]
 harga_candi = [1, 2, 3]
-
-# Tolong buatkan fungsi load
-# proses.load("saves/user.csv", users)
-# proses.load("saves/candi.csv", candi)
-# proses.load("saves/bahan_bangunan.csv", bahan_bangunan)
+status_login = False
 
 
 def main_menu(username):
