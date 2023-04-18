@@ -1,0 +1,5 @@
+print("=========== HELP ===========\n1. login\n   Untuk masuk menggunakan akun\n2. exit\n   Untuk keluar dari program dan kembali ke terminal\n>>>")
+print("=========== HELP ===========\n1. logout\n   Untuk keluar dari akun yang digunakan sekarang\n2. summonjin\n   Untuk memanggil jin\n>>>")
+print("=========== HELP ===========\n1. logout\n   Untuk keluar dari akun yang digunakan sekarang\n2. hancurkancandi\n   Untuk menghancurkan candi yang tersedia\n>>>")
+print("=========== HELP ===========\n1. logout\n   Untuk keluar dari akun yang digunakan sekarang\n2. kumpul\n   Untuk mengumpulkan resource candi\n>>>")
+print("=========== HELP ===========\n1. logout\n   Untuk keluar dari akun yang digunakan sekarang\n2. bangun\n   Untuk membangun candi\n>>>")
