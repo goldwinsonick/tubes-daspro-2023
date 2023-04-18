@@ -24,6 +24,6 @@ def testRNG(a, b, N):
     for i in range(a,b+1):
         print(str(i) + ": " + "{:.2f}".format(arr[i]/N) + "% - [" + str(arr[i]) + "]")
 # testRNG(1,5, 1000)
-print(rng(3,1,5))
+# print(rng(3,1,5))
 
 

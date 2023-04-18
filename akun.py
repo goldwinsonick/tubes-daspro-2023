@@ -1,6 +1,6 @@
 from typing import List, Union, Tuple
-file = [["Bondowoso", "cintaroro", "bandung_bondowoso"],
-        ["Roro", "gasukabondo", "roro_jonggrang"]]
+# file = [["Bondowoso", "cintaroro", "bandung_bondowoso"],
+#         ["Roro", "gasukabondo", "roro_jonggrang"]]
 
 
 def login(fileUser: List[List[str]], status_login: bool) -> Union[None, str, bool, Tuple[Union[str, None], bool]]:
@@ -45,8 +45,8 @@ def login(fileUser: List[List[str]], status_login: bool) -> Union[None, str, boo
 # while True:
 #     login(file)
 
-status_login = True
-username = "Bondowoso"
+# status_login = True
+# username = "Bondowoso"
 def logout(status_login: bool, username: Union[str, None]) -> Union[bool, str, None, Tuple[bool, Union[str, None]]]:
     if status_login == False:
         # Validasi belum kondisi login

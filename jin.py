@@ -1,8 +1,8 @@
 from typing import List
-bahan_bangunan = [5, 5, 4]  # bahan_bangunan = [<pasir>, <batu>, <air>]
-candi_list = [None for i in range(1)]
-user = ["jin1", "pass123", "jin_pembangun"]
-id = 0
+# bahan_bangunan = [5, 5, 4]  # bahan_bangunan = [<pasir>, <batu>, <air>]
+# candi_list = [None for i in range(1)]
+# user = ["jin1", "pass123", "jin_pembangun"]
+# id = 0
 
 def bangun(bahan_bangunan, user, candi_list, harga_candi, output, id):
     import rng

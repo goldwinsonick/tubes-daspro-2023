@@ -1,12 +1,12 @@
 import rng
 from typing import Union, List, Tuple
-jin_list = [["jin1", "laslkdujalkd", "jin_pembangun"], ["jin2", "laslkdujalkd",
-                                                        "jin_pengumpul"], ["jin3", "laslkdujalkd",
-                                                                           "jin_pengumpul"],  ["jin4", "laslkdujalkd",
-                                                                                               "jin_pengumpul"], ["jin5cls", "laslkdujalkd", "jin_pembangun"], None]
-bahan_bangunan = [20, 20, 21]
-candi_list = [None for i in range(1)]
-id =0
+# jin_list = [["jin1", "laslkdujalkd", "jin_pembangun"], ["jin2", "laslkdujalkd",
+#                                                         "jin_pengumpul"], ["jin3", "laslkdujalkd",
+#                                                                            "jin_pengumpul"],  ["jin4", "laslkdujalkd",
+#                                                                                                "jin_pengumpul"], ["jin5cls", "laslkdujalkd", "jin_pembangun"], None]
+# bahan_bangunan = [20, 20, 21]
+# candi_list = [None for i in range(1)]
+# id =0
 def batchkumpul(id:int,jin_list: List[Union[None, List[str]]], bahan_bangunan: List[int]) -> Union[List[Union[None, List[str]]], List[int], Tuple[List[Union[None, List[str]]], List[int]]]:
     import recursion
     import jin
@@ -31,6 +31,7 @@ def batchkumpul(id:int,jin_list: List[Union[None, List[str]]], bahan_bangunan: L
                     for i in range(3):
                         total_terkumpul[i]+= terkumpul[i]
         print(f"Jin menemukan total {total_terkumpul[0]} pasir, {total_terkumpul[1]} batu, dan {total_terkumpul[2]} air.")
+    return id, jin_list, bahan_bangunan
                     
 
 
@@ -82,10 +83,10 @@ def batchbangun(bahan_bangunan, jin_list, candi_list, id):
                   (harga_candi_total[1]-bahan_bangunan[1]) if (harga_candi_total[1]-bahan_bangunan[1]) > 0 else 0, "batu, dan", (harga_candi_total[2]-bahan_bangunan[2]) if (harga_candi_total[2]-bahan_bangunan[2]) > 0 else 0, "air.")
             print("Candi yang terbangun 0")
 
-    return bahan_bangunan, jin_list, candi_list
+    return bahan_bangunan, jin_list, candi_list, id
 
 
 # batchkumpul(jin_list, bahan_bangunan)
 # print(jin_list, bahan_bangunan)
-bahan_bangunan, jin_list, candi_list = batchbangun(bahan_bangunan, jin_list, candi_list, id)
-print(jin_list, bahan_bangunan, candi_list)
+# bahan_bangunan, jin_list, candi_list = batchbangun(bahan_bangunan, jin_list, candi_list, id)
+# print(jin_list, bahan_bangunan, candi_list)

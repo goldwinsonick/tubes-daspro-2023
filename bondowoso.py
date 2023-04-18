@@ -71,7 +71,7 @@ def summonJin(jin_list: List[List[str]], jin_max: int = 100) -> List[List[str]]:
 
         # Menambahkan jin ke dalam daftar jin yang sudah dipanggil
         jin: List[List[str]] = [username, password,
-                                'Pengumpul' if jenis_jin == "1" else 'Pembangun']
+                                'jin_pengumpul' if jenis_jin == "1" else 'jin_pembangun']
         jin_list[index]: List[str] = jin
 
         # Menampilkan pesan bahwa jin berhasil dipanggil
@@ -85,17 +85,17 @@ def summonJin(jin_list: List[List[str]], jin_max: int = 100) -> List[List[str]]:
 # jin_list =summonJin(jin_list, 100)
 # print(jin_list)
 
-jin_list: List = [
-    ["jin1", "testing1", "Pembangun"],
-    ["jin2", "testing2", "Pembangun"],
-    ["jin3", "testing3", "Pembangun"],
-    ["jin4", "testing4", "Pengumpul"],
-    ["jin5", "testing5", "Pengumpul"],
-    None
-]
-candi_list: List = [[1, "jin1", 2, 4, 3], [2, "jin2", 2, 4, 3], None]
-deleted_jin: List = [None for i in range(1)]
-deleted_candi: List = [None for i in range(1)]
+# jin_list: List = [
+#     ["jin1", "testing1", "Pembangun"],
+#     ["jin2", "testing2", "Pembangun"],
+#     ["jin3", "testing3", "Pembangun"],
+#     ["jin4", "testing4", "Pengumpul"],
+#     ["jin5", "testing5", "Pengumpul"],
+#     None
+# ]
+# candi_list: List = [[1, "jin1", 2, 4, 3], [2, "jin2", 2, 4, 3], None]
+# deleted_jin: List = [None for i in range(1)]
+# deleted_candi: List = [None for i in range(1)]
 
 def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Union[List, Tuple[List, List, List, List]]:
     from typing import Union, List
@@ -195,7 +195,7 @@ def ubahJin(jin_list: List[List[str]]) -> List[List[str]]:
     for i in range(length_jin_list):
         if jin_list[i] and jin_list[i][0] == username:
             tipe_lama: str = jin_list[i][2]
-            tipe_baru: str = "Pembangun" if tipe_lama == "Pengumpul" else "Pengumpul"
+            tipe_baru: str = "jin_pembangun" if tipe_lama == "jin_pengumpul" else "jin_pengumpul"
             confirm: str = input(
                 f"Jin ini bertipe “{tipe_lama}”. Yakin ingin mengubah ke tipe “{tipe_baru}” (Y/N)? ")
             if confirm.lower() == "y":

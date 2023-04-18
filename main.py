@@ -5,42 +5,37 @@ import jin
 import roro
 import rng
 import recursion
+import batch
+import akun
 from typing import Union, List
 
 # Array of user ([username, password, role])
-users = [None for i in range(103)]
+users = [["Bondowoso","cintaroro", "bandung_bondowoso"],None]
 # Panjang array 102 (bodowoso, roro, dan 100 jin)
 # Array of candi ([id, pembuat, pasir, batu, air])
-candi_list = [None for i in range(101)]
+candi_list = [None for i in range(1)]
 # Array akan otomatis diiterasi dengan skema pada fungsi hapusJin
 deleted_jin: List = [None for i in range(1)]
 # Array akan otomatis diiterasi dengan skema pada fungsi hapusJin
 deleted_candi: List = [None for i in range(1)]
 # Panjang array 100 (banyak candi maks)
 bahan_bangunan = [0, 0, 0]  # bahan_bangunan = [<pasir>, <batu>, <air>]
-harga_candi = [0, 0, 0]  # harga_candi = [<pasir>, <batu>, <air>]
-user = ["", "", ""]  # user ([username, password, role])
+harga_candi = [0, 0, 0]
 jin_list = [None for i in range(101)]
-# CONTOH untuk JIN PEMBANGUN
-user = ["jin1", "pass123", "Pembangun"]
-bahan_bangunan = [4, 5, 4]
-harga_candi = [1, 2, 3]
-# CONTOH untuk JIN PENGUMPUL
-user = ["jin1", "pass123", "Pengumpul"]
-bahan_bangunan = [4, 5, 4]
-harga_candi = [1, 2, 3]
-status_login = False
+status_login = True
+id = 0
 
 
 def main_menu(username):
+    global users, candi_list, deleted_candi,deleted_jin, bahan_bangunan, harga_candi, jin_list, status_login, id
     # Pengecekan jika admin atau user biasa
     global jin_list
     role: str = username
     # Validasi user lagi
-    # for i in range(recursion.length(F15.user)):
-    #     if username == F15.user[i][1]:
-    #         role = F15.user[i][4]
-    #         break
+    for i in range(recursion.length(users)):
+        if username == users[i][0]:
+            role = users[i][2]
+            break
     print("Selamat datang di love story Bandung Bondowoso dan Riri Jonggrang!")
 
     while True:
@@ -48,37 +43,46 @@ def main_menu(username):
         command: str = input("Masukkan perintah: ")
         # Bondowoso only commands
         if command.lower() == "summonjin":  # F2
-            if role == "Bondowoso":
+            if role == "bandung_bondowoso":
                 jin_list = bondowoso.summonJin(jin_list)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "hapusjin":  # F4
-            if role == "Bondowoso":
+            if role == "bandung_bondowoso":
                 jin_list, candi_list, deleted_jin, deleted_candi = bondowoso.hapusJin(
                     jin_list, candi_list, deleted_jin, deleted_candi)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "ubahtipejin":  # F5
-            if role == "Bondowoso":
+            if role == "bandung_bondowoso":
                 jin_list = bondowoso.ubahJin(jin_list)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
-        # elif command.lower() == "bangun":  # F6
-        #     if role == "Jin Pembangun":
-        #         jin.bangun(F15.game)
-        #     else:
-        #         print("Perintah ini hanya bisa diakses oleh Jin Pembangun.")
-        # elif command.lower() == "kumpul":  # F12
-        #     if role == "Jin Pengumpul":
-        #         jin.kumpul(F15.user)
-        #     else:
-        #         print("Perintah ini hanya bisa diakses oleh Jin Pengumpul.")
+        elif command.lower() == "bangun":  # F6
+            if role == "jin_pembangun":
+                bahan_bangunan, role, candi_list, harga_candi, id = jin.bangun(
+                    bahan_bangunan, role, candi_list, harga_candi, True, id)
+            else:
+                print("Perintah ini hanya bisa diakses oleh Jin Pembangun.")
+        elif command.lower() == "kumpul":  # F12
+            if role == "jin_pengumpul":
+                role, bahan_bangunan, terkumpul = jin.kumpul(
+                    role, bahan_bangunan, True)
+            else:
+                print("Perintah ini hanya bisa diakses oleh Jin Pengumpul.")
         # # User only commands
-        # elif command.lower() == "batch":  # F8
-        #     if role == "Bondowoso":
-        #         candi.batch(username, F15.kepemilikan, F15.user, F15.game, F15.riwayat)
-        #     else:
-        #         print("Perintah ini hanya bisa diakses oleh user.")
+        elif command.lower() == "batchkumpul":  # F8
+            if role == "bandung_bondowoso":
+                id, jin_list, bahan_bangunan = batch.batchkumpul(
+                    id, jin_list, bahan_bangunan)
+            else:
+                print("Perintah ini hanya bisa diakses oleh user.")
+        elif command.lower() == "batchbangun":  # F8
+            if role == "bandung_bondowoso":
+                bahan_bangunan, jin_list, candi_list,id= batch.batchbangun(
+                    bahan_bangunan, jin_list, candi_list, id)
+            else:
+                print("Perintah ini hanya bisa diakses oleh user.")
         # elif command.lower() == "laporanjin":  # F9
         #     if role == "Bondowoso":
         #         candi.laporanJin(Bondowosoname, F15.kepemilikan, F15.game)
@@ -89,19 +93,19 @@ def main_menu(username):
         #         candi.laporanCandi(F15.game, F15.kepemilikan, username)
         #     else:
         #         print("Perintah ini hanya bisa diakses oleh Bondowoso.")
-        # elif command.lower() == "hancurkancandi":  # F11
-        #     if role == "Roro":
-        #         roro.hancurkanCandi(F15.game)
-        #     else:
-        #         print("Perintah ini hanya bisa diakses oleh Roro.")
-        # elif command.lower() == "ayamberkokok":  # F13
-        #     if role == "Roro":
-        #         roro.ayamBerkokok(username, F15.riwayat)
-        #     else:
-        #         print("Perintah ini hanya bisa diakses oleh Roro.")
+        elif command.lower() == "hancurkancandi":  # F11
+            if role == "roro_jonggrang":
+                candi_list = roro.hancurkancandi(candi_list)
+            else:
+                print("Perintah ini hanya bisa diakses oleh Roro.")
+        elif command.lower() == "ayamberkokok":  # F13
+            if role == "Roro":
+                roro.ayamBerkokok(candi_list)
+            else:
+                print("Perintah ini hanya bisa diakses oleh Roro.")
         # Role-agnostic commands
-        # elif command.lower() == "logout":
-        #     akun.logout()
+        elif command.lower() == "logout":
+            akun.logout(status_login, username)
         # elif command.lower() == "help":  # F14
         #     proses.help()
         # elif command.lower() == "save":  # F16
@@ -111,25 +115,30 @@ def main_menu(username):
         else:
             print(
                 "Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
+        print(jin_list, candi_list)
 
-def initial():
-if __name__ == "__main__":      #validasi nama file
+
+
+def utama(status_login):  # validasi nama file
     # F15.load() #fungsi untuk load
     print()
     print("WELCOME TO RORO AND BONDOWOSO LOVE STORY")
     print()
     while True:
-        cmd:str = input("Masukkan perintah: ")
-        username:Union[str, None] = None
-        if cmd.lower() == "login": # F3
-            # username = F3.login(F15.user)  # validasi user yang login
+        cmd: str = input("Masukkan perintah: ")
+        username: Union[str, None] = None
+        if cmd.lower() == "login":  # F3
+            username = akun.login(F15.user)  # validasi user yang login
             if username != None:
-                main_menu(username)     #masuk ke menu utama
-                break
-        elif cmd.lower() == "help":  # F14  # masuk help program
-            # proses.help(username, F15.user)
-        elif cmd.lower() == "exit":  # F17  # keluar program
-            # proses.exit_program(None)
+                main_menu(username)  # masuk ke menu utama
+        #         break
+        # elif cmd.lower() == "help":  # F14  # masuk help program
+        #     # proses.help(username, F15.user)
+        # elif cmd.lower() == "exit":  # F17  # keluar program
+        #     # proses.exit_program(None)
         else:               # handle input tidak valid
-            print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
+            print(
+                "Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
         print()
+
+main_menu("Bondowoso")
