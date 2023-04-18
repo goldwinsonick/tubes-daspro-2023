@@ -2,7 +2,7 @@
 from typing import List, Union, Tuple
 
 
-def summonJin(jin_list: List[List[str]], jin_max: int = 100) -> List[List[str]]:
+def summonJin(jin_list: List[List[str]], users:List, jin_max: int = 100) -> List[List[str]]:
     from typing import Union, List
     import recursion
 
@@ -73,10 +73,11 @@ def summonJin(jin_list: List[List[str]], jin_max: int = 100) -> List[List[str]]:
         jin: List[List[str]] = [username, password,
                                 'jin_pengumpul' if jenis_jin == "1" else 'jin_pembangun']
         jin_list[index]: List[str] = jin
+        users[index+2]:List[str] = jin
 
         # Menampilkan pesan bahwa jin berhasil dipanggil
         print("Jin {} berhasil dipanggil!".format(username))
-    return jin_list
+    return jin_list, users
 
 # Skema pengggunaan fungsi summonJin
 # jin_list=[None for i in range(101)]
@@ -97,7 +98,7 @@ def summonJin(jin_list: List[List[str]], jin_max: int = 100) -> List[List[str]]:
 # deleted_jin: List = [None for i in range(1)]
 # deleted_candi: List = [None for i in range(1)]
 
-def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Union[List, Tuple[List, List, List, List]]:
+def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi: List, users) -> Union[List, Tuple[List, List, List, List]]:
     from typing import Union, List
     import recursion
 
@@ -116,7 +117,7 @@ def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi:
     # Jika jin tidak ditemukan
     if jin_index == None:
         print("Tidak ada jin dengan username tersebut.")
-        return jin_list, candi_list, deleted_jin, deleted_candi
+        return jin_list, candi_list, deleted_jin, deleted_candi, users
 
     # Meminta konfirmasi dari user untuk menghapus jin
     confirmation: Union[str, None] = None
@@ -146,7 +147,9 @@ def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi:
 
         # Menghapus jin dari jin_list
         jin_list[jin_index]: Union[List, None] = None
+        users[jin_index+2]: Union[List, None] = None
         recursion.shiftToEnd(jin_list, jin_index, length_jin_list)
+        recursion.shiftToEnd(users, jin_index+2, length_jin_list+2)
 
         # Menghapus candi yang dibuat oleh jin tersebut dari candi_list
         for i in range(recursion.length(candi_list)):
@@ -171,9 +174,9 @@ def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi:
 
                 recursion.shiftToEnd(candi_list, i, length_candi_list)
         print("Jin telah berhasil dihapus dari alam gaib.")
-        return jin_list, candi_list, deleted_jin, deleted_candi
+        return jin_list, candi_list, deleted_jin, deleted_candi, users
     elif confirmation == "N":
-        return jin_list, candi_list, deleted_jin, deleted_candi
+        return jin_list, candi_list, deleted_jin, deleted_candi, users
 
 
 # skema penggunaan
@@ -187,7 +190,7 @@ def hapusJin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi:
 # print("deleted candi:", deleted_candi)
 
 
-def ubahJin(jin_list: List[List[str]]) -> List[List[str]]:
+def ubahJin(jin_list: List[List[str]], users):
     import recursion
     username: str = input("Masukkan username jin : ")
     length_jin_list: int = recursion.length(jin_list)
@@ -200,9 +203,10 @@ def ubahJin(jin_list: List[List[str]]) -> List[List[str]]:
                 f"Jin ini bertipe “{tipe_lama}”. Yakin ingin mengubah ke tipe “{tipe_baru}” (Y/N)? ")
             if confirm.lower() == "y":
                 jin_list[i][2]: str = tipe_baru
+                users[i+2][2]: str = tipe_baru
                 print("Jin telah berhasil diubah.")
     print("Tidak ada jin dengan username tersebut.")
-    return jin_list
+    return jin_list, users
 
 # ubahJin(jin_list)
 # print(jin_list)
