@@ -7,8 +7,8 @@ def load(data):
     parents_path = os.getcwd() + "\\" + folder
     print(args.path)
     if not args.path:
-        print("Masukkan forder yang ingin dibuka!")
-    elif os.path.exists(f"{parets_pat}{args.path}"):
+        print("Masukkan folder yang ingin dibuka!")
+    elif os.path.exists(f"{parents_path}{args.path}"):
         path_data_user = f"{parents_path}{args.path}\\user.csv"
         path_data_candi = f"{parents_path}{args.path}\\candi.csv"
         path_data_bahan_bangunan = f"{parents_path}{args.path}\\bahan_bangunan.csv"
