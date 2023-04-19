@@ -127,7 +127,7 @@ main_menu("Bondowoso")
 #         cmd:str = input("Masukkan perintah: ")
 #         username:Union[str, None] = None
 #         if cmd.lower() == "login": # F3
-#             # username = F3.login(F15.user)  # validasi user yang login
+#             # username = F3.login(F15.user)  # validasi user yang logi
 #             if username != None:
 #                 main_menu(username)     #masuk ke menu utama
 #                 break
