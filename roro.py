@@ -33,4 +33,4 @@ def ayamberkokok():
         print("Yah, Bandung Bondowoso memenangkan permainan!")
     else:
         print("Roro Jonggrang menangggg!")
-    # Exit program (Harus ada fungsi exit() di proses.py dulu)
+    # Exit program (Harus ada fungsi exit() di proses.py dulu
