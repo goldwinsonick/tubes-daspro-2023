@@ -50,7 +50,6 @@ def load(user: List, candi: List, material: List, bahan_bangunan: List) -> Union
         exit(1)
     return user, candi, material, bahan_bangunan
 
-
 # user, candi,material, bahan_bangunan = load(user, candi,material, bahan_bangunan)
 # print(user, candi, material,bahan_bangunan)
 

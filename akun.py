@@ -1,52 +1,50 @@
 from typing import List, Union, Tuple
-# file = [["Bondowoso", "cintaroro", "bandung_bondowoso"],
-#         ["Roro", "gasukabondo", "roro_jonggrang"]]
+user = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
+        ['Roro', 'gasukabondo', 'roro_jonggransasdg'], None]
 
 
-def login(fileUser: List[List[str]], status_login: bool) -> Union[None, str, bool, Tuple[Union[str, None], bool]]:
+def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]:
     import recursion
-    # Saat masuk ke dalam aplikasi, pengguna bisa login dengan memasukkan username dan password.
-    username: str = input('Masukkan username: ')
-    password: str = input('Masukkan password: ')
-
-    # inisialisasi nilai a = 0 agar saat pengondisian menemukan nilai a = 0 berarti username atau password salah
-    status_username: bool = False
-    status_password: bool = False
-    if status_login == True:
+    # Antisipasi pengguna yang sudah pernah login
+    if username != None:
         print("Login gagal!")
-        print("Anda telah login dengan username Bandung, silahkan lakukan “logout” sebelum melakukan login kembali")
+        print(f"Anda telah login dengan username {username}, silahkan lakukan “logout” sebelum melakukan login kembali")
+
     # Pengecekan data username dan password pada fileUser
     else:
-        for i in range(len(fileUser)):
+        # Saat masuk ke dalam aplikasi, pengguna yang belum login dapat memasukkan username dan password.
+        username: str = input("Username: ")
+        password: str = input("Password: ")
+
+    # inisialisasi status ditemukannya username dan password
+        status_username: bool = False
+        status_password: bool = False
+        # Proses pencariam username dan password pada fileUser
+        for i in range(recursion.length(fileUser)):
             if fileUser[i][0] == username:
                 status_username: bool = True
                 break
-        for i in range(len(fileUser)):
+        for i in range(recursion.length(fileUser)):
             if fileUser[i][1] == password and fileUser[i][0] == username:
                 status_username: bool = True
                 status_password: bool = True
                 break
-
-        # Pengondisian nilai dari id yang telah ada di inisialisasi
+        # Ketika username tidak ditemukan
         if status_username == False:
             print("Username tidak terdaftar!")
             username: None = None
-            return username, status_login
+        # Ketika username ditemukan tapi password tidak ditemukan
         elif status_username == True and status_password == False:
             username: None = None
             print("Password salah!")
-            return username, status_login
+        # Ketika username dan password ditemukan
         else:
-            nama: str = fileUser[i][0]
-            status_login: bool = True
-            print(f'Selamat datang, {nama}!')
+            print(f'Selamat datang, {username}!')
             print("Masukkan command “help” untuk daftar command yang dapat kamu panggil.")
-            return username, status_login
-# while True:
-#     login(file)
+        return username
+# username = login(user)
+# print(username)
 
-# status_login = True
-# username = "Bondowoso"
 def logout(status_login: bool, username: Union[str, None]) -> Union[bool, str, None, Tuple[bool, Union[str, None]]]:
     if status_login == False:
         # Validasi belum kondisi login
@@ -65,7 +63,7 @@ def logout(status_login: bool, username: Union[str, None]) -> Union[bool, str, N
                     return status_login, username
                 elif confirm.lower() == "n":
                     return status_login, username
-                else: # tidak aakan return atau keluar loop karena input yang tidak valid
+                else:  # tidak aakan return atau keluar loop karena input yang tidak valid
                     print("Masukkan input yang sesuai")
         else:
             print("Username Undefined")
