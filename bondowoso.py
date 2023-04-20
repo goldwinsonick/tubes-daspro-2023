@@ -78,7 +78,7 @@ def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Union[List, Tu
     return jin_list, users
 
 
-users = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'], ['Roro', 'gasukabondo', 'roro_jonggransasdg'], None]
+# users = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'], ['Roro', 'gasukabondo', 'roro_jonggransasdg'], None]
 # Skema pengggunaan fungsi summonJin
 # jin_list = [None for i in range(101)]
 # jin_list, users = summonjin(jin_list, users, 100)
@@ -95,97 +95,77 @@ users = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'], ['Roro', 'gasukabondo'
 #     ["jin5", "testing5", "Pengumpul"],
 #     None
 # ]
+# users: List = [
+#     ['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
+#     ['Roro', 'gasukabondo', 'roro_jonggransasdg'],
+#     ["jin1", "testing1", "Pembangun"],
+#     ["jin2", "testing2", "Pembangun"],
+#     ["jin3", "testing3", "Pembangun"],
+#     ["jin4", "testing4", "Pengumpul"],
+#     ["jin5", "testing5", "Pengumpul"],
+#     None
+# ]
 # candi_list: List = [[1, "jin1", 2, 4, 3], [2, "jin2", 2, 4, 3], None]
 # deleted_jin: List = [None for i in range(1)]
 # deleted_candi: List = [None for i in range(1)]
 
 
-def hilangkanjin(jin_list: List, candi_list: List, deleted_jin: List, deleted_candi: List, users) -> Union[List, Tuple[List, List, List, List]]:
+def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Union[List, Tuple[List, List, List, List]]:
     from typing import Union, List
     import recursion
-
+    # inisiasi length arary sebelum dihapus
     length_jin_list: int = recursion.length(jin_list)
     length_candi_list: int = recursion.length(candi_list)
+
     # Meminta user memasukkan username jin yang ingin dihapus
     username: str = input("Masukkan username jin yang ingin dihapus: ")
-
     # Mencari jin dengan username yang sesuai
     jin_index: Union[None, int] = None
     for i in range(length_jin_list):
         if jin_list[i] != None and jin_list[i][0] == username:
             jin_index = i
             break
-
+        
     # Jika jin tidak ditemukan
     if jin_index == None:
         print("Tidak ada jin dengan username tersebut.")
-        return jin_list, candi_list, deleted_jin, deleted_candi, users
+        return jin_list,users, candi_list, deleted_jin, deleted_candi
 
     # Meminta konfirmasi dari user untuk menghapus jin
     confirmation: Union[str, None] = None
     while not (confirmation == "Y" or confirmation == "N"):
-        confirmation = input(
-            "Apakah anda yakin ingin menghapus jin dengan username {} (Y/N)? ".format(username)).upper()
+        confirmation = input(f"Apakah anda yakin ingin menghapus jin dengan username {username} (Y/N)? ").upper()
         if not (confirmation == "Y" or confirmation == "N"):
             print("Pilihan yang dimasukkan tidak valid.")
 
     # Jika user memilih untuk menghapus jin
     if confirmation == "Y":
-        # Menyiapkan skema untuk menambahkan 1 array
-        temp_list_deleted_jin = [None for i in range(
-            recursion.length(deleted_jin)+2)]
-        temp_list_deleted_candi = [None for i in range(
-            recursion.length(deleted_candi)+2)]
-
-        # copy data dari deleted jin sebelumnya
-        for i in range(recursion.length(deleted_jin)):
-            temp_list_deleted_jin[i] = deleted_jin[i]
-
-        # Copy data baru dengan mark baru ke deleted sebelumnya
-        empty_index_array_temp_jin = recursion.findEmptyArrayIndex(
-            temp_list_deleted_jin)
-        temp_list_deleted_jin[empty_index_array_temp_jin] = jin_list[jin_index]
-        deleted_jin = temp_list_deleted_jin
-
-        # Menghapus jin dari jin_list
+        # Memasukkan data jin yang telah dihapus ke sebuah array untuk dapat diundo
+        deleted_jin:List = recursion.appends(deleted_jin,jin_list[jin_index] )
+        # Menghapus jin dari jin_list dengan mengubah nilai menjadi None bukan menghilangkan dari list
         jin_list[jin_index]: Union[List, None] = None
-        users[jin_index+2]: Union[List, None] = None
         recursion.shiftToEnd(jin_list, jin_index, length_jin_list)
-        recursion.shiftToEnd(users, jin_index+2, length_jin_list+2)
+        # Menghapus users jin dari list users
+        users:List = recursion.removes(users, jin_index+2, length_jin_list+2)
 
         # Menghapus candi yang dibuat oleh jin tersebut dari candi_list
         for i in range(recursion.length(candi_list)):
             if candi_list[i] != None and candi_list[i][1] == username:
-                # copy data dari deleted candi sebelumnya
-                for j in range(recursion.length(deleted_candi)):
-                    temp_list_deleted_candi[j] = deleted_candi[j]
-
-                # Copy data dengan mark baru ke deleted sebelumnya
-                empty_index_array_temp_candi = recursion.findEmptyArrayIndex(
-                    temp_list_deleted_candi)
-                temp_list_deleted_candi[empty_index_array_temp_candi] = candi_list[i]
-                deleted_candi = temp_list_deleted_candi
+                # Menambahkan data candi yang telah dibuat jin yang terhapus ke deleted_candi
+                deleted_candi:List = recursion.appends(deleted_candi,candi_list[i])
                 # Menghapus candi dari candi_list
-                # copy data dengan mengurangi 1 index dengan tanpa menyertakan candi_list[i]
-                candi_clear = [None for i in range(length_candi_list)]
-                for k in range(length_candi_list):
-                    if candi_list[k] != candi_list[i]:
-                        candi_clear[k] = candi_list[k]
-
-                candi_list = candi_clear
-
-                recursion.shiftToEnd(candi_list, i, length_candi_list)
+                candi_list:List = recursion.removes(candi_list, candi_list[i],length_candi_list)
         print("Jin telah berhasil dihapus dari alam gaib.")
-        return jin_list, candi_list, deleted_jin, deleted_candi, users
+        return jin_list,users, candi_list, deleted_jin, deleted_candi
     elif confirmation == "N":
-        return jin_list, candi_list, deleted_jin, deleted_candi, users
+        return jin_list,users, candi_list, deleted_jin, deleted_candi
 
 
 # skema penggunaan
-# jin_list, candi_list, deleted_jin, deleted_candi = hilangkanjin(
-#     jin_list, candi_list, deleted_jin, deleted_candi)
-# jin_list, candi_list, deleted_jin, deleted_candi = hilangkanjin(
-#     jin_list, candi_list, deleted_jin, deleted_candi)
+# jin_list, users,candi_list, deleted_jin, deleted_candi = hilangkanjin(
+#     jin_list,users, candi_list, deleted_jin, deleted_candi)
+# jin_list,users, candi_list, deleted_jin, deleted_candi = hilangkanjin(
+#     jin_list,users, candi_list, deleted_jin, deleted_candi)
 # print("jin:", jin_list)
 # print("deleted jin:", deleted_jin)
 # print("candi:", candi_list)

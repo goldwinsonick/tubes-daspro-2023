@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 # Syarat untuk penggunaan semua fungsi dengan parameter array non string
 # 1. arr harus punya mark berupa None
@@ -219,12 +219,14 @@ def appends(arr: list, new_values: List):
     arr = temp_new_arr
     return arr
 
+
 def strips(text):
     new_text = ''
     for i in range(len(text)):
         if text[i] != '\n':
             new_text += text[i]
     return new_text
+
 
 def read_csv(filename, delimiter=';'):
     with open(filename) as file:
@@ -245,7 +247,7 @@ def write_csv(filename, to_write, len_col):
         if rows != 0:
             cols = len_col  # karena jumlah column sama tiap garis
             for i in range(rows):
-                if to_write[i]!=None:
+                if to_write[i] != None:
                     for j in range(cols):
                         file.write(str(to_write[i][j]))
                         if j < cols-1:
@@ -256,22 +258,20 @@ def write_csv(filename, to_write, len_col):
             print("Matriks kosong! Tidak bisa menuliskan file.")
 
 
-def appends(arr: list, new_values: List, start_position = False):
+def appends(arr: list, new_values: List, start_position:bool=False)->List:
     import recursion
-    temp_new_arr = [None for i in range(
-        recursion.length(arr)+2)]
-    if start_position==False:
-    # copy data dari candi_list sebelumnya
+    temp_new_arr = [None for i in range(recursion.length(arr)+2)]
+    if start_position == False:
+        # copy data dari candi_list sebelumnya
         for i in range(recursion.length(arr)):
             temp_new_arr[i] = arr[i]
         # Copy data baru dengan mark baru ke candi_list sebelumnya
-        empty_index_array_temp_arr = recursion.findEmptyArrayIndex(
-            temp_new_arr)
+        empty_index_array_temp_arr = recursion.findEmptyArrayIndex(temp_new_arr)
         temp_new_arr[empty_index_array_temp_arr] = new_values
         # Kembalikan ke candi_list dengan data yang sudah update
         arr = temp_new_arr
     else:
-        for i in range(1,recursion.length(arr)+1):
+        for i in range(1, recursion.length(arr)+1):
             temp_new_arr[i] = arr[i-1]
         # Copy data baru dengan mark baru ke candi_list sebelumnya
         temp_new_arr[0] = new_values
@@ -281,3 +281,15 @@ def appends(arr: list, new_values: List, start_position = False):
 # arr = [None]
 # new_values = "jin"
 # print(appends(arr, new_values))
+
+
+def removes(arr: List, deletedValue: List, lengthInitial: int) -> List:
+    # wadah hasil akhir array yang telah dihapus
+    arr_clear:List = [None for i in range(lengthInitial)]
+    # Copy semua data dari arr kecuali nilai deletedValue ke weadah
+    for k in range(lengthInitial):
+        if arr[k] != deletedValue:
+            arr_clear[k] = arr[k]
+    return arr
+# arr =[2,3,4,5,2,None]
+# print(removes(arr,5,5))
