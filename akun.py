@@ -8,7 +8,8 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
     # Antisipasi pengguna yang sudah pernah login
     if username != None:
         print("Login gagal!")
-        print(f"Anda telah login dengan username {username}, silahkan lakukan “logout” sebelum melakukan login kembali")
+        print(
+            f"Anda telah login dengan username {username}, silahkan lakukan “logout” sebelum melakukan login kembali")
 
     # Pengecekan data username dan password pada fileUser
     else:
@@ -45,29 +46,24 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
 # username = login(user)
 # print(username)
 
-def logout(status_login: bool, username: Union[str, None]) -> Union[bool, str, None, Tuple[bool, Union[str, None]]]:
-    if status_login == False:
+
+def logout(username: Union[str, None]) -> Union[str, None]:
+    if username == None:
         # Validasi belum kondisi login
         print("Logout gagal!")
         print("Anda belum login, silahkan login terlebih dahulu sebelum melakukan logout")
-        return status_login, username
+        return username
     else:
         # Validasi kalo username ga boleh None
-        if username != None:
-            while True:
-                confirm = input("Apakah Anda benar ingin logout (y/n): ")
-                if confirm.lower() == "y":
-                    # Setup ke kondisi unlogin
-                    status_login = False
-                    username = None
-                    return status_login, username
-                elif confirm.lower() == "n":
-                    return status_login, username
-                else:  # tidak aakan return atau keluar loop karena input yang tidak valid
-                    print("Masukkan input yang sesuai")
-        else:
-            print("Username Undefined")
-            return status_login, username
-
-# status_login, username = logout(status_login, username)
-# print(status_login, username)
+        while True:
+            confirm = input("Apakah Anda benar ingin logout (y/n): ")
+            if confirm == "y" or confirm == "Y":
+                # Setup ke kondisi unlogin
+                username = None
+                return username
+            elif confirm == "n" or confirm == "N":
+                return username
+            else:  # tidak akan return atau keluar loop karena input yang tidak valid
+                print("Masukkan input yang sesuai")
+# username = logout(None)
+# print(username)
