@@ -1,5 +1,6 @@
 # List untuk menyimpan jin yang sudah dipanggil
-from typing import List, Union, Tuple, rng
+from typing import List, Union, Tuple
+import rng
 
 
 def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Union[List, Tuple[List, List]]:
@@ -98,11 +99,11 @@ def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Union[List, Tu
 # users: List = [
 #     ['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
 #     ['Roro', 'gasukabondo', 'roro_jonggransasdg'],
-#     ["jin1", "testing1", "Pembangun"],
-#     ["jin2", "testing2", "Pembangun"],
-#     ["jin3", "testing3", "Pembangun"],
-#     ["jin4", "testing4", "Pengumpul"],
-#     ["jin5", "testing5", "Pengumpul"],
+#     ["jin1", "testing1", "jin_pembangun"],
+#     ["jin2", "testing2", "jin_pembangun"],
+#     ["jin3", "testing3", "jin_pembangun"],
+#     ["jin4", "testing4", "jin_pengumpul"],
+#     ["jin5", "testing5", "jin_pengumpul"],
 #     None
 # ]
 # candi_list: List = [[1, "jin1", 2, 4, 3], [2, "jin2", 2, 4, 3], None]
@@ -142,11 +143,11 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
     if confirmation == "Y":
         # Memasukkan data jin yang telah dihapus ke sebuah array untuk dapat diundo
         deleted_jin:List = recursion.appends(deleted_jin,jin_list[jin_index] )
+        # Menghapus users jin dari list users
+        users:List = recursion.removes(users, jin_list[jin_index], length_jin_list+2)
         # Menghapus jin dari jin_list dengan mengubah nilai menjadi None bukan menghilangkan dari list
         jin_list[jin_index]: Union[List, None] = None
         recursion.shiftToEnd(jin_list, jin_index, length_jin_list)
-        # Menghapus users jin dari list users
-        users:List = recursion.removes(users, jin_index+2, length_jin_list+2)
 
         # Menghapus candi yang dibuat oleh jin tersebut dari candi_list
         for i in range(recursion.length(candi_list)):
@@ -170,6 +171,7 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
 # print("deleted jin:", deleted_jin)
 # print("candi:", candi_list)
 # print("deleted candi:", deleted_candi)
+# print(users)
 
 
 def ubahtipejin(jin_list: List, users:List) -> Union[List, Tuple[List, List]]:

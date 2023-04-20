@@ -285,14 +285,21 @@ def appends(arr: list, new_values: List, start_position:bool=False)->List:
 
 def removes(arr: List, deletedValue: List, lengthInitial: int) -> List:
     # wadah hasil akhir array yang telah dihapus
-    arr_clear:List = [None for i in range(lengthInitial)]
-    # Copy semua data dari arr kecuali nilai deletedValue ke weadah
+    arr_clear:List = [None for i in range(lengthInitial)]  
+    # cari index deletedValue dalam array yang pertama kali muncul
+    index = -99
+    for i in range(lengthInitial):
+        if arr != None and arr[i] == deletedValue:
+            index = i
+            break
+    # Copy semua data dari arr kecuali nilai deletedValue ke wadah
     for k in range(lengthInitial):
-        if arr[k] != deletedValue:
+        if k != index:
             arr_clear[k] = arr[k]
+    arr = shiftToEnd(arr_clear, index,lengthInitial)
     return arr
-# arr =[2,3,4,5,2,None]
-# print(removes(arr,5,5))
+# arr=[2,3,4,5,2,None]
+# print(removes(arr,5,6)) 
 
 def outputtipejin(tipe:str) -> str:
     if tipe == "jin_pembangun":
