@@ -219,6 +219,12 @@ def appends(arr: list, new_values: List):
     arr = temp_new_arr
     return arr
 
+def strips(text):
+    new_text = ''
+    for i in range(len(text)):
+        if text[i] != '\n':
+            new_text += text[i]
+    return new_text
 
 def read_csv(filename, delimiter=';'):
     with open(filename) as file:
@@ -228,7 +234,7 @@ def read_csv(filename, delimiter=';'):
             if line_num == 0:
                 line_num += 1
                 continue
-            values = splits(line.strip(), delimiter)
+            values = splits(strips(line), delimiter)
             parse = appends(parse, values)
     return parse
 
