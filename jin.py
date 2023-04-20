@@ -18,7 +18,8 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
         if (mencukupi):
             # Menambah candi baru ke list candi
             new_candi:List = [id, user[0], harga_candi[0], harga_candi[1], harga_candi[2]]
-            candi_list:List = recursion.appends(candi_list, new_candi )
+            candi_list:List = recursion.appends(candi_list, new_candi)
+            id+=1
 
             # Mengurangi bahan bangunan
             for i in range(3):

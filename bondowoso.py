@@ -179,6 +179,7 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
     username: str = input("Masukkan username jin : ")
     length_jin_list: int = recursion.length(jin_list)
     # Mencari jin dengan username yang diinputkan
+    found: bool = False
     for i in range(length_jin_list):
         if jin_list[i] and jin_list[i][0] == username:
             tipe_baru: str = "jin_pembangun" if jin_list[i][2] == "jin_pengumpul" else "jin_pengumpul"
@@ -187,7 +188,9 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
                 jin_list[i][2]: str = tipe_baru
                 users[i+2][2]: str = tipe_baru
                 print("Jin telah berhasil diubah.")
-    print("Tidak ada jin dengan username tersebut.")
+            found = True
+    if not found:
+        print("Tidak ada jin dengan username tersebut.")
     return jin_list, users
 
 # jin_list, users=ubahtipejin(jin_list, users)
@@ -201,13 +204,13 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
 # candi_list = [None for i in range(1)]
 # id =0
 
-jin_list = [["jin1", "laslkdujalkd", "jin_pembangun"], ["jin2", "laslkdujalkd",
-                                                        "jin_pengumpul"], ["jin3", "laslkdujalkd",
-                                                                           "jin_pengumpul"],  ["jin4", "laslkdujalkd",
-                                                                                               "jin_pengumpul"], ["jin5cls", "laslkdujalkd", "jin_pembangun"], None]
-bahan_bangunan = [20, 20, 21]
-candi_list = [None for i in range(1)]
-id = 0
+# jin_list = [["jin1", "laslkdujalkd", "jin_pembangun"], ["jin2", "laslkdujalkd",
+#                                                         "jin_pengumpul"], ["jin3", "laslkdujalkd",
+#                                                                            "jin_pengumpul"],  ["jin4", "laslkdujalkd",
+#                                                                                                "jin_pengumpul"], ["jin5cls", "laslkdujalkd", "jin_pembangun"], None]
+# bahan_bangunan = [20, 20, 21]
+# candi_list = [None for i in range(1)]
+# id = 0
 
 
 def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:

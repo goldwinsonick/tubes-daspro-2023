@@ -8,8 +8,7 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
     # Antisipasi pengguna yang sudah pernah login
     if username != None:
         print("Login gagal!")
-        print(
-            f"Anda telah login dengan username {username}, silahkan lakukan “logout” sebelum melakukan login kembali")
+        print(f"Anda telah login dengan username {username}, silahkan lakukan “logout” sebelum melakukan login kembali")
 
     # Pengecekan data username dan password pada fileUser
     else:
@@ -22,25 +21,26 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
         status_password: bool = False
         # Proses pencariam username dan password pada fileUser
         for i in range(recursion.length(fileUser)):
-            if fileUser[i][0] == username:
+            if fileUser[i][0] == username and fileUser[i] != None:
                 status_username: bool = True
                 break
         for i in range(recursion.length(fileUser)):
-            if fileUser[i][1] == password and fileUser[i][0] == username:
+            if fileUser[i][1] == password and fileUser[i][0] == username and fileUser[i] != None:
                 status_username: bool = True
                 status_password: bool = True
                 break
         # Ketika username tidak ditemukan
         if status_username == False:
             print("Username tidak terdaftar!")
-            username: None = None
+            username = None
         # Ketika username ditemukan tapi password tidak ditemukan
         elif status_username == True and status_password == False:
-            username: None = None
+            username = None
             print("Password salah!")
         # Ketika username dan password ditemukan
         else:
             print(f'Selamat datang, {username}!')
+            print()
             print("Masukkan command “help” untuk daftar command yang dapat kamu panggil.")
         return username
 # username = login(user)

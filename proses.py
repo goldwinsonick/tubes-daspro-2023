@@ -34,9 +34,10 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Tupl
         candi = recursion.read_csv(parents_path + "\\candi.csv")
         material = recursion.read_csv(parents_path + "\\bahan_bangunan.csv")
         for i in range(3):
-            bahan_bangunan[i] = material[i][2]
+            bahan_bangunan[i] = int(material[i][2])
         # bahan_bangunan = [<pasir>,<batu>,<air>]
         # Menyesuaikan dengan data yang telah kita bentuk pada awal
+        print()
         print("Selamat datang di “Manajerial Candi”")
 
         # Aksi ketika nama folder yang dicari tidak ada
@@ -75,8 +76,9 @@ def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None
         recursion.write_csv(abs_path + "\\candi.csv", candi_csv, 4)
     if bahan_bangunan != [None] and material != [None]:
         for i in range(3):
-            material[i][2] = bahan_bangunan[i]
-        recursion.write_csv(abs_path + "\\bahan_bangunan.csv", material,3)
+            material[i][2] = str(bahan_bangunan[i])
+        material_csv: List = recursion.appends(material, ["nama","deskripsi","jumlah"], True)
+        recursion.write_csv(abs_path + "\\bahan_bangunan.csv", material_csv,3)
 # save(user, candi, bahan_bangunan, material)
 
 
@@ -156,4 +158,4 @@ def exit_program(user: List = [None], candi: List = [None], bahan_bangunan: List
             ask = input(
                 "Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n): ")
 # contoh tes penggunaan
-exit_program(user, candi, bahan_bangunan, material)
+# exit_program(user, candi, bahan_bangunan, material)
