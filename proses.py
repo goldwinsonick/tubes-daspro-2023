@@ -20,8 +20,7 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Unio
     import recursion
     # parsing argumen
     parser: argparse.ArgumentParser = argparse.ArgumentParser()
-    parser.add_argument("nama_folder", type=str, nargs="?",
-                        const="", help="Usage: python main.py <nama_folder>")
+    parser.add_argument("nama_folder", type=str, nargs="?", const="", help="Usage: python main.py <nama_folder>")
     args: argparse.Namespace = parser.parse_args()
     directory: Union[None, str] = args.nama_folder
     # Aksi ketika tidak ada nama file yang diberikan
@@ -36,8 +35,7 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Unio
         print("Loading...")
         users = recursion.read_csv(parents_path + "\\user.csv")
         candi = recursion.read_csv(parents_path + "\\candi.csv")
-        material = recursion.read_csv(
-            parents_path + "\\bahan_bangunan.csv")
+        material = recursion.read_csv(parents_path + "\\bahan_bangunan.csv")
         for i in range(3):
             bahan_bangunan[i] = material[i][2]
         # bahan_bangunan = [<pasir>,<batu>,<air>]
