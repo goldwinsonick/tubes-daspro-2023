@@ -88,11 +88,11 @@ def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Union[List, Tu
 # print(jin_list, users)
 
 # jin_list: List = [
-#     ["jin1", "testing1", "Pembangun"],
-#     ["jin2", "testing2", "Pembangun"],
-#     ["jin3", "testing3", "Pembangun"],
-#     ["jin4", "testing4", "Pengumpul"],
-#     ["jin5", "testing5", "Pengumpul"],
+#     ["jin1", "testing1", "jin_pembangun"],
+#     ["jin2", "testing2", "jin_pembangun"],
+#     ["jin3", "testing3", "jin_pembangun"],
+#     ["jin4", "testing4", "jin_pengumpul"],
+#     ["jin5", "testing5", "jin_pengumpul"],
 #     None
 # ]
 # users: List = [
@@ -172,23 +172,21 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
 # print("deleted candi:", deleted_candi)
 
 
-def ubahJin(jin_list: List[List[str]], users):
+def ubahtipejin(jin_list: List, users:List) -> Union[List, Tuple[List, List]]:
     import recursion
     username: str = input("Masukkan username jin : ")
     length_jin_list: int = recursion.length(jin_list)
     # Mencari jin dengan username yang diinputkan
     for i in range(length_jin_list):
         if jin_list[i] and jin_list[i][0] == username:
-            tipe_lama: str = jin_list[i][2]
-            tipe_baru: str = "jin_pembangun" if tipe_lama == "jin_pengumpul" else "jin_pengumpul"
-            confirm: str = input(
-                f"Jin ini bertipe “{tipe_lama}”. Yakin ingin mengubah ke tipe “{tipe_baru}” (Y/N)? ")
-            if confirm.lower() == "y":
+            tipe_baru: str = "jin_pembangun" if jin_list[i][2] == "jin_pengumpul" else "jin_pengumpul"
+            confirm: str = input(f"Jin ini bertipe “{recursion.outputtipejin(jin_list[i][2])}”. Yakin ingin mengubah ke tipe “{recursion.outputtipejin(tipe_baru)}” (Y/N)? ")
+            if confirm == "y" or confirm == "Y":
                 jin_list[i][2]: str = tipe_baru
                 users[i+2][2]: str = tipe_baru
                 print("Jin telah berhasil diubah.")
     print("Tidak ada jin dengan username tersebut.")
     return jin_list, users
 
-# ubahJin(jin_list)
-# print(jin_list)
+# jin_list, users=ubahtipejin(jin_list, users)
+# print(jin_list, users)

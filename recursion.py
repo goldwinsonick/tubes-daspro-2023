@@ -293,3 +293,10 @@ def removes(arr: List, deletedValue: List, lengthInitial: int) -> List:
     return arr
 # arr =[2,3,4,5,2,None]
 # print(removes(arr,5,5))
+
+def outputtipejin(tipe:str) -> str:
+    if tipe == "jin_pembangun":
+        output = "Pembangun"
+    else:
+        output = "Pengumpul"
+    return output
