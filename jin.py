@@ -2,10 +2,11 @@ from typing import List, Tuple, Union
 import rng
 bahan_bangunan = [5, 5, 4]  # bahan_bangunan = [<pasir>, <batu>, <air>]
 candi_list = [None for i in range(1)]
-user = ["jin1", "pass123", "jin_pembangun"]
+user = ["jin1", "pass123", "jin_pengumpul"]
 id = 1
 
 def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, output:bool, id:int)->Union[bool, int, List, Tuple[List, List, List, List, bool, int]]:
+    # parameter otput ada agar dapat digunakan kembali oleh fungsi batchbangun
     import recursion
     if (user[2] == "jin_pembangun"):
         mencukupi:bool = True
@@ -23,7 +24,7 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
             for i in range(3):
                 bahan_bangunan[i] -= harga_candi[i]
 
-            # Setelah Candi terbangun, harga_Candi baru akan digenerate
+            # Setelah Candi terbangun, harga_candi baru akan digenerate
             if output == True:
                 print("Candi berhasil dibangun.")
             banyakCandi:int = 0
@@ -51,18 +52,18 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
 # print(bahan_bangunan, user, candi_list,harga_candi, id)
 
 
-def kumpul(user: List[str], bahan_bangunan: List[int], output):
+def kumpul(user: List, bahan_bangunan: List, output:bool) -> Union[List, bool, Tuple[List, List, bool]]:
     import rng
+    terkumpul = [0,0,0]
     if (user[2] == "jin_pengumpul"):
-        terkumpul = rng.rng(3, 1, 5)
+        terkumpul = rng.rng_solo(3, 1, 5)
         for i in range(3):
             bahan_bangunan[i] += terkumpul[i]
         if output == True:
-            print(str(user[0])+" menemukan "+str(terkumpul[0])+" pasir, " +
-                  str(terkumpul[1])+" batu, "+str(terkumpul[2])+" air.")
+            print(f"{user[0]} menemukan {terkumpul[0]} pasir, {terkumpul[1]} batu, {terkumpul[2]} air.")
     else:
         if output == True:
             print("Hanya jin pengumpul yang dapat menjalankan fungsi kumpul")
     return user, bahan_bangunan, terkumpul
-# user, bahan_bangunan = kumpul(user, bahan_bangunan)
-# print(bahan_bangunan, user, candi_list)
+user, bahan_bangunan, terkumpul = kumpul(user, bahan_bangunan, True)
+print(bahan_bangunan, user, candi_list, terkumpul)
