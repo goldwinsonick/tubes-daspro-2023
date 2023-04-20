@@ -1,20 +1,17 @@
-# user = [['username', 'password', 'role'], ['Bondowoso', 'cintaroro', 'bandung_bondowoso'], ['Roro', 'gasukabondo', 'roro_jonggransasdg']]
-# candi = [['id', 'pembuat', 'pasir', 'batu', 'air'], [1,"skjhd",2,3,4]]
-# bahan_bangunan = [['nama', 'deskripsi', 'jumlah'],["Sadasd","dasdasd",2]]
+
 from typing import Union, List, Tuple
 # user = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
-#         ['Roro', 'gasukabondo', 'roro_jonggransasdg'], None]
+#         ['Roro', 'gasukabondo', 'roro_jonggrag'], None]
 # candi = [[1, "skjhd", 2, 3, 4], None]
-# bahan_bangunan = [['nama', 'deskripsi', 'jumlah'],["Sadasd","dasdasd",2]]
+# material = [['pasir', 'bahan bangunan pasir', '0'], ['batu', 'bahan bangunan batu', '0'], ['air', 'bahan bangunan air', '0'], None]
+# bahan_bangunan = [3,2,1]
+# user = [None]
+# candi = [None]
+# material = [None]
+# bahan_bangunan = [None, None, None]
 
 
-user = [None]
-candi = [None]
-material = [None]
-bahan_bangunan = [None, None, None]
-
-
-def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Union[Tuple[List, List, List], List]:
+def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Tuple[List, List, List]:
     import argparse
     import os
     import recursion
@@ -52,22 +49,11 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Unio
 # print(user, candi, material,bahan_bangunan)
 
 
-def save(user: Union[None, str] = None, candi: Union[None, str] = None) -> None:
+def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None], material: List = [None]) -> None:
     import os
     import recursion
-    # ** Mekanisme convert list into csv
     folder: str = input("Masukkan nama folder: ")
-    abs_path: str = os.getcwd() + "\\" + folder
-    if user != None:
-        user_csv: List = recursion.appends(
-            user, ["username", "password", "role"], True)
-        recursion.write_csv(abs_path + "\\user.csv", user_csv, 3)
-    if candi != None:
-        candi_csv: List = recursion.appends(
-            candi, ["id", "pembuat", "pasir", "batu", "air"], True)
-        recursion.write_csv(abs_path + "\\candi.csv", candi_csv, 4)
-    # if bahan_bangunan != None:
-    #     recursion.write_csv(abs_path + "\\bahan_bangunan.csv", bahan_bangunan)
+    abs_path: str = os.getcwd() + "\save\\" + folder
     # ** Mekanisme simpan dalam folder spesifik
     folder_path: str = os.path.join("save", folder)
     print("Saving...")
@@ -80,9 +66,19 @@ def save(user: Union[None, str] = None, candi: Union[None, str] = None) -> None:
         os.makedirs(folder_path)
         print(f"Membuat folder {folder_path}...")
     print("Berhasil menyimpan data di folder " + folder_path + "!")
+    # ** Mekanisme convert list into csv
+    if user != [None]:
+        user_csv: List = recursion.appends(user, ["username", "password", "role"], True)
+        recursion.write_csv(abs_path + "\\user.csv", user_csv, 3)
+    if candi != [None]:
+        candi_csv: List = recursion.appends(candi, ["id", "pembuat", "pasir", "batu", "air"], True)
+        recursion.write_csv(abs_path + "\\candi.csv", candi_csv, 4)
+    if bahan_bangunan != [None] and material != [None]:
+        for i in range(3):
+            material[i][2] = bahan_bangunan[i]
+        recursion.write_csv(abs_path + "\\bahan_bangunan.csv", material,3)
+# save(user, candi, bahan_bangunan, material)
 
-
-# save(user, candi)
 
 def help(role: Union[str, None]) -> None:
     print("=========== HELP ===========")
@@ -146,13 +142,12 @@ def help(role: Union[str, None]) -> None:
 # contoh tes penggunaan
 # help("bandung_bondowoso")
 
-
-def exit_program(user: Union[None, str] = None, candi: Union[None, str] = None, bahan_bangunan: Union[None, str] = None) -> None:
+def exit_program(user: List = [None], candi: List = [None], bahan_bangunan: List = [None], material: List = [None]) -> None:
     ask: str = input(
         "Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n): ")
     # Validasi input
     if ask == "y" or ask == "Y":
-        save(user, candi)
+        save(user, candi, bahan_bangunan, material)
         exit(1)
     elif ask == "n" or ask == "N":
         exit(1)
@@ -161,4 +156,4 @@ def exit_program(user: Union[None, str] = None, candi: Union[None, str] = None, 
             ask = input(
                 "Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n): ")
 # contoh tes penggunaan
-# exit_program()
+exit_program(user, candi, bahan_bangunan, material)

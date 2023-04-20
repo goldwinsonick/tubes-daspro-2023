@@ -5,7 +5,7 @@ candi_list = [None for i in range(1)]
 user = ["jin1", "pass123", "jin_pengumpul"]
 id = 1
 
-def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, output:bool, id:int)->Union[bool, int, List, Tuple[List, List, List, List, bool, int]]:
+def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, output:bool, id:int) -> Tuple[List, List, List, List, bool, int]:
     # parameter otput ada agar dapat digunakan kembali oleh fungsi batchbangun
     import recursion
     if (user[2] == "jin_pembangun"):
@@ -52,7 +52,7 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
 # print(bahan_bangunan, user, candi_list,harga_candi, id)
 
 
-def kumpul(user: List, bahan_bangunan: List, output:bool) -> Union[List, bool, Tuple[List, List, bool]]:
+def kumpul(user: List, bahan_bangunan: List, output:bool) -> Tuple[List, List, bool]:
     import rng
     terkumpul = [0,0,0]
     if (user[2] == "jin_pengumpul"):

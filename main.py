@@ -5,7 +5,6 @@ import jin
 import roro
 import rng
 import recursion
-import batch
 import akun
 from typing import Union, List
 

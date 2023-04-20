@@ -3,7 +3,7 @@ from typing import List, Union, Tuple
 import rng
 
 
-def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Union[List, Tuple[List, List]]:
+def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Tuple[List, List]:
     import recursion
     # Find index yang mau diiisi sama jin baru
     index: int = recursion.findEmptyArrayIndex(jin_list)
@@ -111,7 +111,7 @@ def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Union[List, Tu
 # deleted_candi: List = [None for i in range(1)]
 
 
-def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Union[List, Tuple[List, List, List, List]]:
+def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Tuple[List, List, List, List]:
     from typing import Union, List
     import recursion
     # inisiasi length arary sebelum dihapus
@@ -174,7 +174,7 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
 # print(users)
 
 
-def ubahtipejin(jin_list: List, users:List) -> Union[List, Tuple[List, List]]:
+def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
     import recursion
     username: str = input("Masukkan username jin : ")
     length_jin_list: int = recursion.length(jin_list)
