@@ -14,7 +14,7 @@ material = [None]
 bahan_bangunan = [None, None, None]
 
 
-def load(user: List, candi: List, material: List, bahan_bangunan: List) -> Union[Tuple[List, List, List], List]:
+def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Union[Tuple[List, List, List], List]:
     import argparse
     import os
     import recursion
@@ -34,7 +34,7 @@ def load(user: List, candi: List, material: List, bahan_bangunan: List) -> Union
     # Validasi ketika ditemukan nama folder terkait
     if os.path.isdir(parents_path):
         print("Loading...")
-        user = recursion.read_csv(parents_path + "\\user.csv")
+        users = recursion.read_csv(parents_path + "\\user.csv")
         candi = recursion.read_csv(parents_path + "\\candi.csv")
         material = recursion.read_csv(
             parents_path + "\\bahan_bangunan.csv")
@@ -48,7 +48,7 @@ def load(user: List, candi: List, material: List, bahan_bangunan: List) -> Union
     else:
         print(f'Folder "{directory}" tidak ditemukan.')
         exit(1)
-    return user, candi, material, bahan_bangunan
+    return users, candi, material, bahan_bangunan
 
 # user, candi,material, bahan_bangunan = load(user, candi,material, bahan_bangunan)
 # print(user, candi, material,bahan_bangunan)

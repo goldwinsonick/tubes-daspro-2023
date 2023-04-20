@@ -278,4 +278,6 @@ def appends(arr: list, new_values: List, start_position = False):
         # Kembalikan ke candi_list dengan data yang sudah update
         arr = temp_new_arr
     return arr
-    
+# arr = [None]
+# new_values = "jin"
+# print(appends(arr, new_values))
