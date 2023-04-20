@@ -48,7 +48,7 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
             print("Hanya jin pembangun yang dapat menjalankan fungsi bangun")
     return bahan_bangunan, user, candi_list, harga_candi, id
 
-# bahan_bangunan, user, candi_list, harga_candi, id = bangun(bahan_bangunan, user, candi_list, rng.rng_solo(3, 1, 5), True, id)
+# bahan_bangunan, user, candi_list, harga_candi, id = bangun(bahan_bangunan, user, candi_list, rng.rng(3, 1, 5), True, id)
 # print(bahan_bangunan, user, candi_list,harga_candi, id)
 
 
@@ -56,7 +56,7 @@ def kumpul(user: List, bahan_bangunan: List, output:bool) -> Union[List, bool, T
     import rng
     terkumpul = [0,0,0]
     if (user[2] == "jin_pengumpul"):
-        terkumpul = rng.rng_solo(3, 1, 5)
+        terkumpul = rng.rng(3, 1, 5)
         for i in range(3):
             bahan_bangunan[i] += terkumpul[i]
         if output == True:
@@ -65,5 +65,5 @@ def kumpul(user: List, bahan_bangunan: List, output:bool) -> Union[List, bool, T
         if output == True:
             print("Hanya jin pengumpul yang dapat menjalankan fungsi kumpul")
     return user, bahan_bangunan, terkumpul
-user, bahan_bangunan, terkumpul = kumpul(user, bahan_bangunan, True)
-print(bahan_bangunan, user, candi_list, terkumpul)
+# user, bahan_bangunan, terkumpul = kumpul(user, bahan_bangunan, True)
+# print(bahan_bangunan, user, candi_list, terkumpul)

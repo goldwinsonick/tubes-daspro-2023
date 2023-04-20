@@ -11,27 +11,18 @@ def LCG(seed):
 
 def rng(num, fr, to):
     global CURRENT_SEED
-    numbers = [None for i in range(num)]
-    for i in range(num):
-        CURRENT_SEED = LCG(CURRENT_SEED)
-        number = fr + (CURRENT_SEED % (to-fr+1))
-        numbers[i] = number
-    return numbers
-
-
-def rng_solo(num, fr, to):
     import time
-    seed = int(time.time() * 1000) # ambil waktu saat ini dalam milidetik sebagai seed
+    seed = int(time.time() * 1000)
     numbers = [None for i in range(num)]
     for i in range(num):
-        seed = LCG(seed)
-        number = fr + (seed % (to-fr+1))
+        CURRENT_SEED = LCG(CURRENT_SEED*seed)
+        number = fr + (CURRENT_SEED*seed % (to-fr+1))
         numbers[i] = number
     return numbers
+
+
 
 # Fungsi untuk tes distribusi angka yang muncul dari LCG RNG
-
-
 def testRNG(a, b, N):
     arr = [0 for i in range(b+1)]
     for i in range(N):
