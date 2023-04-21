@@ -8,6 +8,7 @@ id = 1
 def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, output:bool, id:int) -> Tuple[List, List, List, List, bool, int]:
     # parameter otput ada agar dapat digunakan kembali oleh fungsi batchbangun
     import recursion
+    recursion.delay(0.5)
     if (user[2] == "jin_pembangun"):
         mencukupi:bool = True
         # Checking apakah bahan bangunan mencukupi untuk dibuat candi
@@ -49,12 +50,9 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
             print("Hanya jin pembangun yang dapat menjalankan fungsi bangun")
     return bahan_bangunan, user, candi_list, harga_candi, id
 
-# bahan_bangunan, user, candi_list, harga_candi, id = bangun(bahan_bangunan, user, candi_list, rng.rng(3, 1, 5), True, id)
-# print(bahan_bangunan, user, candi_list,harga_candi, id)
-
-
 def kumpul(user: List, bahan_bangunan: List, output:bool) -> Tuple[List, List, bool]:
-    import rng
+    import rng, recursion
+    recursion.delay(0.5)
     terkumpul = [0,0,0]
     if (user[2] == "jin_pengumpul"):
         terkumpul = rng.rng(3, 1, 5)
@@ -66,5 +64,3 @@ def kumpul(user: List, bahan_bangunan: List, output:bool) -> Tuple[List, List, b
         if output == True:
             print("Hanya jin pengumpul yang dapat menjalankan fungsi kumpul")
     return user, bahan_bangunan, terkumpul
-# user, bahan_bangunan, terkumpul = kumpul(user, bahan_bangunan, True)
-# print(bahan_bangunan, user, candi_list, terkumpul)

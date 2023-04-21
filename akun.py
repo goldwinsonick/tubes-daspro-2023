@@ -1,12 +1,11 @@
-from typing import List, Union, Tuple
-user = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
-        ['Roro', 'gasukabondo', 'roro_jonggransasdg'], None]
-
-
+from typing import List, Union
+import time
 def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]:
     import recursion
+
     # Antisipasi pengguna yang sudah pernah login
     if username != None:
+        recursion.delay(0.1)
         print("Login gagal!")
         print(f"Anda telah login dengan username {username}, silahkan lakukan “logout” sebelum melakukan login kembali")
 
@@ -15,6 +14,8 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
         # Saat masuk ke dalam aplikasi, pengguna yang belum login dapat memasukkan username dan password.
         username: str = input("Username: ")
         password: str = input("Password: ")
+        recursion.delay(0.1)
+
 
     # inisialisasi status ditemukannya username dan password
         status_username: bool = False
@@ -39,15 +40,15 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
             print("Password salah!")
         # Ketika username dan password ditemukan
         else:
+            recursion.clear()
             print(f'Selamat datang, {username}!')
             print()
             print("Masukkan command “help” untuk daftar command yang dapat kamu panggil.")
         return username
-# username = login(user)
-# print(username)
-
 
 def logout(username: Union[str, None]) -> Union[str, None]:
+    import recursion
+    recursion.delay(1.2)
     if username == None:
         # Validasi belum kondisi login
         print("Logout gagal!")
@@ -58,12 +59,12 @@ def logout(username: Union[str, None]) -> Union[str, None]:
         while True:
             confirm = input("Apakah Anda benar ingin logout (y/n): ")
             if confirm == "y" or confirm == "Y":
+                recursion.clear()
                 # Setup ke kondisi unlogin
                 username = None
                 return username
             elif confirm == "n" or confirm == "N":
+                recursion.clear()
                 return username
             else:  # tidak akan return atau keluar loop karena input yang tidak valid
                 print("Masukkan input yang sesuai")
-# username = logout(None)
-# print(username)
