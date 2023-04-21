@@ -1,47 +1,70 @@
-def bangun():
-    import main
-    import rng
-    if(main.user[2] == "jin_pembangun"):
-        mencukupi = True
+from typing import List, Tuple, Union
+import rng
+bahan_bangunan = [5, 5, 4]  # bahan_bangunan = [<pasir>, <batu>, <air>]
+candi_list = [None for i in range(1)]
+user = ["jin1", "pass123", "jin_pengumpul"]
+id = 1
+
+def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, output:bool, id:int) -> Tuple[List, List, List, List, bool, int]:
+    # parameter otput ada agar dapat digunakan kembali oleh fungsi batchbangun
+    import recursion
+    if (user[2] == "jin_pembangun"):
+        mencukupi:bool = True
+        # Checking apakah bahan bangunan mencukupi untuk dibuat candi
         for i in range(3):
-            if(main.harga_candi[i] > main.bahan_bangunan[i]):
+            if (harga_candi[i] > bahan_bangunan[i]):
                 mencukupi = False
-        if(mencukupi):
-            # Menambah candi
-            for i in range(100):
-                if(main.candi[i] ==  None):
-                    main.candi[i] = [i, main.user[0], main.harga_candi[0], main.harga_candi[1], main.harga_candi[2]]
-                    break
-            # jika dari index 0 dan 99 tidak ditemukan slot kosong, maka kode tetap jalan dan tidak menambah candi
-            # sesuai dengan spesifikasi
+        # aksi ketika bahan bangunan cukup
+        if (mencukupi):
+            # Menambah candi baru ke list candi
+            new_candi:List = [id, user[0], harga_candi[0], harga_candi[1], harga_candi[2]]
+            candi_list:List = recursion.appends(candi_list, new_candi)
+            id+=1
 
             # Mengurangi bahan bangunan
             for i in range(3):
-                main.bahan_bangunan[i] -= main.harga_candi[i]
+                bahan_bangunan[i] -= harga_candi[i]
 
-            # Setelah Candi terbangun, harga_Candi baru akan digenerate
-            for i in range(3):
-                main.harga_candi[i] = rng.rng(1,5)
-            print("Candi berhasil dibangun.")
-            banyakCandi = 0
-            for i in range(100):
-                if(main.candi[i] != None):
-                    banyakCandi+=1
-            print("Sisa candi yang perlu dibangun : " + str(100-banyakCandi))
-            
+            # Setelah Candi terbangun, harga_candi baru akan digenerate
+            if output == True:
+                print("Candi berhasil dibangun.")
+            banyakCandi:int = 0
+            for i in range(recursion.length(candi_list)):
+                if (candi_list[i] != None):
+                    banyakCandi += 1
+            if banyakCandi < 100:
+                if output == True:
+                    print("Sisa candi yang perlu dibangun : " + str(100-banyakCandi))
+            else:
+                if output == True:
+                    print("100 Candi sudah terbangun")
+        # Kasus tidak cukup bahannya
         else:
-            print("Bahan bangunan tidak mencukupi.")
-            print("Candi tidak bisa dibangun!")
+            if output == True:
+                print("Bahan bangunan tidak mencukupi.")
+                print("Candi tidak bisa dibangun!")
+    # Kasus bukan jin pembangun
     else:
-        print("Hanya jin pembangun yang dapat menjalankan fungsi bangun")
+        if output == True:
+            print("Hanya jin pembangun yang dapat menjalankan fungsi bangun")
+    return bahan_bangunan, user, candi_list, harga_candi, id
 
-def kumpul():
-    import main
+# bahan_bangunan, user, candi_list, harga_candi, id = bangun(bahan_bangunan, user, candi_list, rng.rng(3, 1, 5), True, id)
+# print(bahan_bangunan, user, candi_list,harga_candi, id)
+
+
+def kumpul(user: List, bahan_bangunan: List, output:bool) -> Tuple[List, List, bool]:
     import rng
-    if(main.user[2] == "jin_pengumpul"):
-        terkumpul = [rng.rng(0,5), rng.rng(0,5), rng.rng(0,5)]
+    terkumpul = [0,0,0]
+    if (user[2] == "jin_pengumpul"):
+        terkumpul = rng.rng(3, 1, 5)
         for i in range(3):
-            main.bahan_bangunan[i] += terkumpul[i]
-        print("Jin menemukan "+str(terkumpul[0])+" pasir, "+str(terkumpul[1])+" batu, "+str(terkumpul[2])+" air.")
+            bahan_bangunan[i] += terkumpul[i]
+        if output == True:
+            print(f"{user[0]} menemukan {terkumpul[0]} pasir, {terkumpul[1]} batu, {terkumpul[2]} air.")
     else:
-        print("Hanya jin pengumpul yang dapat menjalankan fungsi kumpul")
+        if output == True:
+            print("Hanya jin pengumpul yang dapat menjalankan fungsi kumpul")
+    return user, bahan_bangunan, terkumpul
+# user, bahan_bangunan, terkumpul = kumpul(user, bahan_bangunan, True)
+# print(bahan_bangunan, user, candi_list, terkumpul)
