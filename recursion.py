@@ -69,7 +69,6 @@ def isDigit(string: str, i: int = 0) -> bool:
 # Params kedua tidaklah wajib,
 # Params lengthArray jika panjang array sudah diketahui secara eksplisit
 def tail(arr: List, index: int = 1, lengthArray: int = -1) -> None:
-    from typing import List
     new_array: List = [None for i in range(length(arr, lengthArray))]
     if length(arr, lengthArray) == 0:
         return arr
@@ -89,7 +88,6 @@ def tail(arr: List, index: int = 1, lengthArray: int = -1) -> None:
 # Params kedua tidaklah wajib,
 # Params lengthArray jika panjang array sudah diketahui secara eksplisit
 def init(arr: List, index=1, lengthArray: int = -1) -> None:
-    from typing import List
     new_array: List = [None for i in range(index)]
     if length(arr, lengthArray) == 0:
         return arr
@@ -109,7 +107,6 @@ def init(arr: List, index=1, lengthArray: int = -1) -> None:
 
 
 def tail_string(string: str, index: int) -> str:
-    from typing import List, Union
     new_string: Union[List, str] = [None for i in range((len(string))-index)]
     if len(string) <= 1:
         return string
@@ -127,7 +124,6 @@ def tail_string(string: str, index: int) -> str:
 
 
 def init_string(string: str, index: int) -> str:
-    from typing import List, Union
     new_string: Union[List, str] = [None for i in range(index)]
     if len(string) <= 1:
         return string
@@ -189,7 +185,6 @@ def sorts(array: List, lengthArray: int = -1) -> List:
 # Fungsi ini ketika digunakan wajib menyertakan semua parameter
 # fungsi ini akan mengembalikan array dengan memindahkan array index tertentu ke bagian akhir atau index -1
 def shiftToEnd(arr: List, index: int, arrayLength: int) -> List:
-    from typing import Union
     arr_len: int = length(arr, arrayLength)
     # Jika index di luar range array atau sudah di ujung kanan, langsung return pesan kesalahan
     if index < 0 or index >= arr_len:
@@ -206,44 +201,43 @@ def shiftToEnd(arr: List, index: int, arrayLength: int) -> List:
 
 
 def appends(arr: list, new_values: List):
-    temp_new_arr = [None for i in range(
-        length(arr)+2)]
-    # copy data dari candi_list sebelumnya
+    temp_new_arr:List = [None for i in range(length(arr)+2)]
+    # copy data dari arr sebelumnya
     for i in range(length(arr)):
         temp_new_arr[i] = arr[i]
-    # Copy data baru dengan mark baru ke candi_list sebelumnya
-    empty_index_array_temp_arr = findEmptyArrayIndex(
+    # Copy data baru dengan mark baru ke arr sebelumnya
+    empty_index_array_temp_arr:int = findEmptyArrayIndex(
         temp_new_arr)
     temp_new_arr[empty_index_array_temp_arr] = new_values
-    # Kembalikan ke candi_list dengan data yang sudah update
-    arr = temp_new_arr
+    # Kembalikan ke arr dengan data yang sudah update
+    arr:List = temp_new_arr
     return arr
 
 
-def strips(text):
-    new_text = ''
+def strips(text:str) -> str:
+    new_text:str = ''
     for i in range(len(text)):
         if text[i] != '\n':
             new_text += text[i]
     return new_text
 
 
-def read_csv(filename, delimiter=';'):
+def read_csv(filename:str, delimiter:str=';') -> List:
     with open(filename) as file:
-        parse = [None]
-        line_num = 0
+        parse:List = [None]
+        line_num:int = 0
         for line in file:
             if line_num == 0:
                 line_num += 1
                 continue
-            values = splits(strips(line), delimiter)
-            parse = appends(parse, values)
+            values:List = splits(strips(line), delimiter)
+            parse:List = appends(parse, values)
     return parse
 
 
-def write_csv(filename, to_write, len_col):
+def write_csv(filename:str, to_write:Union[str, None], len_col:int) -> None:
     with open(filename, "w") as file:
-        rows = length(to_write)
+        rows:int = length(to_write)
         if rows != 0:
             cols = len_col  # karena jumlah column sama tiap garis
             for i in range(rows):
@@ -258,25 +252,24 @@ def write_csv(filename, to_write, len_col):
             print("Matriks kosong! Tidak bisa menuliskan file.")
 
 
-def appends(arr: list, new_values: List, start_position:bool=False)->List:
-    import recursion
-    temp_new_arr = [None for i in range(recursion.length(arr)+2)]
+def appends(arr: list, new_values: List, start_position: bool = False) -> List:
+    temp_new_arr:List = [None for i in range(length(arr)+2)]
     if start_position == False:
-        # copy data dari candi_list sebelumnya
-        for i in range(recursion.length(arr)):
+        # copy data dari array sebelumnya
+        for i in range(length(arr)):
             temp_new_arr[i] = arr[i]
-        # Copy data baru dengan mark baru ke candi_list sebelumnya
-        empty_index_array_temp_arr = recursion.findEmptyArrayIndex(temp_new_arr)
+        # Copy data baru dengan mark baru ke array sebelumnya
+        empty_index_array_temp_arr = findEmptyArrayIndex(temp_new_arr)
         temp_new_arr[empty_index_array_temp_arr] = new_values
-        # Kembalikan ke candi_list dengan data yang sudah update
+        # Kembalikan ke array dengan data yang sudah update
         arr = temp_new_arr
     else:
-        for i in range(1, recursion.length(arr)+1):
+        for i in range(1, length(arr)+1):
             temp_new_arr[i] = arr[i-1]
         # Copy data baru dengan mark baru ke candi_list sebelumnya
         temp_new_arr[0] = new_values
         # Kembalikan ke candi_list dengan data yang sudah update
-        arr = temp_new_arr
+        arr :List= temp_new_arr
     return arr
 # arr = [None]
 # new_values = "jin"
@@ -285,9 +278,9 @@ def appends(arr: list, new_values: List, start_position:bool=False)->List:
 
 def removes(arr: List, deletedValue: List, lengthInitial: int) -> List:
     # wadah hasil akhir array yang telah dihapus
-    arr_clear:List = [None for i in range(lengthInitial)]  
+    arr_clear: List = [None for i in range(lengthInitial)]
     # cari index deletedValue dalam array yang pertama kali muncul
-    index = -99
+    index:int = -99
     for i in range(lengthInitial):
         if arr != None and arr[i] == deletedValue:
             index = i
@@ -296,14 +289,29 @@ def removes(arr: List, deletedValue: List, lengthInitial: int) -> List:
     for k in range(lengthInitial):
         if k != index:
             arr_clear[k] = arr[k]
-    arr = shiftToEnd(arr_clear, index,lengthInitial)
+    arr:List = shiftToEnd(arr_clear, index, lengthInitial)
     return arr
-# arr=[2,3,4,5,2,None]
-# print(removes(arr,5,6)) 
+# arr=[2,3,5,5,2,None]
+# arr = removes(arr,5,6)
+# arr =removes(arr,5,6)
+# print()
+# print(arr)
 
-def outputtipejin(tipe:str) -> str:
+# Handle output untuk role tipe jin
+def outputtipejin(tipe: str) -> str:
+    output:str = ""
     if tipe == "jin_pembangun":
         output = "Pembangun"
     else:
         output = "Pengumpul"
     return output
+
+
+def clear() -> None:
+    import os
+    os.system('cls')
+
+
+def delay(seconds: int) -> None:
+    import time
+    time.sleep(seconds)

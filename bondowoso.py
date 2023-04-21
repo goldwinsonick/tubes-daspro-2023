@@ -1,10 +1,9 @@
-# List untuk menyimpan jin yang sudah dipanggil
 from typing import List, Union, Tuple
 import rng
 
-
-def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Tuple[List, List]:
+def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100) -> Tuple[List, List]:
     import recursion
+    recursion.delay(0.8)
     # Find index yang mau diiisi sama jin baru
     index: int = recursion.findEmptyArrayIndex(jin_list)
     # Aksi ketika tidak ditemukan tempat untuk jin baru alias udah max
@@ -48,7 +47,7 @@ def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Tuple[List, Li
         # Aksi untuk input username
         while not username:
             username = input("Masukkan username jin: ")
-        # Aksi ketika sudah terdapat username yang sama pada list
+        # Aksi ketika sudah terdapat username yang sama pada list jin
             exists: bool = False
             for i in range(recursion.length(existing_usernames)):
                 if existing_usernames[i] == username:
@@ -57,6 +56,19 @@ def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Tuple[List, Li
             if exists:
                 print(f'Username "{username}" sudah diambil!')
                 username = None
+        # Aksi ketika sudah terdapat username yang sama pada jin yang sudah terhapus yang kemungkinan bisa diundo
+        # Menyimpan username yang sudah ada dalam jin_list
+        existing_usernames_deleted: List[str] = [None for i in range(recursion.length(deleted_jin)+1)]
+        for i in range(recursion.length(deleted_jin)):
+            existing_usernames_deleted[i] = deleted_jin[i][0]
+            exists_deleted: bool = False
+            for i in range(recursion.length(existing_usernames_deleted)):
+                if existing_usernames_deleted[i] == username:
+                    exists_deleted = True
+                    break
+            if exists_deleted:
+                print(f'Username "{username}" sudah pernah anda PHK, silakan undo')
+                username = None
         # Validasi password 5-25 character
         while not password or len(password) < 5 or len(password) > 25:
             password = input("Masukkan password jin: ")
@@ -64,9 +76,11 @@ def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Tuple[List, Li
                 print("Password panjangnya harus 5-25 karakter!")
 
         # Menampilkan pesan bahwa jin sedang dipanggil
+        recursion.delay(1)
         print("Mengumpulkan sesajen...")
         print("Menyerahkan sesajen...")
         print("Membacakan mantra...")
+        recursion.delay(1)
 
         # Menambahkan jin ke dalam daftar jin yang sudah dipanggil
         jin: List = [username, password,'jin_pengumpul' if jenis_jin == "1" else 'jin_pembangun']
@@ -76,44 +90,12 @@ def summonjin(jin_list: List, users: List, jin_max: int = 100) -> Tuple[List, Li
 
         # Menampilkan pesan bahwa jin berhasil dipanggil
         print(f'Jin "{username}" berhasil dipanggil!')
-    return jin_list, users
-
-
-# users = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'], ['Roro', 'gasukabondo', 'roro_jonggransasdg'], None]
-# Skema pengggunaan fungsi summonJin
-# jin_list = [None for i in range(101)]
-# jin_list, users = summonjin(jin_list, users, 100)
-# print(jin_list, users)
-# jin_list, users = summonjin(jin_list, users, 100)
-# jin_list, users = summonjin(jin_list, users, 100)
-# print(jin_list, users)
-
-# jin_list: List = [
-#     ["jin1", "testing1", "jin_pembangun"],
-#     ["jin2", "testing2", "jin_pembangun"],
-#     ["jin3", "testing3", "jin_pembangun"],
-#     ["jin4", "testing4", "jin_pengumpul"],
-#     ["jin5", "testing5", "jin_pengumpul"],
-#     None
-# ]
-# users: List = [
-#     ['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
-#     ['Roro', 'gasukabondo', 'roro_jonggransasdg'],
-#     ["jin1", "testing1", "jin_pembangun"],
-#     ["jin2", "testing2", "jin_pembangun"],
-#     ["jin3", "testing3", "jin_pembangun"],
-#     ["jin4", "testing4", "jin_pengumpul"],
-#     ["jin5", "testing5", "jin_pengumpul"],
-#     None
-# ]
-# candi_list: List = [[1, "jin1", 2, 4, 3], [2, "jin2", 2, 4, 3], None]
-# deleted_jin: List = [None for i in range(1)]
-# deleted_candi: List = [None for i in range(1)]
-
+    return jin_list, users, deleted_jin
 
 def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Tuple[List, List, List, List]:
     from typing import Union, List
     import recursion
+    recursion.delay(0.8)
     # inisiasi length arary sebelum dihapus
     length_jin_list: int = recursion.length(jin_list)
     length_candi_list: int = recursion.length(candi_list)
@@ -126,7 +108,8 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
         if jin_list[i] != None and jin_list[i][0] == username:
             jin_index = i
             break
-        
+
+    recursion.delay(0.8)
     # Jika jin tidak ditemukan
     if jin_index == None:
         print("Tidak ada jin dengan username tersebut.")
@@ -148,7 +131,7 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
         # Menghapus jin dari jin_list dengan mengubah nilai menjadi None bukan menghilangkan dari list
         jin_list[jin_index]: Union[List, None] = None
         recursion.shiftToEnd(jin_list, jin_index, length_jin_list)
-
+        recursion.delay(0.8)
         # Menghapus candi yang dibuat oleh jin tersebut dari candi_list
         for i in range(recursion.length(candi_list)):
             if candi_list[i] != None and candi_list[i][1] == username:
@@ -161,22 +144,11 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
     elif confirmation == "N":
         return jin_list,users, candi_list, deleted_jin, deleted_candi
 
-
-# skema penggunaan
-# jin_list, users,candi_list, deleted_jin, deleted_candi = hilangkanjin(
-#     jin_list,users, candi_list, deleted_jin, deleted_candi)
-# jin_list,users, candi_list, deleted_jin, deleted_candi = hilangkanjin(
-#     jin_list,users, candi_list, deleted_jin, deleted_candi)
-# print("jin:", jin_list)
-# print("deleted jin:", deleted_jin)
-# print("candi:", candi_list)
-# print("deleted candi:", deleted_candi)
-# print(users)
-
-
 def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
     import recursion
+    recursion.delay(0.8)
     username: str = input("Masukkan username jin : ")
+    recursion.delay(0.8)
     length_jin_list: int = recursion.length(jin_list)
     # Mencari jin dengan username yang diinputkan
     found: bool = False
@@ -185,6 +157,7 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
             tipe_baru: str = "jin_pembangun" if jin_list[i][2] == "jin_pengumpul" else "jin_pengumpul"
             confirm: str = input(f"Jin ini bertipe “{recursion.outputtipejin(jin_list[i][2])}”. Yakin ingin mengubah ke tipe “{recursion.outputtipejin(tipe_baru)}” (Y/N)? ")
             if confirm == "y" or confirm == "Y":
+                recursion.delay(0.8)
                 jin_list[i][2]: str = tipe_baru
                 users[i+2][2]: str = tipe_baru
                 print("Jin telah berhasil diubah.")
@@ -193,29 +166,10 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
         print("Tidak ada jin dengan username tersebut.")
     return jin_list, users
 
-# jin_list, users=ubahtipejin(jin_list, users)
-# print(jin_list, users)
-
-# jin_list = [["jin1", "laslkdujalkd", "jin_pembangun"], ["jin2", "laslkdujalkd",
-#                                                         "jin_pengumpul"], ["jin3", "laslkdujalkd",
-#                                                                            "jin_pengumpul"],  ["jin4", "laslkdujalkd",
-#                                                                                                "jin_pengumpul"], ["jin5cls", "laslkdujalkd", "jin_pembangun"], None]
-# bahan_bangunan = [20, 20, 21]
-# candi_list = [None for i in range(1)]
-# id =0
-
-# jin_list = [["jin1", "laslkdujalkd", "jin_pembangun"], ["jin2", "laslkdujalkd",
-#                                                         "jin_pengumpul"], ["jin3", "laslkdujalkd",
-#                                                                            "jin_pengumpul"],  ["jin4", "laslkdujalkd",
-#                                                                                                "jin_pengumpul"], ["jin5cls", "laslkdujalkd", "jin_pembangun"], None]
-# bahan_bangunan = [20, 20, 21]
-# candi_list = [None for i in range(1)]
-# id = 0
-
-
 def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:
     import recursion
     import jin
+    recursion.delay(0.8)
     # Cari jumlah jin pengumpul
     pengumpul_exist: int = 0
     total_terkumpul:List = [0, 0, 0]
@@ -235,14 +189,14 @@ def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:
                     jin_list[j], bahan_bangunan, terkumpul = jin.kumpul(jin_list[j], bahan_bangunan, False)
                     for i in range(3):
                         total_terkumpul[i] += terkumpul[i]
+        recursion.delay(0.5)
         print(f"Jin menemukan total {total_terkumpul[0]} pasir, {total_terkumpul[1]} batu, dan {total_terkumpul[2]} air.")
     return jin_list, bahan_bangunan
-# jin_list, bahan_bangunan=batchkumpul(jin_list, bahan_bangunan)
-# print(jin_list, bahan_bangunan)
 
 def batchbangun(bahan_bangunan: List, jin_list: List, candi_list: List, id: int) -> Tuple[List, List, List, int]:
     import recursion
     import jin
+    recursion.delay(0.8)
     harga_candi_total:List = [0, 0, 0]
     # Cek apakah ada jin pembangun dan hitung jumlah jin pembangun
     pembangun_exist:int = 0
@@ -272,6 +226,7 @@ def batchbangun(bahan_bangunan: List, jin_list: List, candi_list: List, id: int)
                 break
 
         # Jika mencukupi, bangun candi
+        recursion.delay(0.5)
         if mencukupi:
             for s in range(recursion.length(jin_list)):
                 if jin_list[s] != None and jin_list[s][2] == "jin_pembangun":
@@ -284,6 +239,3 @@ def batchbangun(bahan_bangunan: List, jin_list: List, candi_list: List, id: int)
             print("Candi yang terbangun 0")
 
     return bahan_bangunan, jin_list, candi_list, id
-# skema penggunaan fungsi
-# bahan_bangunan, jin_list, candi_list, id = batchbangun(bahan_bangunan, jin_list, candi_list, id)
-# print(bahan_bangunan, candi_list)

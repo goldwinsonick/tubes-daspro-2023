@@ -1,17 +1,7 @@
 
 from typing import Union, List, Tuple
-user = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
-        ['Roro', 'gasukabondo', 'roro_jonggrag'], None]
-candi = [[1, "skjhd", 2, 3, 4], None]
-material = [['pasir', 'bahan bangunan pasir', '0'], ['batu', 'bahan bangunan batu', '0'], ['air', 'bahan bangunan air', '0'], None]
-bahan_bangunan = [3,2,1]
-user = [None]
-candi = [None]
-material = [None]
-bahan_bangunan = [None, None, None]
 
-
-def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Tuple[List, List, List]:
+def load(users: List, candi: List, material: List, bahan_bangunan: List, jin_list:List) -> Tuple[List, List, List]:
     import argparse
     import os
     import recursion
@@ -30,7 +20,9 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Tupl
     # Validasi ketika ditemukan nama folder terkait
     if os.path.isdir(parents_path):
         print("Loading...")
+        recursion.clear()
         users = recursion.read_csv(parents_path + "\\user.csv")
+        jin_list = recursion.tail(users,2)
         candi = recursion.read_csv(parents_path + "\\candi.csv")
         for i in range(recursion.length(candi)):
             for j in range(5):
@@ -41,27 +33,24 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Tupl
             bahan_bangunan[i] = int(material[i][2])
         # bahan_bangunan = [<pasir>,<batu>,<air>]
         # Menyesuaikan dengan data yang telah kita bentuk pada awal
-        print()
         print("Selamat datang di “Manajerial Candi”")
 
         # Aksi ketika nama folder yang dicari tidak ada
     else:
         print(f'Folder "{directory}" tidak ditemukan.')
         exit(1)
-    return users, candi, material, bahan_bangunan
-
-# user, candi,material, bahan_bangunan = load(user, candi,material, bahan_bangunan)
-# print(user, candi, material,bahan_bangunan)
-
+    return users, candi, material, bahan_bangunan, jin_list
 
 def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None], material: List = [None]) -> None:
     import os
     import recursion
+    recursion.delay(0.5)
     folder: str = input("Masukkan nama folder: ")
     abs_path: str = os.getcwd() + "\save\\" + folder
     # ** Mekanisme simpan dalam folder spesifik
     folder_path: str = os.path.join("save", folder)
     print("Saving...")
+    recursion.delay(1)
     # Validasi apakah folder save sudah ada
     if not os.path.exists('save'):
         print(f"Membuat folder save...")
@@ -78,13 +67,15 @@ def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None
     if candi != [None]:
         candi_csv: List = recursion.appends(candi, ["id", "pembuat", "pasir", "batu", "air"], True)
         recursion.write_csv(abs_path + "\\candi.csv", candi_csv, 5)
-    if bahan_bangunan != [None] and material != [None]:
+    if bahan_bangunan != [None]:
+        for j in range(3):
+            material[j][2] = bahan_bangunan[j]
+        print(material)
         material_csv: List = recursion.appends(material, ["nama","deskripsi","jumlah"], True)
         recursion.write_csv(abs_path + "\\bahan_bangunan.csv", material_csv,3)
-# save(user, candi, bahan_bangunan, material)
-
-
 def help(role: Union[str, None]) -> None:
+    import recursion
+    recursion.delay(0.5)
     print("=========== HELP ===========")
     if role == None:
         print("1. login")
@@ -143,10 +134,10 @@ def help(role: Union[str, None]) -> None:
         print("   Untuk keluar dari program dan kembali ke terminal")
     else:
         print("Role not found")
-# contoh tes penggunaan
-# help("bandung_bondowoso")
 
 def exit_program(user: List = [None], candi: List = [None], bahan_bangunan: List = [None], material: List = [None]) -> None:
+    import recursion
+    recursion.delay(0.7)
     ask: str = input(
         "Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n): ")
     # Validasi input
