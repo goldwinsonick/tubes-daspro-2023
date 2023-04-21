@@ -33,7 +33,6 @@ def main_program(username):
             break
     while True:
         print()
-        print(users, candi_list, deleted_candi, deleted_jin, bahan_bangunan, harga_candi, jin_list, id)
         command: str = input("Masukkan perintah: ")
         # Bondowoso only commands
         if command.lower() == "summonjin":  # F2
