@@ -2,6 +2,7 @@ from typing import List, Union
 
 def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
     import recursion
+    recursion.delay(1)
     jumlah_candi: List = [None]
     # Membuat array baru untuk menghitung candi yang telah dibuat oleh jin tertentu
     for i in range(recursion.length(candi_list)):
@@ -56,29 +57,9 @@ def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
     print("> Jumlah Air: " + str(bahan_bangunan[1]) + " unit")
     print("> Jumlah Batu: " + str(bahan_bangunan[2]) + " unit")
 
-# # contoh penggunaan
-# candi_list: List = [
-#     [1, "jin1", 2, 4, 3],
-#     [2, "jin1", 3, 4, 4],
-#     [3, "jin1", 4, 4, 5],
-#     [4, "jin2", 5, 4, 6],
-#     [5, "jin2", 6, 4, 7],
-#     [6, "jin2", 7, 4, 8],
-#     None]
-# jin_list: List = [
-#     ["jin1", "testing1", "jin_pembangun"],
-#     ["jin2", "testing2", "jin_pembangun"],
-#     ["jin3", "testing3", "jin_pembangun"],
-#     ["jin4", "testing4", "jin_pengumpul"],
-#     ["jin5", "testing5", "jin_pengumpul"],
-#     None
-# ]
-# bahan_bangunan = [20,21,22]
-# laporanjin(candi_list, jin_list, bahan_bangunan)
-
-
 def laporancandi(candi_list: List) -> None:
     import recursion
+    recursion.delay(1)
     jumlahcandi:int = 0
     jumlahair:int = 0
     jumlahbatu:int = 0

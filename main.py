@@ -22,7 +22,7 @@ id = 1
 
 
 def main_program(username):
-    global users, candi_list, deleted_candi, deleted_jin, bahan_bangunan, harga_candi, jin_list, status_login, id
+    global users, candi_list, deleted_candi, deleted_jin, bahan_bangunan, harga_candi, jin_list, id
     # Pengecekan jika admin atau user biasa
     global jin_list
     # Validasi role
@@ -37,7 +37,7 @@ def main_program(username):
         # Bondowoso only commands
         if command.lower() == "summonjin":  # F2
             if role == "bandung_bondowoso":
-                jin_list, users = bondowoso.summonjin(jin_list, users, 100)
+                jin_list, users, deleted_jin = bondowoso.summonjin(jin_list, users,deleted_jin, 100)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "hilangkanjin":  # F4
@@ -94,19 +94,25 @@ def main_program(username):
         elif command.lower() == "logout":
             username = akun.logout(username)
             if username ==None:
+                recursion.delay(0.6)
+                print("Selamat datang di “Manajerial Candi”")
                 return main_menu(users, candi_list, material, bahan_bangunan)
         elif command.lower() == "help":  # F14
             proses.help(role)
         elif command.lower() == "save":  # F16
             proses.save(users, candi_list, bahan_bangunan, material)
         elif command.lower() == "exit":
-            proses.exit_program(users, candi_list, bahan_bangunan, material)
+            return proses.exit_program(users, candi_list, bahan_bangunan, material)
         else:
             print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
     
 def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # validasi nama file
+    import recursion
+    recursion.delay(0.6)
     while True:
+        print()
         cmd: str = input("Masukkan perintah: ")
+        recursion.delay(0.2)
         if cmd.lower() == "login":  # F3
             # validasi user yang login
             username = akun.login(users, username)
@@ -118,9 +124,7 @@ def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # va
             proses.exit_program(users, candi_list, bahan_bangunan, material)
         else:               # handle input tidak valid
             print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
-            print()
 # Memastikan fungsi package file lain hanya diakses oleh main.py
-if __name__ == "__main__":
-    users, candi_list, material, bahan_bangunan = proses.load(users, candi_list, material, bahan_bangunan)  # fungsi untuk load
-    print()
-    main_menu(users, candi_list, material, bahan_bangunan)
+users, candi_list, material, bahan_bangunan, jin_list = proses.load(users, candi_list, material, bahan_bangunan, jin_list)  # fungsi untuk load
+main_menu(users, candi_list, material, bahan_bangunan)
+    
