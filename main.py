@@ -4,7 +4,7 @@ import bondowoso
 import proses
 import jin
 import roro
-import rng
+import rng, laporan
 import recursion
 import akun
 from typing import Union, List
@@ -18,7 +18,7 @@ bahan_bangunan = [0, 0, 0]
 harga_candi = [0, 0, 0]
 jin_list = [None for i in range(101)]
 material = [None]
-id = 0
+id = 1
 
 
 def main_program(username):
@@ -70,16 +70,16 @@ def main_program(username):
                 bahan_bangunan, jin_list, candi_list, id = bondowoso.batchbangun(bahan_bangunan, jin_list, candi_list, id)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
-        # elif command.lower() == "laporanjin":  # F9
-        #     if role == "Bondowoso":
-        #         candi.laporanJin(Bondowosoname, F15.kepemilikan, F15.game)
-        #     else:
-        #         print("Perintah ini hanya bisa diakses oleh Bondowoso.")
-        # elif command.lower() == "laporancandi":  # F10
-        #     if role == "Bondowoso":
-        #         candi.laporanCandi(F15.game, F15.kepemilikan, username)
-        #     else:
-        #         print("Perintah ini hanya bisa diakses oleh Bondowoso.")
+        elif command.lower() == "ambillaporanjin":  # F9
+            if role == "bandung_bondowoso":
+                laporan.laporanjin(candi_list, jin_list, bahan_bangunan)
+            else:
+                print("Perintah ini hanya bisa diakses oleh Bondowoso.")
+        elif command.lower() == "ambillaporancandi":  # F10
+            if role == "bandung_bondowoso":
+                laporan.laporancandi(candi_list)
+            else:
+                print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "hancurkancandi":  # F11
             if role == "roro_jonggrang":
                 candi_list = roro.hancurkancandi(candi_list)
