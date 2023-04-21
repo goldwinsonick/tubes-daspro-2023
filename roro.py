@@ -1,36 +1,56 @@
-def hancurkancandi():
-    import main, recursion
-    inp = input("Masukkan ID candi: ")
-    if(recursion.isDigit(inp)==False):
+from typing import List
+candi_list = [[1, "jin1", 2, 3, 4] for i in range(102)]+[None]
+
+def hancurkancandi(candi_list:List) -> List:
+    import recursion
+    found:bool = False
+    length_candi_list:int = recursion.length(candi_list)
+    # Input ID candi
+    inp:str = input("Masukkan ID candi: ")
+    # Jika ID adalah string dan bukan number
+    if (recursion.isDigit(inp) == False):
         print("Input tidak valid (Inputan harus angka!)")
-        return
-    inp = int(inp)
-    
-    if(0 < inp and inp < 100 and main.candi[inp] != None):
-        YN = input("Apakah anda yakin ingin menghancurkan candi ID : "+str(inp) + "? (Y/N)")
-        if(YN == "Y"):
-            main.candi[inp] = None
+        return candi_list
+    inp:int = int(inp) 
+    # cari candi dengan ID inp
+    for i in range(length_candi_list):
+        if candi_list[i][0] == inp:
+            found = True
+            break
+    # Peringatan untuk hapus candi
+    if (found == True):
+        YN = input(f"Apakah anda yakin ingin menghancurkan candi ID : {inp} ? (Y/N) ")
+        if (YN.upper() == "Y"):
+
+            # Menghapus candi dengan id inp dari candi_list
+            for i in range(recursion.length(candi_list)):
+                if candi_list[i] != None and candi_list[i][0] == inp:
+                    candi_list:List = recursion.removes(candi_list, candi_list[i],length_candi_list)
+
             print("Candi telah berhasil dihancurkan")
-        elif(YN == "N"):
+        elif (YN.upper() == "N"):
             print("Candi tidak jadi di hancurkan")
         else:
             print("Tidak valid")
     else:
         print("Tidak ada candi dengan ID tersebut.")
-        
-def ayamberkokok():
-    import main
+    return candi_list
+
+# skema penggunaan
+# candi_list = hancurkancandi(candi_list)
+# print(candi_list)
+
+
+def ayamberkokok(candi_list:List) -> None:
+    import recursion, proses
     print("Kukuruyuk.. Kukuruyuk..")
-    banyakCandi = 0
-    for i in range(100):
-        if(main.candi[i] != None):
-            banyakCandi += 1
-    if(banyakCandi == 99):
+    banyakCandi:int = recursion.length(candi_list)
+    if (banyakCandi <= 99):
         print("Selamat, Roro Jonggrang memenangkan permainan!")
         print("*Bandung Bondowoso angry noiseee*")
         print("Roro Jonggrang dikutuk menjadi candi")
-    elif(banyakCandi >= 100):
-        print("Yah, Bandung Bondowoso memenangkan permainan!")
     else:
-        print("Roro Jonggrang menangggg!")
-    # Exit program (Harus ada fungsi exit() di proses.py dulu)
+        print("Yah, Bandung Bondowoso memenangkan permainan!")
+    exit(1)
+# skema penggunaan
+# ayamberkokok(candi_list)
