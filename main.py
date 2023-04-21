@@ -52,12 +52,12 @@ def main_program(username):
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "bangun":  # F6
             if role == "jin_pembangun":
-                bahan_bangunan, role, candi_list, harga_candi, id = jin.bangun(bahan_bangunan, [username, password, role], candi_list, rng.rng(3, 1, 5), True, id)
+                bahan_bangunan, [username, password, role], candi_list, harga_candi, id = jin.bangun(bahan_bangunan, [username, password, role], candi_list, rng.rng(3, 1, 5), True, id)
             else:
                 print("Perintah ini hanya bisa diakses oleh Jin Pembangun.")
         elif command.lower() == "kumpul":  # F12
             if role == "jin_pengumpul":
-                role, bahan_bangunan, terkumpul = jin.kumpul([username, password, role], bahan_bangunan, True)
+                [username, password, role], bahan_bangunan, terkumpul = jin.kumpul([username, password, role], bahan_bangunan, True)
             else:
                 print("Perintah ini hanya bisa diakses oleh Jin Pengumpul.")
         elif command.lower() == "batchkumpul":  # F8
@@ -69,7 +69,7 @@ def main_program(username):
             if role == "bandung_bondowoso":
                 bahan_bangunan, jin_list, candi_list, id = bondowoso.batchbangun(bahan_bangunan, jin_list, candi_list, id)
             else:
-                print("Perintah ini hanya bisa diakses oleh user.")
+                print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         # elif command.lower() == "laporanjin":  # F9
         #     if role == "Bondowoso":
         #         candi.laporanJin(Bondowosoname, F15.kepemilikan, F15.game)
@@ -86,7 +86,7 @@ def main_program(username):
             else:
                 print("Perintah ini hanya bisa diakses oleh Roro.")
         elif command.lower() == "ayamberkokok":  # F13
-            if role == "Roro":
+            if role == "roro_jonggrang":
                 roro.ayamberkokok(candi_list)
             else:
                 print("Perintah ini hanya bisa diakses oleh Roro.")
@@ -119,7 +119,7 @@ def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # va
         else:               # handle input tidak valid
             print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
             print()
-
+# Memastikan fungsi package file lain hanya diakses oleh main.py
 if __name__ == "__main__":
     users, candi_list, material, bahan_bangunan = proses.load(users, candi_list, material, bahan_bangunan)  # fungsi untuk load
     print()

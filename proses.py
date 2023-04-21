@@ -1,14 +1,14 @@
 
 from typing import Union, List, Tuple
-# user = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
-#         ['Roro', 'gasukabondo', 'roro_jonggrag'], None]
-# candi = [[1, "skjhd", 2, 3, 4], None]
-# material = [['pasir', 'bahan bangunan pasir', '0'], ['batu', 'bahan bangunan batu', '0'], ['air', 'bahan bangunan air', '0'], None]
-# bahan_bangunan = [3,2,1]
-# user = [None]
-# candi = [None]
-# material = [None]
-# bahan_bangunan = [None, None, None]
+user = [['Bondowoso', 'cintaroro', 'bandung_bondowoso'],
+        ['Roro', 'gasukabondo', 'roro_jonggrag'], None]
+candi = [[1, "skjhd", 2, 3, 4], None]
+material = [['pasir', 'bahan bangunan pasir', '0'], ['batu', 'bahan bangunan batu', '0'], ['air', 'bahan bangunan air', '0'], None]
+bahan_bangunan = [3,2,1]
+user = [None]
+candi = [None]
+material = [None]
+bahan_bangunan = [None, None, None]
 
 
 def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Tuple[List, List, List]:
@@ -32,6 +32,10 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List) -> Tupl
         print("Loading...")
         users = recursion.read_csv(parents_path + "\\user.csv")
         candi = recursion.read_csv(parents_path + "\\candi.csv")
+        for i in range(recursion.length(candi)):
+            for j in range(5):
+                if j != 1:
+                    candi[i][j] = int(candi[i][j])
         material = recursion.read_csv(parents_path + "\\bahan_bangunan.csv")
         for i in range(3):
             bahan_bangunan[i] = int(material[i][2])
@@ -73,10 +77,8 @@ def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None
         recursion.write_csv(abs_path + "\\user.csv", user_csv, 3)
     if candi != [None]:
         candi_csv: List = recursion.appends(candi, ["id", "pembuat", "pasir", "batu", "air"], True)
-        recursion.write_csv(abs_path + "\\candi.csv", candi_csv, 4)
+        recursion.write_csv(abs_path + "\\candi.csv", candi_csv, 5)
     if bahan_bangunan != [None] and material != [None]:
-        for i in range(3):
-            material[i][2] = str(bahan_bangunan[i])
         material_csv: List = recursion.appends(material, ["nama","deskripsi","jumlah"], True)
         recursion.write_csv(abs_path + "\\bahan_bangunan.csv", material_csv,3)
 # save(user, candi, bahan_bangunan, material)
