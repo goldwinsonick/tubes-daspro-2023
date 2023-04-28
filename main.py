@@ -6,7 +6,7 @@ import jin
 import roro
 import rng, laporan
 import recursion
-import akun
+import akun, undo
 from typing import Union, List
 
 # Array of user ([username, password, role])
@@ -26,12 +26,14 @@ def main_program(username):
     # Pengecekan jika admin atau user biasa
     global jin_list
     # Validasi role
+
     for i in range(recursion.length(users)):
         if username == users[i][0]:
             role = users[i][2]
             password = users[i][1]
             break
     while True:
+        print(jin_list, deleted_jin, candi_list, deleted_candi, users)
         print()
         command: str = input("Masukkan perintah: ")
         # Bondowoso only commands
@@ -78,6 +80,11 @@ def main_program(username):
         elif command.lower() == "ambillaporancandi":  # F10
             if role == "bandung_bondowoso":
                 laporan.laporancandi(candi_list)
+            else:
+                print("Perintah ini hanya bisa diakses oleh Bondowoso.")
+        elif command.lower() == "undo":  # B04
+            if role == "bandung_bondowoso":
+                users, jin_list, candi_list, deleted_jin, deleted_candi = undo.undo(users, jin_list, candi_list, deleted_jin, deleted_candi)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "hancurkancandi":  # F11
