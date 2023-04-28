@@ -56,19 +56,19 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
             if exists:
                 print(f'Username "{username}" sudah diambil!')
                 username = None
-        # Aksi ketika sudah terdapat username yang sama pada jin yang sudah terhapus yang kemungkinan bisa diundo
-        # Menyimpan username yang sudah ada dalam jin_list
-        existing_usernames_deleted: List[str] = [None for i in range(recursion.length(deleted_jin)+1)]
-        for i in range(recursion.length(deleted_jin)):
-            existing_usernames_deleted[i] = deleted_jin[i][0]
-            exists_deleted: bool = False
-            for i in range(recursion.length(existing_usernames_deleted)):
-                if existing_usernames_deleted[i] == username:
-                    exists_deleted = True
-                    break
-            if exists_deleted:
-                print(f'Username "{username}" sudah pernah anda PHK, silakan undo')
-                username = None
+            # Aksi ketika sudah terdapat username yang sama pada jin yang sudah terhapus yang kemungkinan bisa diundo
+            # Menyimpan username yang sudah ada dalam jin_list
+            existing_usernames_deleted: List[str] = [None for i in range(recursion.length(deleted_jin)+1)]
+            for i in range(recursion.length(deleted_jin)):
+                existing_usernames_deleted[i] = deleted_jin[i][0]
+                exists_deleted: bool = False
+                for i in range(recursion.length(existing_usernames_deleted)):
+                    if existing_usernames_deleted[i] == username:
+                        exists_deleted = True
+                        break
+                if exists_deleted:
+                    print(f'Username "{username}" sudah pernah anda PHK, silakan undo')
+                    username = None
         # Validasi password 5-25 character
         while not password or len(password) < 5 or len(password) > 25:
             password = input("Masukkan password jin: ")
