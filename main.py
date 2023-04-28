@@ -6,7 +6,7 @@ import jin
 import roro
 import rng, laporan
 import recursion
-import akun
+import akun, undo
 from typing import Union, List
 
 # Array of user ([username, password, role])
@@ -26,6 +26,7 @@ def main_program(username):
     # Pengecekan jika admin atau user biasa
     global jin_list
     # Validasi role
+
     for i in range(recursion.length(users)):
         if username == users[i][0]:
             role = users[i][2]
@@ -80,6 +81,11 @@ def main_program(username):
                 laporan.laporancandi(candi_list)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
+        elif command.lower() == "undo":  # B04
+            if role == "bandung_bondowoso":
+                users, jin_list, candi_list, deleted_jin, deleted_candi = undo.undo(users, jin_list, candi_list, deleted_jin, deleted_candi)
+            else:
+                print("Perintah ini hanya bisa diakses oleh Bondowoso.")
         elif command.lower() == "hancurkancandi":  # F11
             if role == "roro_jonggrang":
                 candi_list = roro.hancurkancandi(candi_list)
@@ -127,4 +133,3 @@ def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # va
 # Memastikan fungsi package file lain hanya diakses oleh main.py
 users, candi_list, material, bahan_bangunan, jin_list = proses.load(users, candi_list, material, bahan_bangunan, jin_list)  # fungsi untuk load
 main_menu(users, candi_list, material, bahan_bangunan)
-    

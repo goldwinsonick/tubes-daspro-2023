@@ -7,7 +7,8 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List, jin_lis
     import recursion
     # parsing argumen
     parser: argparse.ArgumentParser = argparse.ArgumentParser()
-    parser.add_argument("nama_folder", type=str, nargs="?", const="", help="Usage: python main.py <nama_folder>")
+    parser.add_argument("nama_folder", type=str, nargs="?",
+                        const="", help="Usage: python main.py <nama_folder>")
     args: argparse.Namespace = parser.parse_args()
     directory: Union[None, str] = args.nama_folder
     # Aksi ketika tidak ada nama file yang diberikan
@@ -22,7 +23,9 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List, jin_lis
         print("Loading...")
         recursion.clear()
         users = recursion.read_csv(parents_path + "\\user.csv")
-        jin_list = recursion.tail(users,2)
+        if recursion.length(users) > 2:
+            for i in range(2,recursion.length(users)):
+                jin_list[i-2] = users[i]
         candi = recursion.read_csv(parents_path + "\\candi.csv")
         for i in range(recursion.length(candi)):
             for j in range(5):
@@ -62,10 +65,12 @@ def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None
     print("Berhasil menyimpan data di folder " + folder_path + "!")
     # ** Mekanisme convert list into csv
     if user != [None]:
-        user_csv: List = recursion.appends(user, ["username", "password", "role"], True)
+        user_csv: List = recursion.appends(
+            user, ["username", "password", "role"], True)
         recursion.write_csv(abs_path + "\\user.csv", user_csv, 3)
     if candi != [None]:
-        candi_csv: List = recursion.appends(candi, ["id", "pembuat", "pasir", "batu", "air"], True)
+        candi_csv: List = recursion.appends(
+            candi, ["id", "pembuat", "pasir", "batu", "air"], True)
         recursion.write_csv(abs_path + "\\candi.csv", candi_csv, 5)
     if bahan_bangunan != [None]:
         for j in range(3):
@@ -99,9 +104,11 @@ def help(role: Union[str, None]) -> None:
         print("   Untuk mengambil laporan progress jin")
         print("8. ambillaporancandi")
         print("   Untuk mengambil laporan progress candi")
-        print("9. save")
+        print("9. load")
+        print("   Untuk memanggil kembali jin yang telah dihapus")
+        print("10. save")
         print("   Untuk menyimpan semua progress yang telah dilakukan")
-        print("10. exit")
+        print("11. exit")
         print("   Untuk keluar dari program dan kembali ke terminal")
     elif role == "roro_jonggrang":
         print("1. logout")
