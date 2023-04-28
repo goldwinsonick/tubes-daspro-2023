@@ -109,9 +109,11 @@ def help(role: Union[str, None]) -> None:
         print("   Untuk mengambil laporan progress jin")
         print("8. ambillaporancandi")
         print("   Untuk mengambil laporan progress candi")
-        print("9. save")
+        print("9. laod")
+        print("   Untuk memanggil kembali jin yang telah dihapus")
+        print("10. save")
         print("   Untuk menyimpan semua progress yang telah dilakukan")
-        print("10. exit")
+        print("11. exit")
         print("   Untuk keluar dari program dan kembali ke terminal")
     elif role == "roro_jonggrang":
         print("1. logout")
