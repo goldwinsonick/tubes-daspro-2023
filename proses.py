@@ -1,8 +1,7 @@
 
 from typing import Union, List, Tuple
 
-
-def load(users: List, candi: List, material: List, bahan_bangunan: List, jin_list: List) -> Tuple[List, List, List]:
+def load(users: List, candi: List, material: List, bahan_bangunan: List, jin_list:List) -> Tuple[List, List, List]:
     import argparse
     import os
     import recursion
@@ -45,7 +44,6 @@ def load(users: List, candi: List, material: List, bahan_bangunan: List, jin_lis
         exit(1)
     return users, candi, material, bahan_bangunan, jin_list
 
-
 def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None], material: List = [None]) -> None:
     import os
     import recursion
@@ -78,11 +76,8 @@ def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None
         for j in range(3):
             material[j][2] = bahan_bangunan[j]
         print(material)
-        material_csv: List = recursion.appends(
-            material, ["nama", "deskripsi", "jumlah"], True)
-        recursion.write_csv(abs_path + "\\bahan_bangunan.csv", material_csv, 3)
-
-
+        material_csv: List = recursion.appends(material, ["nama","deskripsi","jumlah"], True)
+        recursion.write_csv(abs_path + "\\bahan_bangunan.csv", material_csv,3)
 def help(role: Union[str, None]) -> None:
     import recursion
     recursion.delay(0.5)
@@ -109,7 +104,7 @@ def help(role: Union[str, None]) -> None:
         print("   Untuk mengambil laporan progress jin")
         print("8. ambillaporancandi")
         print("   Untuk mengambil laporan progress candi")
-        print("9. laod")
+        print("9. load")
         print("   Untuk memanggil kembali jin yang telah dihapus")
         print("10. save")
         print("   Untuk menyimpan semua progress yang telah dilakukan")
@@ -146,7 +141,6 @@ def help(role: Union[str, None]) -> None:
         print("   Untuk keluar dari program dan kembali ke terminal")
     else:
         print("Role not found")
-
 
 def exit_program(user: List = [None], candi: List = [None], bahan_bangunan: List = [None], material: List = [None]) -> None:
     import recursion

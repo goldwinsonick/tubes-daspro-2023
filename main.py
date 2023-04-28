@@ -33,7 +33,6 @@ def main_program(username):
             password = users[i][1]
             break
     while True:
-        print(jin_list, deleted_jin, candi_list, deleted_candi, users)
         print()
         command: str = input("Masukkan perintah: ")
         # Bondowoso only commands
@@ -134,4 +133,3 @@ def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # va
 # Memastikan fungsi package file lain hanya diakses oleh main.py
 users, candi_list, material, bahan_bangunan, jin_list = proses.load(users, candi_list, material, bahan_bangunan, jin_list)  # fungsi untuk load
 main_menu(users, candi_list, material, bahan_bangunan)
-    
