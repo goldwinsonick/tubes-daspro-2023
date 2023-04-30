@@ -1,13 +1,8 @@
-from typing import List, Tuple, Union
-import rng
-bahan_bangunan = [5, 5, 4]  # bahan_bangunan = [<pasir>, <batu>, <air>]
-candi_list = [None for i in range(1)]
-user = ["jin1", "pass123", "jin_pengumpul"]
-id = 1
+from typing import List, Tuple
+import recursion, rng
 
 def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, output:bool, id:int) -> Tuple[List, List, List, List, bool, int]:
     # parameter otput ada agar dapat digunakan kembali oleh fungsi batchbangun
-    import recursion
     recursion.delay(0.5)
     if (user[2] == "jin_pembangun"):
         mencukupi:bool = True
@@ -51,7 +46,6 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
     return bahan_bangunan, user, candi_list, harga_candi, id
 
 def kumpul(user: List, bahan_bangunan: List, output:bool) -> Tuple[List, List, bool]:
-    import rng, recursion
     recursion.delay(0.5)
     terkumpul = [0,0,0]
     if (user[2] == "jin_pengumpul"):

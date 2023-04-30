@@ -1,6 +1,5 @@
 from typing import List, Tuple
 
-
 def undo(users: List, jin_list: List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Tuple[List, List, List, List, List]:
     import recursion
     username: str = input("Masukkan username Jin yang akan di-undo: ")

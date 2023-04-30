@@ -2,7 +2,6 @@ from typing import List
 # Fungsi RNG
 CURRENT_SEED:int = 1
 
-
 def LCG(seed:int) -> int:
     m = 2**31
     a = 1103515245
@@ -20,7 +19,6 @@ def rng(num:int, fr:int, to:int) -> List:
         number:int = fr + (CURRENT_SEED*seed % (to-fr+1))
         numbers[i] = number
     return numbers
-
 
 
 # Fungsi untuk tes distribusi angka yang muncul dari LCG RNG

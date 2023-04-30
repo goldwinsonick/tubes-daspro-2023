@@ -36,7 +36,9 @@ def main_program(username):
         print()
         command: str = input("Masukkan perintah: ")
         # Bondowoso only commands
-        if command.lower() == "summonjin":  # F2
+        if command.lower() == "login":  # F2
+            username = akun.login(users, username)
+        elif command.lower() == "summonjin":  # F2
             if role == "bandung_bondowoso":
                 jin_list, users, deleted_jin = bondowoso.summonjin(jin_list, users,deleted_jin, 100)
             else:
@@ -96,7 +98,6 @@ def main_program(username):
                 roro.ayamberkokok(candi_list)
             else:
                 print("Perintah ini hanya bisa diakses oleh Roro.")
-        # Role-agnostic commands
         elif command.lower() == "logout":
             username = akun.logout(username)
             if username ==None:
@@ -116,7 +117,7 @@ def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # va
     import recursion
     recursion.delay(0.6)
     while True:
-        print()
+        print(users, candi_list, material, bahan_bangunan)
         cmd: str = input("Masukkan perintah: ")
         recursion.delay(0.2)
         if cmd.lower() == "login":  # F3

@@ -1,22 +1,18 @@
 from typing import List, Union
-import time
-def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]:
-    import recursion
+import recursion
 
+def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]:
     # Antisipasi pengguna yang sudah pernah login
     if username != None:
         recursion.delay(0.1)
-        print("Login gagal!")
-        print(f"Anda telah login dengan username {username}, silahkan lakukan “logout” sebelum melakukan login kembali")
-
+        print("\033[31mLogin gagal!\033[0m")
+        print(f"Anda telah login dengan username \033[36m{username}\033[0m, silahkan lakukan \033[33m“logout”\033[0m sebelum melakukan login kembali\033[0m")
     # Pengecekan data username dan password pada fileUser
     else:
         # Saat masuk ke dalam aplikasi, pengguna yang belum login dapat memasukkan username dan password.
         username: str = input("Username: ")
         password: str = input("Password: ")
         recursion.delay(0.1)
-
-
     # inisialisasi status ditemukannya username dan password
         status_username: bool = False
         status_password: bool = False
@@ -32,22 +28,21 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
                 break
         # Ketika username tidak ditemukan
         if status_username == False:
-            print("Username tidak terdaftar!")
+            print("\033[31mUsername tidak terdaftar!\033[0m")
             username = None
         # Ketika username ditemukan tapi password tidak ditemukan
         elif status_username == True and status_password == False:
             username = None
-            print("Password salah!")
+            print("\033[31mPassword salah!\033[0m")
         # Ketika username dan password ditemukan
         else:
             recursion.clear()
-            print(f'Selamat datang, {username}!')
+            print(f'\033[35mSelamat datang, \033[36m{username}!\033[0m')
             print()
-            print("Masukkan command “help” untuk daftar command yang dapat kamu panggil.")
-        return username
+            print("Masukkan command \033[33m“help”\033[0m untuk daftar command yang dapat kamu panggil.")
+    return username
 
 def logout(username: Union[str, None]) -> Union[str, None]:
-    import recursion
     recursion.delay(1.2)
     if username == None:
         # Validasi belum kondisi login

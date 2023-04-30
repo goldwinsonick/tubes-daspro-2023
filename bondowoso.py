@@ -1,5 +1,5 @@
 from typing import List, Union, Tuple
-import rng
+import rng, recursion, jin
 
 def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100) -> Tuple[List, List]:
     import recursion
@@ -12,7 +12,7 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
     # Aksi ketika ditemukan tempat kosong untuk jin baru
     else:
         # Menampilkan daftar jenis jin yang bisa dipanggil
-        print("Jenis jin yang dapat dipanggil:")
+        print("Jenis jin yang dapat dipanggil: ")
         print("(1) Pengumpul - Bertugas mengumpulkan bahan bangunan")
         print("(2) Pembangun - Bertugas membangun candi")
 
@@ -57,7 +57,7 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
                 print(f'Username "{username}" sudah diambil!')
                 username = None
             # Aksi ketika sudah terdapat username yang sama pada jin yang sudah terhapus yang kemungkinan bisa diundo
-            # Menyimpan username yang sudah ada dalam jin_list
+            # Menyimpan username yang sudah ada dalam deleted_jin
             existing_usernames_deleted: List[str] = [None for i in range(recursion.length(deleted_jin)+1)]
             for i in range(recursion.length(deleted_jin)):
                 existing_usernames_deleted[i] = deleted_jin[i][0]
@@ -92,19 +92,17 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
         print(f'Jin "{username}" berhasil dipanggil!')
     return jin_list, users, deleted_jin
 
-def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Tuple[List, List, List, List]:
-    from typing import Union, List
-    import recursion
+def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Tuple[List, List, List, List, List]:
     recursion.delay(0.8)
     # inisiasi length arary sebelum dihapus
-    length_jin_list: int = recursion.length(jin_list)
-    length_candi_list: int = recursion.length(candi_list)
+    lengthJin: int = recursion.length(jin_list)
+    lengthCandi: int = recursion.length(candi_list)
 
     # Meminta user memasukkan username jin yang ingin dihapus
     username: str = input("Masukkan username jin yang ingin dihapus: ")
     # Mencari jin dengan username yang sesuai
     jin_index: Union[None, int] = None
-    for i in range(length_jin_list):
+    for i in range(lengthJin):
         if jin_list[i] != None and jin_list[i][0] == username:
             jin_index = i
             break
@@ -127,10 +125,10 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
         # Memasukkan data jin yang telah dihapus ke sebuah array untuk dapat diundo
         deleted_jin:List = recursion.appends(deleted_jin,jin_list[jin_index] )
         # Menghapus users jin dari list users
-        users:List = recursion.removes(users, jin_list[jin_index], length_jin_list+2)
+        users:List = recursion.removes(users, jin_list[jin_index], lengthJin+2)
         # Menghapus jin dari jin_list dengan mengubah nilai menjadi None bukan menghilangkan dari list
         jin_list[jin_index]: Union[List, None] = None
-        recursion.shiftToEnd(jin_list, jin_index, length_jin_list)
+        recursion.shiftToEnd(jin_list, jin_index, lengthJin)
         recursion.delay(0.8)
         # Menghapus candi yang dibuat oleh jin tersebut dari candi_list
         for i in range(recursion.length(candi_list)):
@@ -138,21 +136,20 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
                 # Menambahkan data candi yang telah dibuat jin yang terhapus ke deleted_candi
                 deleted_candi:List = recursion.appends(deleted_candi,candi_list[i])
                 # Menghapus candi dari candi_list
-                candi_list:List = recursion.removes(candi_list, candi_list[i],length_candi_list)
+                candi_list:List = recursion.removes(candi_list, candi_list[i],lengthCandi)
         print("Jin telah berhasil dihapus dari alam gaib.")
         return jin_list,users, candi_list, deleted_jin, deleted_candi
-    elif confirmation == "N":
+    else: # confirmation == "N":
         return jin_list,users, candi_list, deleted_jin, deleted_candi
 
 def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
-    import recursion
     recursion.delay(0.8)
     username: str = input("Masukkan username jin : ")
     recursion.delay(0.8)
-    length_jin_list: int = recursion.length(jin_list)
+    lengthJin: int = recursion.length(jin_list)
     # Mencari jin dengan username yang diinputkan
     found: bool = False
-    for i in range(length_jin_list):
+    for i in range(lengthJin):
         if jin_list[i] and jin_list[i][0] == username:
             tipe_baru: str = "jin_pembangun" if jin_list[i][2] == "jin_pengumpul" else "jin_pengumpul"
             confirm: str = input(f"Jin ini bertipe “{recursion.outputtipejin(jin_list[i][2])}”. Yakin ingin mengubah ke tipe “{recursion.outputtipejin(tipe_baru)}” (Y/N)? ")
@@ -167,8 +164,6 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
     return jin_list, users
 
 def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:
-    import recursion
-    import jin
     recursion.delay(0.8)
     # Cari jumlah jin pengumpul
     pengumpul_exist: int = 0
@@ -194,8 +189,6 @@ def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:
     return jin_list, bahan_bangunan
 
 def batchbangun(bahan_bangunan: List, jin_list: List, candi_list: List, id: int) -> Tuple[List, List, List, int]:
-    import recursion
-    import jin
     recursion.delay(0.8)
     harga_candi_total:List = [0, 0, 0]
     # Cek apakah ada jin pembangun dan hitung jumlah jin pembangun
