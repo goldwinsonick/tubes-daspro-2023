@@ -1,6 +1,8 @@
 from typing import List, Union
 import recursion
 
+# F01 - Login
+# Fungsi login memungkinkan user untuk dapat menggunakan fitur sesuai dengan role
 def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]:
     # Antisipasi pengguna yang sudah pernah login
     if username != None:
@@ -42,17 +44,19 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
             print("Masukkan command \033[33m“help”\033[0m untuk daftar command yang dapat kamu panggil.")
     return username
 
+# F02 - Logout
+# Fungsi Logout menghilangkan akses user terhadap suatu perintah
 def logout(username: Union[str, None]) -> Union[str, None]:
     recursion.delay(1.2)
     if username == None:
         # Validasi belum kondisi login
-        print("Logout gagal!")
-        print("Anda belum login, silahkan login terlebih dahulu sebelum melakukan logout")
+        print("\033[31mLogout gagal!\033[0m")
+        print('Anda belum login, silahkan \033[33m"login"\033[0m terlebih dahulu sebelum melakukan logout')
         return username
     else:
         # Validasi kalo username ga boleh None
         while True:
-            confirm = input("Apakah Anda benar ingin logout (y/n): ")
+            confirm = input("\033[32mApakah Anda benar ingin logout (y/n): \033[0m")
             if confirm == "y" or confirm == "Y":
                 recursion.clear()
                 # Setup ke kondisi unlogin
@@ -62,4 +66,4 @@ def logout(username: Union[str, None]) -> Union[str, None]:
                 recursion.clear()
                 return username
             else:  # tidak akan return atau keluar loop karena input yang tidak valid
-                print("Masukkan input yang sesuai")
+                print("\033[31mMasukkan input yang sesuai\033[0m")

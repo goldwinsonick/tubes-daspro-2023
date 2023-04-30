@@ -125,6 +125,8 @@ def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # va
             username = akun.login(users, username)
             if username != None:
                 return main_program(username)  # masuk ke menu main_menu
+        elif cmd.lower() == "logout":
+            username = akun.logout(username)
         elif cmd.lower() == "help":  # F14  # masuk help program
             proses.help(username)
         elif cmd.lower() == "exit":  # F17  # keluar program
