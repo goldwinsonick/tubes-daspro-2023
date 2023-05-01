@@ -33,7 +33,7 @@ def main_program(username):
     while True:
         print()
         print(users, candi_list, bahan_bangunan, deleted_candi, deleted_jin)
-        command: str = input("Masukkan perintah: ")
+        command: str = input(">>> ")
         # Bondowoso only commands
         if command.lower() == "login":  # F2
             username = akun.login(users, username)
@@ -47,7 +47,7 @@ def main_program(username):
                 jin_list, users, candi_list, deleted_jin, deleted_candi = bondowoso.hilangkanjin(jin_list,users, candi_list, deleted_jin, deleted_candi)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
-        elif command.lower() == "ubahtipejin":  # F5
+        elif command.lower() == "ubahjin":  # F5
             if role == "bandung_bondowoso":
                 jin_list, users = bondowoso.ubahtipejin(jin_list, users)
             else:
@@ -115,7 +115,7 @@ def main_program(username):
 def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # validasi nama file
     recursion.delay(0.6)
     while True:
-        cmd: str = input("Masukkan perintah: ")
+        cmd: str = input(">>> ")
         recursion.delay(0.2)
         if cmd.lower() == "login":  # F3
             # validasi user yang login

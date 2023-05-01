@@ -157,7 +157,7 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
     for i in range(lengthJin):
         if jin_list[i] and jin_list[i][0] == username:
             tipe_baru: str = "jin_pembangun" if jin_list[i][2] == "jin_pengumpul" else "jin_pengumpul"
-            confirm: str = input(f"Jin ini bertipe “{recursion.outputtipejin(jin_list[i][2])}”. Yakin ingin mengubah ke tipe “{recursion.outputtipejin(tipe_baru)}” (Y/N)? ")
+            confirm: str = input(f"Jin ini bertipe \033[36m“{recursion.outputtipejin(jin_list[i][2])}”\033[0m. Yakin ingin mengubah ke tipe \033[36m“{recursion.outputtipejin(tipe_baru)}”\033[0m \033[33m(Y/N)\033[0m? ")
             if confirm == "y" or confirm == "Y":
                 recursion.delay(0.8)
                 jin_list[i][2]: str = tipe_baru
@@ -165,7 +165,7 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
                 print("Jin telah berhasil diubah.")
             found = True
     if not found:
-        print("Tidak ada jin dengan username tersebut.")
+        print("\033[31mTidak ada jin dengan username tersebut.\033[0m")
     return jin_list, users
 
 def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:
