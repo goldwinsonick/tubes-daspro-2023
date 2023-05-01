@@ -3,7 +3,7 @@ import recursion, rng
 
 # F06 - Jin Pembangun
 # Fungsi bangun hanya dapat diakses oleh jin pembangun untuk membangun candi berdasarkan bahan yang ada
-def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, output:bool, id:int) -> Tuple[List, List, List, List, bool, int]:
+def bangun(bahan_bangunan: List, user: List, candi_list: List, harga_candi: List, output: bool, id: int) -> Tuple[List, List, List, List, bool, int]:
     # parameter otput ada agar dapat digunakan kembali oleh fungsi batchbangun
     recursion.delay(0.5)
     if (user[2] == "jin_pembangun"):
@@ -47,6 +47,8 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
             print("\033[31mHanya jin pembangun yang dapat menjalankan fungsi bangun\033[0m")
     return bahan_bangunan, user, candi_list, harga_candi, id
 
+# F07 - Jin Pengumpul 
+# Fungsi kumpul hanya dapat diakses oleh jin_pengumpul untuk mengumpulkan bahan baku pembuatan candi
 def kumpul(user: List, bahan_bangunan: List, output:bool) -> Tuple[List, List, bool]:
     recursion.delay(0.5)
     terkumpul = [0,0,0]

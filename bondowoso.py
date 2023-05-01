@@ -168,6 +168,8 @@ def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
         print("\033[31mTidak ada jin dengan username tersebut.\033[0m")
     return jin_list, users
 
+# F08 - Batch Kumpul/Bangun
+# Fungsi batchkumpul hanya dapat diakses oleh bandung bondowoso untuk memerintahkan semua jin pengumpul untuk mengumpulkan bahan bangunan
 def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:
     recursion.delay(0.8)
     # Cari jumlah jin pengumpul
@@ -179,10 +181,10 @@ def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:
                 pengumpul_exist += 1
     # Aksi ketika jin pengumpul tidak ada
     if pengumpul_exist <= 0:
-        print("Kumpul gagal. Anda tidak punya jin pengumpul. Silahkan summon terlebih dahulu.")
+        print("\033[31mKumpul gagal. Anda tidak punya jin pengumpul. Silahkan \033[33msummon\033[0m \033[31terlebih dahulu.\033[0m")
     # Aksi ketika jumlah jin pengumpul >=0
     else:
-        print(f"Mengerahkan {pengumpul_exist} jin untuk mengumpulkan bahan.")
+        print(f"\033[32mMengerahkan \033[36m{pengumpul_exist} jin\033[0m \033[32muntuk mengumpulkan bahan.\033[0m")
         # Memerintahkan semua jin pengumpul untuk mengumpulkan material
         for j in range(recursion.length(jin_list)):
             if jin_list[j] != None and jin_list[j][2] == "jin_pengumpul":
@@ -190,9 +192,11 @@ def batchkumpul(jin_list: List, bahan_bangunan: List) -> Tuple[int,List, List]:
                     for i in range(3):
                         total_terkumpul[i] += terkumpul[i]
         recursion.delay(0.5)
-        print(f"Jin menemukan total {total_terkumpul[0]} pasir, {total_terkumpul[1]} batu, dan {total_terkumpul[2]} air.")
+        print(f"\033[32mJin menemukan total \033[36m{total_terkumpul[0]} pasir, \033[36m{total_terkumpul[1]} batu, dan \033[36m{total_terkumpul[2]} air.\033[0m")
     return jin_list, bahan_bangunan
 
+# F08 - Batch Kumpul/Bangun
+# Fungsi batchbangun hanya dapat diakses oleh bandung bondowoso untuk memerintahkan kepada semua jin_pembangun untuk membangun candi dengan bahan yang tersedia
 def batchbangun(bahan_bangunan: List, jin_list: List, candi_list: List, id: int) -> Tuple[List, List, List, int]:
     recursion.delay(0.8)
     harga_candi_total:List = [0, 0, 0]
@@ -204,17 +208,17 @@ def batchbangun(bahan_bangunan: List, jin_list: List, candi_list: List, id: int)
                 pembangun_exist += 1
     # Aksi ketika kekurangan jin
     if pembangun_exist <= 0:
-        print("Bangun gagal. Anda tidak punya jin pembangun. Silahkan summon terlebih dahulu.")
+        print("\033[31mBangun gagal. Anda tidak punya jin pembangun. Silahkan \033[33msummon\033[0m \033[31terlebih dahulu.\033[0m")
     else:
         # Wadah untuk harga_candi hasil generate yang perlu dibuat oleh masing-masing jin
         temp_candi_generate = [None for i in range(recursion.length(jin_list))]
-        print(f"Mengerahkan {pembangun_exist} jin untuk membangun candi dengan total bahan {bahan_bangunan[0]} pasir, {bahan_bangunan[1]} batu, dan {bahan_bangunan[2]} air.")
         for j in range(recursion.length(jin_list)):
             if jin_list[j] != None and jin_list[j][2] == "jin_pembangun":
                 # Memasukkan hasil generate bahan_bangunan yang diperlukan masing-masing jin  pembangun saat pembuatan candi
                 temp_candi_generate[j] = rng.rng(3, 1, 5)
                 for h in range(3):
                     harga_candi_total[h] += temp_candi_generate[j][h]
+        print(f"\033[32mMengerahkan \033[36m{pembangun_exist} jin\033[0m \033[32muntuk membangun candi dengan total bahan\033[0m \033[36m{harga_candi_total[0]} pasir, \033[36m{harga_candi_total[1]} batu, dan \033[36m{harga_candi_total[2]} air.\033[0m")
 
         # Cek apakah bahan bangunan mencukupi
         mencukupi:bool = True
@@ -230,10 +234,10 @@ def batchbangun(bahan_bangunan: List, jin_list: List, candi_list: List, id: int)
                 if jin_list[s] != None and jin_list[s][2] == "jin_pembangun":
                     # mulai bangun candi
                     bahan_bangunan, jin_list[s], candi_list, harga, id = jin.bangun(bahan_bangunan, jin_list[s], candi_list, temp_candi_generate[s], False, id)
-            print("Jin berhasil membangun total", pembangun_exist, "candi.")
+            print("\033[32mJin berhasil membangun total \033[36m", pembangun_exist, "candi.\033[0m\033[0m")
         # Jika tidak mencukupi, tampilkan pesan gagal
         else:
-            print("Bangun gagal. Kurang", (harga_candi_total[0]-bahan_bangunan[0]) if (harga_candi_total[0]-bahan_bangunan[0]) > 0 else 0, "pasir,",(harga_candi_total[1]-bahan_bangunan[1]) if (harga_candi_total[1]-bahan_bangunan[1]) > 0 else 0, "batu, dan", (harga_candi_total[2]-bahan_bangunan[2]) if (harga_candi_total[2]-bahan_bangunan[2]) > 0 else 0, "air.")
-            print("Candi yang terbangun 0")
+            print("\033[31mBangun gagal. Kurang", (harga_candi_total[0]-bahan_bangunan[0]) if (harga_candi_total[0]-bahan_bangunan[0]) > 0 else 0, "pasir,",(harga_candi_total[1]-bahan_bangunan[1]) if (harga_candi_total[1]-bahan_bangunan[1]) > 0 else 0, "batu, dan", (harga_candi_total[2]-bahan_bangunan[2]) if (harga_candi_total[2]-bahan_bangunan[2]) > 0 else 0, "air.\033[0m")
+            print("\033[31mCandi yang terbangun 0\033[0m")
 
     return bahan_bangunan, jin_list, candi_list, id
