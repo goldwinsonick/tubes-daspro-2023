@@ -67,7 +67,7 @@ def laporancandi(candi_list: List) -> None:
     jumlahpasir: int = 0
     hargacandi: int = 0
     hargacandimaks: int = 0
-    hargacandimin: int = 0
+    hargacandimin: int = 99999
     idcanditermahal: int = 0
     idcanditermurah: int = 0
     # menentukan jumlah candi, pasir, batu, dan air
@@ -87,9 +87,9 @@ def laporancandi(candi_list: List) -> None:
             if hargacandimin > hargacandi:
                 hargacandimin = hargacandi
                 idcanditermurah = candi_list[i][0]
-            if hargacandi == 0:
-                idcanditermahal = "-"
-                idcanditermurah = "-"
+    if hargacandi == 0:
+        idcanditermahal = "-"
+        idcanditermurah = "-"
     # output
     print(f">\033[32m> Total Candi:\033[36m {jumlahcandi}\033[0m\033[0m")
     print(f">\033[32m> Total Pasir yang digunakan:\033[36m {jumlahpasir}\033[0m\033[0m")

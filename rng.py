@@ -1,6 +1,7 @@
 from typing import List
+import time
 # Fungsi RNG
-CURRENT_SEED:int = 1
+CURRENT_SEED:int = int(time.time())
 
 def LCG(seed:int) -> int:
     m = 2**31
@@ -10,12 +11,10 @@ def LCG(seed:int) -> int:
 
 def rng(num:int, fr:int, to:int) -> List:
     global CURRENT_SEED
-    import time
-    seed:int = int(time.time() * 1000)
     numbers:List = [None for i in range(num)]
     for i in range(num):
-        CURRENT_SEED = LCG(CURRENT_SEED*seed)
-        number:int = fr + (CURRENT_SEED*seed % (to-fr+1))
+        CURRENT_SEED = LCG(CURRENT_SEED)
+        number:int = fr + (CURRENT_SEED % (to-fr+1))
         numbers[i] = number
     return numbers
 
