@@ -97,7 +97,7 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
 # Fungsi ini hanya dapat diakses oleh bandung bondowoso untuk menghapus jin dari list berdasarkan username jin
 def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Tuple[List, List, List, List, List]:
     recursion.delay(0.8)
-    # inisiasi length arary sebelum dihapus
+    # Inisiasi length arary sebelum dihapus
     lengthJin: int = recursion.length(jin_list)
     lengthCandi: int = recursion.length(candi_list)
 
@@ -113,15 +113,15 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
     recursion.delay(0.8)
     # Jika jin tidak ditemukan
     if jin_index == None:
-        print("Tidak ada jin dengan username tersebut.")
+        print("\033[31mTidak ada jin dengan username tersebut.\033[0m")
         return jin_list,users, candi_list, deleted_jin, deleted_candi
 
     # Meminta konfirmasi dari user untuk menghapus jin
     confirmation: Union[str, None] = None
     while not (confirmation == "Y" or confirmation == "N"):
-        confirmation = input(f"Apakah anda yakin ingin menghapus jin dengan username {username} (Y/N)? ").upper()
+        confirmation = input(f"Apakah anda yakin ingin menghapus jin dengan username \033[36m{username}\033[0m \033[33m(Y/N)\033[0m? ").upper()
         if not (confirmation == "Y" or confirmation == "N"):
-            print("Pilihan yang dimasukkan tidak valid.")
+            print("\033[31mPilihan yang dimasukkan tidak valid.\033[0m")
 
     # Jika user memilih untuk menghapus jin
     if confirmation == "Y":
@@ -140,7 +140,7 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
                 deleted_candi:List = recursion.appends(deleted_candi,candi_list[i])
                 # Menghapus candi dari candi_list
                 candi_list:List = recursion.removes(candi_list, candi_list[i],lengthCandi)
-        print("Jin telah berhasil dihapus dari alam gaib.")
+        print("\033[32mJin telah berhasil dihapus dari alam gaib.\033[0m")
         return jin_list,users, candi_list, deleted_jin, deleted_candi
     else: # confirmation == "N":
         return jin_list,users, candi_list, deleted_jin, deleted_candi

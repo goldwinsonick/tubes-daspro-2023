@@ -32,7 +32,7 @@ def main_program(username):
             break
     while True:
         print()
-        print(users, candi_list, material, bahan_bangunan)
+        print(users, candi_list, bahan_bangunan, deleted_candi, deleted_jin)
         command: str = input("Masukkan perintah: ")
         # Bondowoso only commands
         if command.lower() == "login":  # F2
@@ -42,7 +42,7 @@ def main_program(username):
                 jin_list, users, deleted_jin = bondowoso.summonjin(jin_list, users,deleted_jin, 100)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
-        elif command.lower() == "hilangkanjin":  # F4
+        elif command.lower() == "hapusjin":  # F4
             if role == "bandung_bondowoso":
                 jin_list, users, candi_list, deleted_jin, deleted_candi = bondowoso.hilangkanjin(jin_list,users, candi_list, deleted_jin, deleted_candi)
             else:
