@@ -55,8 +55,8 @@ def kumpul(user: List, bahan_bangunan: List, output:bool) -> Tuple[List, List, b
         for i in range(3):
             bahan_bangunan[i] += terkumpul[i]
         if output == True:
-            print(f"{user[0]} menemukan {terkumpul[0]} pasir, {terkumpul[1]} batu, {terkumpul[2]} air.")
+            print(f"\033[32m{user[0]} menemukan {terkumpul[0]} pasir, {terkumpul[1]} batu, {terkumpul[2]} air.\033[0m")
     else:
         if output == True:
-            print("Hanya jin pengumpul yang dapat menjalankan fungsi kumpul")
+            print("\033[31mHanya jin pengumpul yang dapat menjalankan fungsi kumpul\033[0m")
     return user, bahan_bangunan, terkumpul

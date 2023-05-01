@@ -228,9 +228,9 @@ def delay(seconds: int) -> None:
     time.sleep(seconds)
 
 # Fungsi untuk melanjutkan generate id secara terurut untuk candi_list
-def findId(id: int, candi_list:List) -> int:
-    for i in range(length(candi_list)):
-        if candi_list[i] and candi_list[i][0]:
-            id = candi_list[i][0] + 1
-            break
+def findId(id: int, candi_list: List) -> int:
+    # Mencari id dengan id terbesar pada candi_list
+    for i in range(len(candi_list)):
+        if candi_list[i] and (candi_list[i][0] > id):
+            id = candi_list[i][0]
     return id
