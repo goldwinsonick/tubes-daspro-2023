@@ -7,7 +7,7 @@ import roro
 import rng, laporan
 import recursion
 import akun, undo
-from typing import Union, List
+from typing import List
 
 # Array of user ([username, password, role])
 users = [None]
@@ -20,13 +20,11 @@ jin_list = [None for i in range(101)]
 material = [None]
 id = 1
 
-
 def main_program(username):
     global users, candi_list, deleted_candi, deleted_jin, bahan_bangunan, harga_candi, jin_list, id
     # Pengecekan jika admin atau user biasa
     global jin_list
     # Validasi role
-
     for i in range(recursion.length(users)):
         if username == users[i][0]:
             role = users[i][2]
@@ -34,6 +32,7 @@ def main_program(username):
             break
     while True:
         print()
+        print(users, candi_list, material, bahan_bangunan)
         command: str = input("Masukkan perintah: ")
         # Bondowoso only commands
         if command.lower() == "login":  # F2
@@ -114,10 +113,8 @@ def main_program(username):
             print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
     
 def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # validasi nama file
-    import recursion
     recursion.delay(0.6)
     while True:
-        print(users, candi_list, material, bahan_bangunan)
         cmd: str = input("Masukkan perintah: ")
         recursion.delay(0.2)
         if cmd.lower() == "login":  # F3
@@ -135,4 +132,5 @@ def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # va
             print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
 # Memastikan fungsi package file lain hanya diakses oleh main.py
 users, candi_list, material, bahan_bangunan, jin_list = proses.load(users, candi_list, material, bahan_bangunan, jin_list)  # fungsi untuk load
+id = recursion.findId(id, candi_list)
 main_menu(users, candi_list, material, bahan_bangunan)

@@ -1,7 +1,7 @@
 from typing import List, Union
+import recursion
 
 def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
-    import recursion
     recursion.delay(1)
     jumlah_candi: List = [None]
     # Membuat array baru untuk menghitung candi yang telah dibuat oleh jin tertentu
@@ -21,7 +21,6 @@ def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
     jin_termalas: Union[None, str] = None
     jumlah_tertinggi: int = -1
     jumlah_terendah: int = 1000
-
     for i in range(recursion.length(jumlah_candi)):
         jin: str = jumlah_candi[i][0]
         jumlah: int = jumlah_candi[i][1]
@@ -51,8 +50,8 @@ def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
     print("> Total Jin: " + str(recursion.length(jin_list)))
     print("> Total Jin Pengumpul: " + str(totalpengumpul))
     print("> Total Jin Pembangun: " + str(totalpembangun))
-    print("> Jin Terajin: " + jin_terajin)
-    print("> Jin Termalas: " + jin_termalas)
+    print("> Jin Terajin: " + (str(jin_terajin) if jin_terajin != None else "-"))
+    print("> Jin Termalas: " + (str(jin_termalas) if jin_termalas != None else "-"))
     print("> Jumlah Pasir: " + str(bahan_bangunan[0]) + " unit")
     print("> Jumlah Air: " + str(bahan_bangunan[1]) + " unit")
     print("> Jumlah Batu: " + str(bahan_bangunan[2]) + " unit")
@@ -77,9 +76,7 @@ def laporancandi(candi_list: List) -> None:
             jumlahbatu += candi_list[i][3]
             jumlahair += candi_list[i][4]
     # menghitung total harga candi
-            hargacandi = 10000 * \
-                candi_list[i][2] + 15000 * \
-                candi_list[i][3] + 7500 * candi_list[i][4]
+            hargacandi = (10000 * candi_list[i][2]) + (15000 * candi_list[i][3]) + (7500 * candi_list[i][4])
             # menentukan id candi termahal dan termurah
             if hargacandimaks <= hargacandi:
                 hargacandimaks = hargacandi
@@ -90,7 +87,6 @@ def laporancandi(candi_list: List) -> None:
             if hargacandi == 0:
                 idcanditermahal = "-"
                 idcanditermurah = "-"
-
     # output
     print("> Total Candi: " + str(jumlahcandi))
     print("> Total Pasir yang digunakan: " + str(jumlahpasir))
@@ -98,5 +94,3 @@ def laporancandi(candi_list: List) -> None:
     print("> Total Air yang digunakan: " + str(jumlahair))
     print("> ID Candi Termahal: " + str(idcanditermahal))
     print("> ID Candi Termurah: " + str(idcanditermurah))
-
-# laporancandi(candi_list)

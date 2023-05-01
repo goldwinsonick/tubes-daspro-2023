@@ -1,20 +1,21 @@
 from typing import List, Union, Tuple
 import rng, recursion, jin
 
+# F03 - Summon Jin
+# Fungsi ini hanya dapat diakses oleh bandung bondowoso untuk melakukan summon terhadap jin dengan validasi ppemeriksaan terhadap data jin_list dan deleted_jin
 def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100) -> Tuple[List, List]:
-    import recursion
     recursion.delay(0.8)
     # Find index yang mau diiisi sama jin baru
     index: int = recursion.findEmptyArrayIndex(jin_list)
     # Aksi ketika tidak ditemukan tempat untuk jin baru alias udah max
     if index == -99:
-        print(f"Jumlah Jin telah maksimal! ({jin_max}). Bandung tidak dapat men-summon lebih dari itu")
+        print(f"\033[31mJumlah Jin telah maksimal! ({jin_max}). Bandung tidak dapat men-summon lebih dari itu\033[0m")
     # Aksi ketika ditemukan tempat kosong untuk jin baru
     else:
         # Menampilkan daftar jenis jin yang bisa dipanggil
-        print("Jenis jin yang dapat dipanggil: ")
-        print("(1) Pengumpul - Bertugas mengumpulkan bahan bangunan")
-        print("(2) Pembangun - Bertugas membangun candi")
+        print("\033[34mJenis jin yang dapat dipanggil: \033[0m")
+        print("\033[33m(1)\033[0m \033[36mPengumpul\033[0m - Bertugas mengumpulkan bahan bangunan")
+        print("\033[33m(2)\033[0m \033[36mPembangun\033[0m - Bertugas membangun candi")
 
         jenis_jin: Union[None, str] = None
         # Meminta user memilih jenis jin yang ingin dipanggil
@@ -24,16 +25,16 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
             typeJenisJin: bool = recursion.isDigit(jenis_jin)
             # Aksi ketika input number tapi buakan 1 atau 2
             if (not (jenis_jin == "1" or jenis_jin == "2")) and typeJenisJin == True:
-                print(f'Tidak ada jenis jin bernomor "{jenis_jin}" !')
+                print(f'\033[31mTidak ada jenis jin bernomor "{jenis_jin}" !\033[0m')
             # Aksi ketika input adalah string
             elif not typeJenisJin:
-                print("Masukkan nomor bukan huruf")
+                print("\033[31mMasukkan nomor bukan huruf\033[0m")
 
         # Menampilkan pesan bahwa jin sedang dipilih
         if jenis_jin == "1":
-            print("Memilih jin 'Pengumpul'.")
+            print("Memilih jin \033[36m'Pengumpul'\033[0m.")
         else:
-            print("Memilih jin 'Pembangun'.")
+            print("Memilih jin \033[36m'Pembangun'\033[0m.")
 
         # Meminta user memasukkan username dan password untuk jin
         username: Union[str, None] = None
@@ -54,7 +55,7 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
                     exists = True
                     break
             if exists:
-                print(f'Username "{username}" sudah diambil!')
+                print(f'\033[31mUsername "{username}" sudah diambil!\033[0m')
                 username = None
             # Aksi ketika sudah terdapat username yang sama pada jin yang sudah terhapus yang kemungkinan bisa diundo
             # Menyimpan username yang sudah ada dalam deleted_jin
@@ -67,19 +68,19 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
                         exists_deleted = True
                         break
                 if exists_deleted:
-                    print(f'Username "{username}" sudah pernah anda PHK, silakan undo')
+                    print(f'\033[31mUsername "{username}" sudah pernah anda PHK, silakan undo\033[0m')
                     username = None
         # Validasi password 5-25 character
         while not password or len(password) < 5 or len(password) > 25:
             password = input("Masukkan password jin: ")
             if len(password) < 5 or len(password) > 25:
-                print("Password panjangnya harus 5-25 karakter!")
+                print("\033[33mPassword panjangnya harus 5-25 karakter!\033[0m")
 
         # Menampilkan pesan bahwa jin sedang dipanggil
         recursion.delay(1)
-        print("Mengumpulkan sesajen...")
-        print("Menyerahkan sesajen...")
-        print("Membacakan mantra...")
+        print("\033[32mMengumpulkan sesajen...\033[0m")
+        print("\033[32mMenyerahkan sesajen...\033[0m")
+        print("\033[32mMembacakan mantra...\033[0m")
         recursion.delay(1)
 
         # Menambahkan jin ke dalam daftar jin yang sudah dipanggil
@@ -89,9 +90,11 @@ def summonjin(jin_list: List, users: List, deleted_jin:List, jin_max: int = 100)
         users = recursion.appends(users, jin)
 
         # Menampilkan pesan bahwa jin berhasil dipanggil
-        print(f'Jin "{username}" berhasil dipanggil!')
+        print(f'\033[32mJin \033[36m"{username}"\033[0m \033[32mberhasil dipanggil!\033[0m')
     return jin_list, users, deleted_jin
 
+# F04 - Hilangkan Jin 
+# Fungsi ini hanya dapat diakses oleh bandung bondowoso untuk menghapus jin dari list berdasarkan username jin
 def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List, deleted_candi: List) -> Tuple[List, List, List, List, List]:
     recursion.delay(0.8)
     # inisiasi length arary sebelum dihapus
@@ -142,6 +145,8 @@ def hilangkanjin( jin_list: List,users:List, candi_list: List, deleted_jin: List
     else: # confirmation == "N":
         return jin_list,users, candi_list, deleted_jin, deleted_candi
 
+# F05 - Hilangkan Jin 
+# Fungsi ini hanya dapat diakses oleh bandung bondowoso untuk mengubah tipe jin dari pembangun menjadi pengumpul atau sebaliknya
 def ubahtipejin(jin_list: List, users:List) -> Tuple[List, List]:
     recursion.delay(0.8)
     username: str = input("Masukkan username jin : ")
