@@ -1,6 +1,7 @@
 from typing import List, Union
 import recursion
 
+
 def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
     recursion.delay(1)
     jumlah_candi: List = [None]
@@ -47,27 +48,27 @@ def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
         elif jin_list[i] != None and jin_list[i][2] == "jin_pembangun":
             totalpembangun += 1
 
-    print("> Total Jin: " + str(recursion.length(jin_list)))
-    print("> Total Jin Pengumpul: " + str(totalpengumpul))
-    print("> Total Jin Pembangun: " + str(totalpembangun))
-    print("> Jin Terajin: " + (str(jin_terajin) if jin_terajin != None else "-"))
-    print("> Jin Termalas: " + (str(jin_termalas) if jin_termalas != None else "-"))
-    print("> Jumlah Pasir: " + str(bahan_bangunan[0]) + " unit")
-    print("> Jumlah Air: " + str(bahan_bangunan[1]) + " unit")
-    print("> Jumlah Batu: " + str(bahan_bangunan[2]) + " unit")
+    print(f"\033[32m> Total Jin: \033[36m{recursion.length(jin_list)} \033[0m\033[0m")
+    print(f"\033[32m> Total Jin Pengumpul: \033[36m{totalpengumpul} \033[0m\033[0m")
+    print(f"\033[32m> Total Jin Pembangun: \033[36m{totalpembangun} \033[0m\033[0m")
+    print(f"\033[32m> Jin Terajin: \033[36m{((jin_terajin) if jin_terajin != None else '-')} \033[0m\033[0m")
+    print(f"\033[32m> Jin Termalas: \033[36m{((jin_termalas) if jin_termalas != None else '-') if totalpembangun != 1 else '-'} \033[0m\033[0m")
+    print(f"\033[32m> Jumlah Pasir: \033[36m{bahan_bangunan[0]} unit \033[0m\033[0m")
+    print(f"\033[32m> Jumlah Air: \033[36m{bahan_bangunan[1]} unit \033[0m\033[0m")
+    print(f"\033[32m> Jumlah Batu: \033[36m{bahan_bangunan[2]} unit \033[0m\033[0m")
+
 
 def laporancandi(candi_list: List) -> None:
-    import recursion
     recursion.delay(1)
-    jumlahcandi:int = 0
-    jumlahair:int = 0
-    jumlahbatu:int = 0
-    jumlahpasir:int = 0
-    hargacandi:int = 0
-    hargacandimaks:int = 0
-    hargacandimin:int = 0
-    idcanditermahal:int = 0
-    idcanditermurah:int = 1
+    jumlahcandi: int = 0
+    jumlahair: int = 0
+    jumlahbatu: int = 0
+    jumlahpasir: int = 0
+    hargacandi: int = 0
+    hargacandimaks: int = 0
+    hargacandimin: int = 0
+    idcanditermahal: int = 0
+    idcanditermurah: int = 1
     # menentukan jumlah candi, pasir, batu, dan air
     for i in range(recursion.length(candi_list)):
         if candi_list[i] != None:
@@ -76,7 +77,8 @@ def laporancandi(candi_list: List) -> None:
             jumlahbatu += candi_list[i][3]
             jumlahair += candi_list[i][4]
     # menghitung total harga candi
-            hargacandi = (10000 * candi_list[i][2]) + (15000 * candi_list[i][3]) + (7500 * candi_list[i][4])
+            hargacandi = (
+                10000 * candi_list[i][2]) + (15000 * candi_list[i][3]) + (7500 * candi_list[i][4])
             # menentukan id candi termahal dan termurah
             if hargacandimaks <= hargacandi:
                 hargacandimaks = hargacandi
