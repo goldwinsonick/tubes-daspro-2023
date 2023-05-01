@@ -1,6 +1,8 @@
 from typing import List, Tuple
 import recursion, rng
 
+# F06 - Jin Pembangun
+# Fungsi bangun hanya dapat diakses oleh jin pembangun untuk membangun candi berdasarkan bahan yang ada
 def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, output:bool, id:int) -> Tuple[List, List, List, List, bool, int]:
     # parameter otput ada agar dapat digunakan kembali oleh fungsi batchbangun
     recursion.delay(0.5)
@@ -23,26 +25,26 @@ def bangun(bahan_bangunan:List, user:List, candi_list:List, harga_candi:List, ou
 
             # Setelah Candi terbangun, harga_candi baru akan digenerate
             if output == True:
-                print("Candi berhasil dibangun.")
+                print("\033[32mCandi berhasil dibangun.\033[0m")
             banyakCandi:int = 0
             for i in range(recursion.length(candi_list)):
                 if (candi_list[i] != None):
                     banyakCandi += 1
             if banyakCandi < 100:
                 if output == True:
-                    print("Sisa candi yang perlu dibangun : " + str(100-banyakCandi))
+                    print(f"Sisa candi yang perlu dibangun : \033[36m{(100-banyakCandi)}\033[0m")
             else:
                 if output == True:
-                    print("100 Candi sudah terbangun")
+                    print("Sisa candi yang perlu dibangun : 0.")
         # Kasus tidak cukup bahannya
         else:
             if output == True:
-                print("Bahan bangunan tidak mencukupi.")
-                print("Candi tidak bisa dibangun!")
+                print("\033[31mBahan bangunan tidak mencukupi.\033[0m")
+                print("\033[31mCandi tidak bisa dibangun!\033[0m")
     # Kasus bukan jin pembangun
     else:
         if output == True:
-            print("Hanya jin pembangun yang dapat menjalankan fungsi bangun")
+            print("\033[31mHanya jin pembangun yang dapat menjalankan fungsi bangun\033[0m")
     return bahan_bangunan, user, candi_list, harga_candi, id
 
 def kumpul(user: List, bahan_bangunan: List, output:bool) -> Tuple[List, List, bool]:

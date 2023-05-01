@@ -115,6 +115,7 @@ def main_program(username):
 def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # validasi nama file
     recursion.delay(0.6)
     while True:
+        print()
         cmd: str = input(">>> ")
         recursion.delay(0.2)
         if cmd.lower() == "login":  # F3

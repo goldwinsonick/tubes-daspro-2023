@@ -39,7 +39,7 @@ def login(fileUser: List, username: Union[None, str] = None) -> Union[None, str]
         # Ketika username dan password ditemukan
         else:
             recursion.clear()
-            print(f'\033[35mSelamat datang, \033[36m{username}!\033[0m')
+            print(f'\033[35mSelamat datang, \033[36m{username}\033[0m\033[35m!\033[0m')
             print()
             print("Masukkan command \033[33m“help”\033[0m untuk daftar command yang dapat kamu panggil.")
     return username
