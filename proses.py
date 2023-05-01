@@ -85,6 +85,7 @@ def save(user: List = [None], candi: List = [None], bahan_bangunan: List = [None
         material_csv: List = recursion.appends(material, ["nama", "deskripsi", "jumlah"], True)
         recursion.write_csv(abs_path + "\\bahan_bangunan.csv", material_csv, 3)\
 
+# F15 - Help
 #  Fungsi help untuk bantuan command yang dapat memandu perintah input dari user
 def help(role: Union[str, None]) -> None:
     recursion.delay(0.5)
@@ -156,16 +157,15 @@ def help(role: Union[str, None]) -> None:
     else:
         print("Role not found")
 
+# F16 - Exit
 # Fungsi exit_program untuk keluar dari program
 def exit_program(user: List = [None], candi: List = [None], bahan_bangunan: List = [None], material: List = [None]) -> None:
     recursion.delay(0.7)
-    ask: str = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n): ")
-    # Validasi input
-    if ask == "y" or ask == "Y":
-        save(user, candi, bahan_bangunan, material)
-        exit(1)
-    elif ask == "n" or ask == "N":
-        exit(1)
-    else:
-        while ask != "y" or ask != "Y" or ask != "n" or ask != "N":
-            ask = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n): ")
+    ask: str = ""
+    while (ask == 'y' or ask == 'n'):
+        ask: str = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n): ").lower()
+        if ask == "y":
+            save(user, candi, bahan_bangunan, material)
+            exit(1)
+        elif ask == "n":
+            exit(1)

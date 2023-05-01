@@ -35,7 +35,7 @@ def main_program(username: str):
         # Bondowoso only commands
         if command.lower() == "login":  # F2
             username = akun.login(users, username)
-        elif command.lower() == "summonjin":  # F2
+        elif command.lower() == "summonjin":  # F3
             if role == "bandung_bondowoso":
                 jin_list, users, deleted_jin = bondowoso.summonjin(jin_list, users,deleted_jin, 100)
             else:
@@ -55,7 +55,7 @@ def main_program(username: str):
                 bahan_bangunan, [username, password, role], candi_list, harga_candi, id = jin.bangun(bahan_bangunan, [username, password, role], candi_list, rng.rng(3, 1, 5), True, id)
             else:
                 print("Perintah ini hanya bisa diakses oleh Jin Pembangun.")
-        elif command.lower() == "kumpul":  # F12
+        elif command.lower() == "kumpul":  # F7
             if role == "jin_pengumpul":
                 [username, password, role], bahan_bangunan, terkumpul = jin.kumpul([username, password, role], bahan_bangunan, True)
             else:
@@ -90,7 +90,7 @@ def main_program(username: str):
                 candi_list = roro.hancurkancandi(candi_list)
             else:
                 print("Perintah ini hanya bisa diakses oleh Roro.")
-        elif command.lower() == "ayamberkokok":  # F13
+        elif command.lower() == "ayamberkokok":  # F12
             if role == "roro_jonggrang":
                 roro.ayamberkokok(candi_list)
             else:
@@ -116,16 +116,16 @@ def main_menu(users: List, candi_list: List, material: List, bahan_bangunan: Lis
         print()
         cmd: str = input(">>> ")
         recursion.delay(0.2)
-        if cmd.lower() == "login":  # F3
+        if cmd.lower() == "login":  # F1
             # validasi user yang login
             username = akun.login(users, username)
             if username != None:
                 return main_program(username)  # masuk ke menu main_menu
-        elif cmd.lower() == "logout":
+        elif cmd.lower() == "logout":  #F2
             username = akun.logout(username)
         elif cmd.lower() == "help":  # F14  # masuk help program
             proses.help(username)
-        elif cmd.lower() == "exit":  # F17  # keluar program
+        elif cmd.lower() == "exit":  # F16  # keluar program
             proses.exit_program(users, candi_list, bahan_bangunan, material)
         else:               # handle input tidak valid
             print("Perintah tidak dikenal. Ketik \033[33m\"help\"\033[0m untuk list semua perintah yang dikenal.")
