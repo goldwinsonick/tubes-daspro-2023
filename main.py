@@ -7,7 +7,7 @@ import roro
 import rng, laporan
 import recursion
 import akun, undo
-from typing import List
+from typing import List, Union
 
 # Array of user ([username, password, role])
 users = [None]
@@ -20,10 +20,9 @@ jin_list = [None for i in range(101)]
 material = [None]
 id = 1
 
-def main_program(username):
-    global users, candi_list, deleted_candi, deleted_jin, bahan_bangunan, harga_candi, jin_list, id
+def main_program(username: str):
+    global users, candi_list, deleted_candi, deleted_jin, bahan_bangunan, harga_candi, jin_list, id, jin_list
     # Pengecekan jika admin atau user biasa
-    global jin_list
     # Validasi role
     for i in range(recursion.length(users)):
         if username == users[i][0]:
@@ -32,7 +31,6 @@ def main_program(username):
             break
     while True:
         print()
-        print(users, candi_list, bahan_bangunan, deleted_candi, deleted_jin)
         command: str = input(">>> ")
         # Bondowoso only commands
         if command.lower() == "login":  # F2
@@ -72,12 +70,12 @@ def main_program(username):
                 bahan_bangunan, jin_list, candi_list, id = bondowoso.batchbangun(bahan_bangunan, jin_list, candi_list, id)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
-        elif command.lower() == "ambillaporanjin":  # F9
+        elif command.lower() == "laporanjin":  # F9
             if role == "bandung_bondowoso":
                 laporan.laporanjin(candi_list, jin_list, bahan_bangunan)
             else:
                 print("Perintah ini hanya bisa diakses oleh Bondowoso.")
-        elif command.lower() == "ambillaporancandi":  # F10
+        elif command.lower() == "laporancandi":  # F10
             if role == "bandung_bondowoso":
                 laporan.laporancandi(candi_list)
             else:
@@ -110,9 +108,9 @@ def main_program(username):
         elif command.lower() == "exit":
             return proses.exit_program(users, candi_list, bahan_bangunan, material)
         else:
-            print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
+            print("Perintah tidak dikenal. Ketik \033[33m\"help\"\033[0m untuk list semua perintah yang dikenal.")
     
-def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # validasi nama file
+def main_menu(users: List, candi_list: List, material: List, bahan_bangunan: List, username: Union[str, None] = None):  # validasi nama file
     recursion.delay(0.6)
     while True:
         print()
@@ -130,8 +128,8 @@ def main_menu(users, candi_list, material, bahan_bangunan, username=None):  # va
         elif cmd.lower() == "exit":  # F17  # keluar program
             proses.exit_program(users, candi_list, bahan_bangunan, material)
         else:               # handle input tidak valid
-            print("Perintah tidak dikenal. Ketik \"help\" untuk list semua perintah yang dikenal.")
-# Memastikan fungsi package file lain hanya diakses oleh main.py
+            print("Perintah tidak dikenal. Ketik \033[33m\"help\"\033[0m untuk list semua perintah yang dikenal.")
+# Main program
 users, candi_list, material, bahan_bangunan, jin_list = proses.load(users, candi_list, material, bahan_bangunan, jin_list)  # fungsi untuk load
 id = recursion.findId(id, candi_list)
 main_menu(users, candi_list, material, bahan_bangunan)
