@@ -8,7 +8,6 @@ def LCG(seed:int) -> int:
     c = 12345
     return (a*(seed) + c) % m
 
-
 def rng(num:int, fr:int, to:int) -> List:
     global CURRENT_SEED
     import time

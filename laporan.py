@@ -1,7 +1,7 @@
 from typing import List, Union
 import recursion
-
-
+# F09 - Ambil Laporan Jin
+# Fungsi laporanjin mengambil informasi jin saat dipanggil 
 def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
     recursion.delay(1)
     jumlah_candi: List = [None]
@@ -57,7 +57,8 @@ def laporanjin(candi_list: List, jin_list: List, bahan_bangunan: List) -> None:
     print(f"\033[32m> Jumlah Air: \033[36m{bahan_bangunan[1]} unit \033[0m\033[0m")
     print(f"\033[32m> Jumlah Batu: \033[36m{bahan_bangunan[2]} unit \033[0m\033[0m")
 
-
+# F10 - Ambil Laporan Candi
+# Fungsi laporancandi mengambil informasi candi saat dipanggil
 def laporancandi(candi_list: List) -> None:
     recursion.delay(1)
     jumlahcandi: int = 0
@@ -68,7 +69,7 @@ def laporancandi(candi_list: List) -> None:
     hargacandimaks: int = 0
     hargacandimin: int = 0
     idcanditermahal: int = 0
-    idcanditermurah: int = 1
+    idcanditermurah: int = 0
     # menentukan jumlah candi, pasir, batu, dan air
     for i in range(recursion.length(candi_list)):
         if candi_list[i] != None:
@@ -90,9 +91,9 @@ def laporancandi(candi_list: List) -> None:
                 idcanditermahal = "-"
                 idcanditermurah = "-"
     # output
-    print("> Total Candi: " + str(jumlahcandi))
-    print("> Total Pasir yang digunakan: " + str(jumlahpasir))
-    print("> Total Batu yang digunakan: " + str(jumlahbatu))
-    print("> Total Air yang digunakan: " + str(jumlahair))
-    print("> ID Candi Termahal: " + str(idcanditermahal))
-    print("> ID Candi Termurah: " + str(idcanditermurah))
+    print(f">\033[32m> Total Candi:\033[36m {jumlahcandi}\033[0m\033[0m")
+    print(f">\033[32m> Total Pasir yang digunakan:\033[36m {jumlahpasir}\033[0m\033[0m")
+    print(f">\033[32m> Total Batu yang digunakan:\033[36m {jumlahbatu}\033[0m\033[0m")
+    print(f">\033[32m> Total Air yang digunakan:\033[36m {jumlahair}\033[0m\033[0m")
+    print(f">\033[32m> ID Candi Termahal:\033[36m {idcanditermahal}\033[0m\033[0m")
+    print(f">\033[32m> ID Candi Termurah:\033[36m {idcanditermurah}\033[0m\033[0m")
